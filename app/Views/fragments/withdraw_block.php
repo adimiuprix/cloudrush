@@ -10,11 +10,20 @@
                         <th class="text-center">Sum</th>
                     </tr>
                 </thead>
+                <?php if($withdraws):?>
+                <?php foreach($withdraws as $wd): ?>
                 <tr>
                     <td class="text-center"><img src="public/assets/img/trx.png" height="20" alt="trx"></td>
-                    <td>TSz7r4cAtwD4<span style="color: #ff5252;">***</span><br><small class="date">07 Jun 2024 - 00:38</small></td>
-                    <td class="text-center"><span class="text-sum">100 <small>TRX</small></span> </td>
+                    <td><?= substr($wd->user_wallet, 0, 10); ;?><span style="color: #ff5252;">***</span><br>
+                    <small class="date"><?= $wd->created_at;?></small></td>
+                    <td class="text-center"><span class="text-sum"><?= $depo->sum_deposit;?> <small>TRX</small></span> </td>
                 </tr>
+                <?php endforeach; ?>
+                <?php else: ?>
+                <tr>
+                    <td colspan="3" class="text-center">No record found!</td>
+                </tr>
+                <?php endif; ?>
             </table>
         </div>
     </div>

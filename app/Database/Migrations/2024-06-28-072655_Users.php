@@ -54,7 +54,7 @@ class Users extends Migration
                 'constraint'     => 100,
                 'null'  => true
             ],
-            'create_at DATETIME DEFAULT CURRENT_TIMESTAMP',
+            'created_at DATETIME DEFAULT CURRENT_TIMESTAMP',
         ]);
         $this->forge->addKey('id', true);
         $this->forge->createTable('users');
