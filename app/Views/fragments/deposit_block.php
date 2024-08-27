@@ -20,7 +20,8 @@
                         <small class="date"><?= $depo->created_at;?></small>
                     </td>
                     <td class="text-center">
-                        <span class="text-sum"><?= $depo->sum_deposit;?> <small>TRX</small>
+                        <span class="text-sum"><?= $depo->sum_deposit;?>
+                            <small><?= $crypto['curr_code'];?></small>
                         </span>
                     </td>
                 </tr>

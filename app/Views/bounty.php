@@ -28,7 +28,7 @@
                                     <li>The bonus will be directly credited to the account used for recording video reviews.</li>
                                 </ul>
                             </small>
-                            <h4 class="text-primary text-center"><i class="fa fa-gift"></i> REWARD: <b> 50 - 1000 TRX</b></h4>
+                            <h4 class="text-primary text-center"><i class="fa fa-gift"></i> REWARD: <b> 50 - 1000 <?= $crypto['curr_code'];?></b></h4>
                         </div>
                     </div>
                 </div>

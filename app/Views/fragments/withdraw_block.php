@@ -16,7 +16,7 @@
                     <td class="text-center"><img src="public/assets/img/trx.png" height="20" alt="trx"></td>
                     <td><?= substr($wd->user_wallet, 0, 10); ;?><span style="color: #ff5252;">***</span><br>
                     <small class="date"><?= $wd->created_at;?></small></td>
-                    <td class="text-center"><span class="text-sum"><?= $depo->sum_deposit;?> <small>TRX</small></span> </td>
+                    <td class="text-center"><span class="text-sum"><?= $depo->sum_deposit;?> <small><?= $crypto['curr_code'];?></small></span> </td>
                 </tr>
                 <?php endforeach; ?>
                 <?php else: ?>

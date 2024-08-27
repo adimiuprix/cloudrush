@@ -14,6 +14,8 @@ class InfoWebController extends BaseController
     {
         $user_model = new UserModel();
 
+        $curr_code = (new SettingModel())->select('curr_code')->first();
+
         $deposits_array = (new DepositModel())
             ->join('users', 'users.id = deposit_histories.user_id')
             ->where('status', 'paid')
@@ -40,6 +42,7 @@ class InfoWebController extends BaseController
             ],
             'deposits' => $deposits_array,
             'withdraws' => $withdraws_array,
+            'crypto' => $curr_code,
         ];
 
         return $data;
