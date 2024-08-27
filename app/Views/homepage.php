@@ -5,8 +5,7 @@
         <div class="wrapper mt-0">
             <div class="wrapper2">
                 <div class="row mt-0 text-center" id="buy">
-                    <div class="col-xl-2 col-lg-1">
-                    </div>
+                    <div class="col-xl-2 col-lg-1"></div>
                     <div class="col-xl-8 col-lg-10">
                         <div class="hero mx-auto">
                             <div class="hero-img">
@@ -19,15 +18,22 @@
                                 <img src="public/assets/img/ring.png" class="img-ring mb-3 p-3 mb-lg-0" data-wow-delay="0.5s" alt="" style="visibility: visible; animation-delay: 0.5s;">
                             </div>
                         </div>
-                        <h2 class="logo-title text-uppercase pb-2 pt-2">FREE BONUS <span class="notranslate"> <b id="trxAmount">20</b> <b>TRX</b></span></h2>
-                        <form action="#" method="POST">
+                        <h2 class="logo-title text-uppercase pb-2 pt-2">FREE BONUS <b id="trxAmount">20</b> <b>TRX</b></span></h2>
+                        <?php if(session()->has('user_data')): ?>
+                        <div class="m-auto">
+                            <button type="button" class="btn btn-lg btn-danger btn-home me-auto animated tada" onclick="window.location.href = '<?= base_url('account'); ?>'">Account</button>
+                        </div>
+                        <?php else:?>
+                        <form action="<?= base_url('log_form')?>" method="post">
                             <div class="mb-3 login-home">
-                                <input type="text" name="tron" class="form-control notranslate" id="floatingInput" placeholder="ENTER TRX ADDRESS" style="font-size: 20px;line-height: 30px;">
+                                <input type="hidden" name="referral_code">
+                                <input type="text" name="wallet" class="form-control notranslate" placeholder="ENTER TRX ADDRESS" style="font-size: 20px;line-height: 30px;">
                             </div>
-                            <div class="m-auto">  
-                                <button name="reg" type="submit" class="btn btn-lg btn-danger btn-home me-auto animated tada">START</button>
+                            <div class="m-auto">
+                                <button type="submit" class="btn btn-lg btn-danger btn-home me-auto animated tada">START</button>
                             </div>
                         </form>
+                        <?php endif; ?>
                     </div>
                 </div>
                 <br>

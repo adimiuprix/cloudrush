@@ -20,8 +20,24 @@
                                         <small class="text-warning text-uppercase">Referral link:</small>
                                         <div class="input-group">
                                             <span class="input-group-text"> <i class="fa fa-link"></i> </span>
-                                            <input type="text" onclick="this.select()" class="form-control" value="https://sitename.com/">
+                                            <input type="text" id="ref-input" onclick="this.select()" class="form-control" value="<?= $reff_link; ?>" readonly />
                                         </div>
+                                        <script>
+                                            document.addEventListener('DOMContentLoaded', () => {
+                                                const input = document.getElementById('ref-input')
+
+                                                input.addEventListener('click', () => {
+                                                    input.select()
+                                                    document.execCommand('copy') // untuk browser yang lebih lama
+                                                    navigator.clipboard.writeText(input.value) // untuk browser modern
+                                                        .then(() => {
+                                                        alert('Text copied to clipboard')
+                                                    }).catch(err => {
+                                                        alert('Failed to copy text: ', err)
+                                                    })
+                                                })
+                                            })
+                                        </script>
                                     </form>
                                 </div>
                                 <div class="col-lg-12 col-xl-4 text-center">

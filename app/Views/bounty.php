@@ -11,7 +11,7 @@
                     and in addition to the affiliate program, we provide a bonus for creating Video Reviews of our Project. 
                 </p>
                 <div class="row row-grid align-items-center">
-                    <div class="col-md-12 text-center"><img src="img/b4.png" style="max-width: 128px;"></div>
+                    <div class="col-md-12 text-center"><img src="<?= base_url('public/assets/img/b4.png'); ?>" style="max-width: 128px;"></div>
                     <div class="col-md-12 p-1">
                         <div class="about ps-0 mt-2">
                             <small>

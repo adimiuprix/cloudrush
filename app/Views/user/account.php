@@ -9,10 +9,13 @@
             <div class="content">
                 <div class="content-user">
                     <style>
-                        .countmining {font-size: 42px; }
-                        @media only screen and (max-width: 1491px) {
-                        .countmining {font-size: 30px;
+                        .countmining {
+                            font-size: 42px;
                         }
+                        @media only screen and (max-width: 1491px) {
+                            .countmining {
+                                font-size: 30px;
+                            }
                         }
                     </style>
                     <div class="row row-grid align-items-center">
@@ -23,33 +26,38 @@
                                         <div class="hero mx-auto" style="width: 70%;">
                                             <div class="hero-img">
                                                 <div class="ring-1" data-wow-delay="0.5s" style="visibility: visible; animation-delay: 0.5s; animation-name: bounceIn;">
-                                                    <img src="assets/img/ring-1.png" class="img-ring-1 p-2 img-fluid mb-3 mb-lg-0" alt="">
+                                                    <img src="<?= base_url('public/assets/img/ring.png'); ?>" class="img-ring-1 p-2 img-fluid mb-3 mb-lg-0" alt="">
                                                 </div>
                                                 <div class="ring-2" data-wow-delay="0.25s" style="visibility: visible; animation-delay: 0.25s; animation-name: bounceIn;">
-                                                    <img src="assets/img/ring-2.png" class="img-ring-2 img-fluid mb-3 mb-lg-0" alt="">
+                                                    <img src="<?= base_url('public/assets/img/ring-2.png'); ?>" class="img-ring-2 img-fluid mb-3 mb-lg-0" alt="">
                                                 </div>
-                                                <img src="assets/img/ring.png" class="img-ring mb-3 p-3 mb-lg-0" data-wow-delay="0.5s" alt="" style="visibility: visible; animation-delay: 0.5s;">
+                                                <img src="<?= base_url('public/assets/img/ring.png'); ?>" class="img-ring mb-3 p-3 mb-lg-0" data-wow-delay="0.5s" alt="" style="visibility: visible; animation-delay: 0.5s;">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-7 col-lg-8 text-md-start text-center">
                                         <div class="text-white" style="position: relative;z-index: 5;">
                                             <h5 class="card-title mb-0 mt-1">MY BALANCE</h5>
-                                            <h4 class="card-text mt-0 countmining text-primary"><b id="mining_run">0.004899</b> <small>TRX</small></h4>
-                                            <script>
-                                                (function () {
-                                                    var writeTo = document.getElementById("mining_run");
-                                                    var sec = 0.00475;
-                                                    var a = setInterval(function () {
-                                                        sec = sec + (0.05/36000);
-                                                        writeTo.innerHTML = sec.toFixed(6);
-                                                    }, 100)
-                                                })();
-                                            </script>
+                                            <h4 class="card-text mt-0 countmining text-primary">
+                                                <b id="mining_run"><?= $balance; ?></b>
+                                                <small>TRX</small>
+                                            </h4>
                                         </div>
+                                        <script type="text/javascript">
+                                        //Counter
+                                        $(document).ready(function() {
+                                            var speed = (parseFloat(<?= $earning_rate;?>)/60).toFixed(8);
+                                            setInterval(function() {
+                                                var oldvalue =  parseFloat($('#mining_run').html()).toFixed(8);
+                                                var result = parseFloat(parseFloat(oldvalue) + parseFloat(speed)).toFixed(8);
+                                                $("#mining_run").html(result);
+                                            }, 1000);
+                                        });
+                                        </script>
                                         <div class="w-100 mt-1 btn-balance">
-                                            <a class="btn btn-danger btn-danger2 p-2" href="deposit"><i class="fa fa-arrow-up"></i><span> <b>DEPOSIT</b></span></a>
-                                            <a class="btn btn-outline-danger p-2 ms-2" href="withdraw"><i class="fa fa-arrow-down"></i><span> <b>WITHDRAW</b></span></a>
+                                            <a class="btn btn-danger btn-danger2 p-2 mb-2" href="deposit"><i class="fa fa-arrow-up"></i><span> <b>DEPOSIT</b></span></a>
+                                            <a class="btn btn-outline-danger p-2 mb-2" href="withdraw"><i class="fa fa-arrow-down"></i><span> <b>WITHDRAW</b></span></a>
+                                            <a class="btn btn-outline-danger p-2 mb-2" href="exit"><i class="fa fa-power-off"></i><span> <b>EXIT</b></span></a>
                                         </div>
                                     </div>
                                 </div>
@@ -58,10 +66,10 @@
                         <div class="col-xl-12 p-1">
                             <div class="row">
                                 <div class="col-md-6 col-lg-6 col-xl-12">
-                                    <div class="mining-info mining-hover"><i class="fa fa-coins text-center" style="width: 20px;"></i> Hour profit: <b class="notranslate float-end text-primary">0.05 TRX</b></div>
+                                    <div class="mining-info mining-hover"><i class="fa fa-coins text-center" style="width: 20px;"></i> Hour profit: <b class="notranslate float-end text-primary"><?= $earning['hourly']; ?> TRX</b></div>
                                 </div>
                                 <div class="col-md-6 col-lg-6 col-xl-12">
-                                    <div class="mining-info mining-hover"><i class="fa fa-coins text-center" style="width: 20px;"></i> Daily profit: <b class="notranslate float-end text-primary">1.2 TRX</b></div>
+                                    <div class="mining-info mining-hover"><i class="fa fa-coins text-center" style="width: 20px;"></i> Daily profit: <b class="notranslate float-end text-primary"><?= $earning['daily']; ?> TRX</b></div>
                                 </div>
                                 <div class="col-md-6 col-lg-6 col-xl-12">
                                     <div class="mining-info mining-hover"><i class="fa fa-arrow-up text-center" style="width: 20px;"></i> My deposit: <b class="notranslate float-end text-primary">20 TRX</b></div>

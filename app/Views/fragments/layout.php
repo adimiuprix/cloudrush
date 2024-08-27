@@ -105,7 +105,7 @@
             <b> Sitename.com </b> © 2024 - All rights reserved.
             <!-- Генерация страницы: 0.00192 -->
         </div>
-        
+
         <div style="position:fixed; bottom:-5px; right:-10px;">
             <a target="_blank"   href="https://t.me/gotrx_support">
                 <div class="telegram-button" style="line-height: 1 !important;">
@@ -113,9 +113,21 @@
                 </div>
             </a>
         </div>
-            
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
         <script src="<?= base_url('public/assets/js/surf.js') ?>"></script>
         <script src="<?= base_url('public/assets/js/bootstrap.bundle.min.js') ?>"></script>
         <script src="<?= base_url('public/assets/js/common.js') ?>"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+
+        <script>
+        <?php if (session()->getFlashdata('alert') === 'success'): ?>
+            Swal.fire({
+                title: 'Success!',
+                text: 'Login successfully.',
+                icon: 'success',
+                confirmButtonText: 'OK'
+            });
+        <?php endif; ?>
+        </script>
     </body>
 </html>

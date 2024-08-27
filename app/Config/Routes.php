@@ -5,17 +5,23 @@ use CodeIgniter\Router\RouteCollection;
 /**
  * @var RouteCollection $routes
  */
-$routes->get('/', 'Home::index');
-$routes->get('news', 'Home::news');
-$routes->get('bounty', 'Home::bounty');
-$routes->get('terms', 'Home::rules');
-$routes->get('faq', 'Home::faq');
-$routes->get('account', 'Panel::account');
-$routes->get('surf', 'Panel::surf');
-$routes->get('surf/add', 'Panel::surfAdd');
-$routes->get('surf/links', 'Panel::surfLink');
-$routes->get('bonus', 'Panel::bonus');
-$routes->get('refs', 'Panel::refs');
-$routes->get('deposit', 'Panel::deposit');
-$routes->get('payment', 'Panel::payment');
-$routes->get('withdraw', 'Panel::withdraw');
+
+$routes->get('/', 'HomeController::index');
+$routes->get('news', 'HomeController::news');
+$routes->get('bounty', 'HomeController::bounty');
+$routes->get('terms', 'HomeController::rules');
+$routes->get('faq', 'HomeController::faq');
+$routes->post('log_form', 'AuthorizeController::process');
+
+$routes->group('', function($routes) {
+    $routes->get('exit', 'AuthorizeController::session_flush');
+    $routes->get('account', 'PanelController::account');
+    $routes->get('surf', 'PanelController::surf');
+    $routes->get('surf/add', 'PanelController::surfAdd');
+    $routes->get('surf/links', 'PanelController::surfLink');
+    $routes->get('bonus', 'PanelController::bonus');
+    $routes->get('refs', 'PanelController::refs');
+    $routes->get('deposit', 'PanelController::deposit');
+    $routes->get('payment', 'PanelController::payment');
+    $routes->get('withdraw', 'PanelController::withdraw');
+});

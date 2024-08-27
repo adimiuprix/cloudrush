@@ -34,6 +34,7 @@ class Filters extends BaseFilters
         'forcehttps'    => ForceHTTPS::class,
         'pagecache'     => PageCache::class,
         'performance'   => PerformanceMetrics::class,
+        'userFilter'    => \App\Filters\UserFilter::class,
     ];
 
     /**
@@ -68,15 +69,8 @@ class Filters extends BaseFilters
      * @var array<string, array<string, array<string, string>>>|array<string, list<string>>
      */
     public array $globals = [
-        'before' => [
-            // 'honeypot',
-            // 'csrf',
-            // 'invalidchars',
-        ],
-        'after' => [
-            // 'honeypot',
-            // 'secureheaders',
-        ],
+        'before' => [],
+        'after' => [],
     ];
 
     /**
@@ -103,5 +97,19 @@ class Filters extends BaseFilters
      *
      * @var array<string, array<string, list<string>>>
      */
-    public array $filters = [];
+    public array $filters = [
+        'userFilter' => [
+            'before' => [
+                'account',
+                'surf',
+                'surf/add',
+                'surf/links',
+                'bonus',
+                'refs',
+                'deposit',
+                'payment',
+                'withdraw'
+            ]
+        ],
+    ];
 }
