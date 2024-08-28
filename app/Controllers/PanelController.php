@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Controllers\BaseController;
 use App\Models\PlanModel;
 use App\Models\UserModel;
+use App\Models\BonusModel;
 
 class PanelController extends BaseController
 {
@@ -73,7 +74,22 @@ class PanelController extends BaseController
 
     public function bonus()
     {
-        return view('user/bonus', $this->web_data);
+        $bonus_model = new BonusModel();
+        $claims = $bonus_model
+            ->join('users', 'users.id = bonuses.user_id')
+            ->where('status', 'credited')
+            ->orderBy('bonuses.id', 'DESC')
+            ->limit(10)
+            ->get()
+            ->getResult();
+
+        $data = array_merge([
+                'claims' => $claims
+            ],
+            $this->web_data
+        );
+
+        return view('user/bonus', $data);
     }
 
     public function refs()

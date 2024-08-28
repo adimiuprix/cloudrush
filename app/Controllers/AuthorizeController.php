@@ -40,6 +40,7 @@ class AuthorizeController extends BaseController
                 'user_wallet' => $wallet_post,
                 'reff_code' => $random_string->mixedcase()->size(8)->get(),
                 'reff_by' => '0',
+                'last_claim' => time(),
                 'ip_address' => service('request')->getIPAddress()
             ];
             $this->user_model->insert($new_user);
@@ -66,7 +67,7 @@ class AuthorizeController extends BaseController
             session()->set('user_data', $result);
             session()->setFlashdata('alert', 'success');
 
-            return redirect()->to('account')->with('success', 'Validation success, now you\'re login!');
+            return redirect()->to('account');
         }
     }
 
