@@ -63,7 +63,7 @@
                                 <div class="col-lg-4">
                                     <div class="st">
                                         <div class="pulse-st"></div>
-                                        <div class="stat2"> <b class="notranslate st-count">0 </b></div>
+                                        <div class="stat2"> <b class="notranslate st-count"><?= $ref_count; ?> </b></div>
                                         <div class="st-title"><i class="fa fa-users"></i> REFERALS</div>
                                     </div>
                                 </div>
@@ -111,6 +111,26 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                <?php if($referrals):?>
+                                <?php foreach($referrals as $ref): ?>
+                                <tr class="align-items-center">
+                                    <td class="text-center pt-2">
+                                        <img src="<?= base_url('public/assets/img/trx.png'); ?>" height="24">
+                                    </td>
+                                    <td class="text-start">
+                                        <b><?= substr($ref->user_wallet, 0, 15); ?><span class="text-primary">***</span></b><br>
+                                        <small class="date"></small>
+                                    </td>
+                                    <td class="text-end align-items-center">
+                                        <span class="text-sum"><?= number_format($ref->total_earn, 0); ?> <small>TRX</small></span>
+                                    </td>
+                                </tr>
+                                <?php endforeach; ?>
+                                <?php else: ?>
+                                <tr>
+                                    <td colspan="3" class="text-center">No record found!</td>
+                                </tr>
+                                <?php endif; ?>
                                 </tbody>
                             </table>
                         </div>

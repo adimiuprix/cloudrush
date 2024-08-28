@@ -16,7 +16,7 @@
                     <td class="text-center">
                         <img src="<?= base_url('public/assets/img/trx.png')?>" height="20" alt="trx">
                     </td>
-                    <td><?= substr($depo->user_wallet, 0, 10); ;?><span style="color: #ff5252;">***</span><br>
+                    <td><?= substr($depo->user_wallet, 0, 10); ?><span style="color: #ff5252;">***</span><br>
                         <small class="date"><?= $depo->created_at;?></small>
                     </td>
                     <td class="text-center">

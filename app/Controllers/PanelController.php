@@ -96,8 +96,12 @@ class PanelController extends BaseController
     {
         $reff_link = base_url('refflink/' . $this->user_session->reff_code);
 
+        $referrals = $this->user_model->select(['id', 'username', 'user_wallet', 'total_earn', 'reff_by'])->where('reff_by', '1', true)->get()->getResult();
+
         $data = array_merge([
-            'reff_link' => $reff_link
+            'ref_count' => '9',
+            'reff_link' => $reff_link,
+            'referrals' => $referrals
         ], $this->web_data);
 
         return view('user/refs', $data);
