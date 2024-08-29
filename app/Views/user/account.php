@@ -79,14 +79,8 @@
                                 </div>
                                 <div class="col-md-6 col-lg-6 col-xl-12">
                                     <div class="mining-info mining-hover">
-                                        <i class="fa fa-arrow-up text-center" style="width: 20px;"></i> 
-                                        My deposit: <b class="float-end text-primary">20 TRX</b>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 col-lg-6 col-xl-12">
-                                    <div class="mining-info mining-hover">
-                                        <i class="fa fa-arrow-down text-center" style="width: 20px;"></i>
-                                        My income: <b class="notranslate float-end text-primary">0 TRX</b>
+                                        <i class="fa fa-arrow-down text-center" style="width: 20px;"></i> 
+                                        My deposit: <b class="float-end text-primary"><?= $earning['tot_deposit']; ?> TRX</b>
                                     </div>
                                 </div>
                             </div>
