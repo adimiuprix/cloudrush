@@ -2,12 +2,20 @@
 
 namespace App\Controllers;
 use App\Models\UserModel;
+use App\Models\PlanModel;
 
 class HomeController extends BaseController
 {
     public function index(): string
     {
-        return view('homepage',$this->web_data);
+        $plan_model = new PlanModel();
+        $plans = $plan_model->where('is_free', 0)->get()->getResultObject();
+
+        $data = array_merge([
+            'plans' => $plans,
+        ], $this->web_data);
+
+        return view('homepage', $data);
     }
 
     public function auth()
