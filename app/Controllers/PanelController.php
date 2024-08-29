@@ -23,17 +23,11 @@ class PanelController extends BaseController
     public function account()
     {
         $user_session = session()->get('user_data');
-
         $this->plan_model->plans_cron($user_session);
-
         $balance = $this->user_model->getBalance($user_session);
-
         $this->user_model->updateBalances($user_session, $balance);
-
         $user_balance = $this->user_model->getUserBalance($user_session);
-
         $total_balance = (float)number_format($user_balance,8,'.','');
-
         $active_plans = (array)$this->user_model->getActivePlans($user_session);
 
         $earning_point = array_reduce($active_plans, function($carry, $plan) {
