@@ -75,58 +75,54 @@
                                     <div class="mining-info mining-hover"><i class="fa fa-arrow-up text-center" style="width: 20px;"></i> My deposit: <b class="notranslate float-end text-primary">20 TRX</b></div>
                                 </div>
                                 <div class="col-md-6 col-lg-6 col-xl-12">
-                                    <div class="mining-info mining-hover"><i class="fa fa-arrow-down text-center" style="width: 20px;"></i> My income: <b class="notranslate float-end text-primary">0 TRX</b></div>
+                                    <div class="mining-info mining-hover">
+                                        <i class="fa fa-arrow-down text-center" style="width: 20px;"></i>
+                                        My income: <b class="notranslate float-end text-primary">0 TRX</b>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <p class="text-center">You need to buy plans to start mining.</p>
                     <div class="row tarif m-0">
+                        <?php foreach($plans as $plan): ?>
                         <div class="col-xl-6 col-lg-6 col-md-6 p-2">
                             <div class="card mb-1">
                                 <div class="pulse-st"></div>
                                 <div class="row row-grid align-items-center">
                                     <div class="col-lg-12 ps-auto">
                                         <div class="p-2">
-                                            <h3 class="card-title ps-0 text-center mt-1 mb-0 notranslate">TRON - 1</h3>
+                                            <h3 class="card-title ps-0 text-center mt-1 mb-0"><?= $plan->plan_name; ?></h3>
                                             <div class="mb-2">
                                                 <table class="tarif-table">
                                                     <tbody>
-                                                        <tr>
-                                                            <td>
-                                                                <div class="tarif-lnfo">
-                                                                    Income per day <br><b class="notranslate">1.2 TRX</b> <b class="notranslate">+6 %</b>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <div class="tarif-lnfo">
-                                                                    Income per week <br><b class="notranslate">8.4 TRX</b> <b class="notranslate">+42 %</b>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <div class="tarif-lnfo">
-                                                                    Income per month <br><b class="notranslate">36 TRX</b> <b class="notranslate">+180 %</b>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
+                                                        <div class="tarif-lnfo">
+                                                            Income per day <br>
+                                                            <b><?= number_format($plan->earning_per_day, 2); ?> TRX</b>
+                                                        </div>
+                                                        <div class="tarif-lnfo">
+                                                            Income per week <br>
+                                                            <b><?= number_format($plan->earning_per_day * 7, 2); ?> TRX</b>
+                                                        </div>
+                                                        <div class="tarif-lnfo">
+                                                            Income per month <br>
+                                                            <b><?= number_format($plan->earning_per_day * 30, 2); ?> TRX</b>
+                                                        </div>
                                                     </tbody>
                                                 </table>
                                             </div>
                                             <hr class="my-0">
                                             <table class="tarif-table">
                                                 <tbody>
-                                                    <tr>
-                                                        <td>
-                                                            <form action="" method="post" class="m-0 text-center">
-                                                                <input type="hidden" name="buy" value="1"><small class="text-uppercase">Buying tarif</small><br>
-                                                                <button class="btn btn-danger notranslate" type="submit">20  TRX</button>
-                                                            </form>
-                                                        </td>
-                                                    </tr>
+                                                    <td>
+                                                        <form action="" method="post" class="m-0 text-center">
+                                                            <input type="hidden" name="plan" value="<?= $plan->id; ?>">
+                                                            <small class="text-uppercase">Buying tarif</small><br>
+                                                            <button class="btn btn-danger" type="submit">
+                                                                <?= number_format($plan->price, 0); ?>  TRX
+                                                            </button>
+                                                        </form>
+                                                    </td>
                                                 </tbody>
                                             </table>
                                         </div>
@@ -134,162 +130,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-xl-6 col-lg-6 col-md-6 p-2">
-                            <div class="card mb-1">
-                                <div class="pulse-st"></div>
-                                <div class="row row-grid align-items-center">
-                                    <div class="col-lg-12 ps-auto">
-                                        <div class="p-2">
-                                            <h3 class="card-title ps-0 text-center mt-1 mb-0 notranslate">TRON - 2</h3>
-                                            <div class="mb-2">
-                                                <table class="tarif-table">
-                                                    <tbody>
-                                                        <tr>
-                                                            <td>
-                                                                <div class="tarif-lnfo">
-                                                                    Income per day <br><b class="notranslate">4 TRX</b> <b class="notranslate">+8 %</b>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <div class="tarif-lnfo">
-                                                                    Income per week <br><b class="notranslate">28 TRX</b> <b class="notranslate">+56 %</b>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <div class="tarif-lnfo">
-                                                                    Income per month <br><b class="notranslate">120 TRX</b> <b class="notranslate">+240 %</b>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                            <hr class="my-0">
-                                            <table class="tarif-table">
-                                                <tbody>
-                                                    <tr>
-                                                        <td>
-                                                            <form action="" method="post" class="m-0 text-center">
-                                                                <input type="hidden" name="buy" value="2"><small class="text-uppercase">Buying tarif</small><br>
-                                                                <button class="btn btn-danger notranslate" type="submit">50  TRX</button>
-                                                            </form>
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-6 col-lg-6 col-md-6 p-2">
-                            <div class="card mb-1">
-                                <div class="pulse-st"></div>
-                                <div class="row row-grid align-items-center">
-                                    <div class="col-lg-12 ps-auto">
-                                        <div class="p-2">
-                                            <h3 class="card-title ps-0 text-center mt-1 mb-0 notranslate">TRON - 3</h3>
-                                            <div class="mb-2">
-                                                <table class="tarif-table">
-                                                    <tbody>
-                                                        <tr>
-                                                            <td>
-                                                                <div class="tarif-lnfo">
-                                                                    Income per day <br><b class="notranslate">10 TRX</b> <b class="notranslate">+10 %</b>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <div class="tarif-lnfo">
-                                                                    Income per week <br><b class="notranslate">70 TRX</b> <b class="notranslate">+70 %</b>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <div class="tarif-lnfo">
-                                                                    Income per month <br><b class="notranslate">300 TRX</b> <b class="notranslate">+300 %</b>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                            <hr class="my-0">
-                                            <table class="tarif-table">
-                                                <tbody>
-                                                    <tr>
-                                                        <td>
-                                                            <form action="" method="post" class="m-0 text-center">
-                                                                <input type="hidden" name="buy" value="3"><small class="text-uppercase">Buying tarif</small><br>
-                                                                <button class="btn btn-danger notranslate" type="submit">100  TRX</button>
-                                                            </form>
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-6 col-lg-6 col-md-6 p-2">
-                            <div class="card mb-1">
-                                <div class="pulse-st"></div>
-                                <div class="row row-grid align-items-center">
-                                    <div class="col-lg-12 ps-auto">
-                                        <div class="p-2">
-                                            <h3 class="card-title ps-0 text-center mt-1 mb-0 notranslate">TRON - 4</h3>
-                                            <div class="mb-2">
-                                                <table class="tarif-table">
-                                                    <tbody>
-                                                        <tr>
-                                                            <td>
-                                                                <div class="tarif-lnfo">
-                                                                    Income per day <br><b class="notranslate">60 TRX</b> <b class="notranslate">+12 %</b>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <div class="tarif-lnfo">
-                                                                    Income per week <br><b class="notranslate">420 TRX</b> <b class="notranslate">+84 %</b>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <div class="tarif-lnfo">
-                                                                    Income per month <br><b class="notranslate">1800 TRX</b> <b class="notranslate">+360 %</b>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                            <hr class="my-0">
-                                            <table class="tarif-table">
-                                                <tbody>
-                                                    <tr>
-                                                        <td>
-                                                            <form action="" method="post" class="m-0 text-center">
-                                                                <input type="hidden" name="buy" value="4"><small class="text-uppercase">Buying tarif</small><br>
-                                                                <button class="btn btn-danger notranslate" type="submit">500  TRX</button>
-                                                            </form>
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <?php endforeach; ?>
                     </div>
                 </div>
             </div>

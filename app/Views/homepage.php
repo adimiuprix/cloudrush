@@ -68,7 +68,9 @@
                                 <hr class="my-0 mb-2">
                                 <table class="tarif-table">
                                     <td class="text-center">
-                                        <a href="#buy" class="btn btn-danger"><?= number_format($plan->price, 0); ?>  TRX</a>
+                                        <a href="#buy" class="btn btn-danger">
+                                            <?= number_format($plan->price, 0); ?>  TRX
+                                        </a>
                                     </td>
                                 </table>
                             </div>

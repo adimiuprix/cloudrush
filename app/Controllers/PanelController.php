@@ -41,11 +41,14 @@ class PanelController extends BaseController
 
         $user_earning_rate = array_sum(array_column($active_plans, 'earning_rate'));
 
+        $plans = $this->plan_model->where('is_free', 0)->get()->getResultObject();
+
         $data = array_merge([
             'address' => $user_session['username'],
             'balance' => $total_balance,
             'earning_rate' => $user_earning_rate,
             'earning' => $earn_point,
+            'plans' => $plans,
         ], $this->web_data);
 
         return view('user/account', $data);
