@@ -140,13 +140,12 @@
 
         <?php if (session()->getFlashdata('alert') === 'claim_failed'): ?>
             Swal.fire({
-                title: 'Success!',
-                text: 'Bonus claim was unsuccessful.',
+                title: 'Failed!',
+                text: 'Bonus claim unsuccessful.',
                 icon: 'error',
                 confirmButtonText: 'OK'
             });
         <?php endif; ?>
-
         </script>
     </body>
 </html>
