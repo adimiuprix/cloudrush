@@ -34,7 +34,7 @@ class PanelController extends BaseController
             return $carry + (float) ($plan['earning_per_day'] ?? 0);
         }, 0);
 
-        $tot_active_deposits = array_sum(array_column($active_plans, 'price'));;
+        $tot_active_deposits = array_sum(array_column($active_plans, 'price'));
 
         $earn_point = [
             'hourly' => number_format($earning_point / 24, 4),

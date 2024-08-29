@@ -12,10 +12,10 @@ class ClaimController extends BaseController
         $user_session = session()->get('user_data');
 
         $last_claim = (int)$this->user_model->getUserByWallet($user_session['user_wallet'])['last_claim'];
-
         $can_claim = $last_claim + 86400;
-
         $current_time = time();
+
+        $tot_active_deposits = array_sum(array_column((array)$this->user_model->getActivePlans($user_session), 'price'));
 
         if ($current_time > $can_claim) {
 
@@ -26,7 +26,7 @@ class ClaimController extends BaseController
             $bonus_model = new BonusModel();
             $bonus = [
                 'user_id' => $user_session['id'],
-                'amount_bonus' => 0.05,
+                'amount_bonus' => $tot_active_deposits * 20 / 100,
                 'status' => 'credited',
             ];
             $bonus_model->save($bonus);
