@@ -49,14 +49,14 @@
                             <div class="row">
                                 <div class="col-lg-4">
                                     <div class="st">
-                                        <div class="stat2"> <b class="notranslate st-count">10-2%</b></div>
+                                        <div class="stat2"> <b class="notranslate st-count">10%</b></div>
                                         <div class="st-title"><i class="fa fa-percent"></i> REF.SYSTEM</div>
                                     </div>
                                 </div>
                                 <div class="col-lg-4">
                                     <div class="st">
                                         <div class="pulse-st"></div>
-                                        <div class="stat2"> <b class="notranslate st-count">0</b></div>
+                                        <div class="stat2"> <b class="notranslate st-count"><?= $income_ref; ?></b></div>
                                         <div class="st-title"><i class="fa fa-coins"></i> INCOME (TRX)</div>
                                     </div>
                                 </div>
@@ -122,7 +122,7 @@
                                         <small class="date"></small>
                                     </td>
                                     <td class="text-end align-items-center">
-                                        <span class="text-sum"><?= number_format($ref->total_earn, 0); ?> <small>TRX</small></span>
+                                        <span class="text-sum"><?= number_format($ref->upline_reward, 2); ?> <small>TRX</small></span>
                                     </td>
                                 </tr>
                                 <?php endforeach; ?>

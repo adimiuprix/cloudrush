@@ -94,12 +94,14 @@ class PanelController extends BaseController
 
     public function refs()
     {
+        $income_ref = $this->user_model->selectSum('upline_reward')->where('reff_by', $this->user_session->id)->get()->getRow();
+        $reff_count = $this->user_model->where('reff_by', $this->user_session->id)->countAllResults();
+        $referrals = $this->user_model->select(['id', 'username', 'user_wallet', 'total_earn', 'reff_by', 'upline_reward'])->where('reff_by', '1', true)->get()->getResult();
         $reff_link = base_url('refflink/' . $this->user_session->reff_code);
 
-        $referrals = $this->user_model->select(['id', 'username', 'user_wallet', 'total_earn', 'reff_by'])->where('reff_by', '1', true)->get()->getResult();
-
         $data = array_merge([
-            'ref_count' => '9',
+            'income_ref' => number_format($income_ref->upline_reward, 2) ?: 0,
+            'ref_count' => $reff_count ?: 0,
             'reff_link' => $reff_link,
             'referrals' => $referrals
         ], $this->web_data);

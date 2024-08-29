@@ -39,10 +39,11 @@ class Users extends Migration
                 'constraint'     => 50,
                 'null'  => true
             ],
-            'reward_upline' => [
+            'upline_reward' => [
                 'type'       => 'DECIMAL',
                 'constraint'     => '20,8',
                 'default' => '0.00000000',
+                'null'  => true
             ],
             'reff_by' => [
                 'type'       => 'INT',
