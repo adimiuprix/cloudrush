@@ -3,6 +3,7 @@
 namespace App\Controllers;
 use App\Models\UserModel;
 use App\Models\PlanModel;
+use App\Models\FaqModel;
 
 class HomeController extends BaseController
 {
@@ -66,6 +67,11 @@ class HomeController extends BaseController
 
     public function faq(): string
     {
-        return view('faq', $this->web_data);
+        $faq_model = new FaqModel();
+        $faqs = $faq_model->findAll();
+
+        $data = array_merge(['faqs' => $faqs], $this->web_data);
+
+        return view('faq', $data);
     }
 }
