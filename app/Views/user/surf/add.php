@@ -22,7 +22,6 @@
                         <script> 
                             function PlanChange(frm)
                             {
-                            
                                lprice = bux_price;
                                if (frm.vip.value == 1) {
                                    lprice += bux_price_move;
@@ -46,9 +45,8 @@
                                    lprice += (bux_price_timer * 6);
                                }
                                frm.linkprice.value = number_format(lprice, 6, '.', '');
-                            
                             }
-                            
+
                             function number_format(number, decimals, dec_point, thousands_sep) {
                                var i, j, kw, kd, km;
                                if (isNaN(decimals = Math.abs(decimals))) {
@@ -71,8 +69,6 @@
                                kd = (decimals ? dec_point + Math.abs(number - i).toFixed(decimals).replace(/-/, 0).slice(2) : "");
                                return km + kw + kd;
                             }
-                            
-                            
                                        var bux_price = 0.04;
                                        var bux_price_timer = 0.005;
                                        var bux_price_move = 0.005;
@@ -82,7 +78,6 @@
                                            document.forms['surforder'].vip.value = 0;
                                            PlanChange(document.forms['surforder']);
                                        }
-                                       
                                        $(document).ready(function() { ClearForm(); });
                         </script> 
                         <div class="card mt-2">
@@ -166,191 +161,7 @@
             <div class="clearfix"></div>
         </div>
     </div>
-    <div class="col-lg-3 order-2 order-lg-1">
-        <div class="stats pb-1 mt-3 mt-lg-0">
-            <div class="stats-title text-uppercase text-white">deposits</div>
-            <div class="table-responsive">
-                <table class="stats2 table table-sm table-striped mb-0">
-                    <thead>
-                        <tr>
-                            <th class="text-center">#</th>
-                            <th>User</th>
-                            <th class="text-center">Sum</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr class="notranslate">
-                            <td class="text-center"><img src="/img/trx.png" height="20" alt="trx"> </td>
-                            <td>TNLfhZN9SQav<span style="color: #ff5252;">***</span><br><small class="date">12 Jun 2024 - 04:05</small></td>
-                            <td class="text-center"><span class="text-sum">20 <small>TRX</small></span></td>
-                        </tr>
-                        <tr class="notranslate">
-                            <td class="text-center"><img src="/img/trx.png" height="20" alt="trx"> </td>
-                            <td>TF3RxyjQoLoM<span style="color: #ff5252;">***</span><br><small class="date">11 Jun 2024 - 22:33</small></td>
-                            <td class="text-center"><span class="text-sum">20 <small>TRX</small></span></td>
-                        </tr>
-                        <tr class="notranslate">
-                            <td class="text-center"><img src="/img/trx.png" height="20" alt="trx"> </td>
-                            <td>TF3RxyjQoLoM<span style="color: #ff5252;">***</span><br><small class="date">11 Jun 2024 - 22:19</small></td>
-                            <td class="text-center"><span class="text-sum">18 <small>TRX</small></span></td>
-                        </tr>
-                        <tr class="notranslate">
-                            <td class="text-center"><img src="/img/trx.png" height="20" alt="trx"> </td>
-                            <td>TBKnNfZRcM49<span style="color: #ff5252;">***</span><br><small class="date">11 Jun 2024 - 15:56</small></td>
-                            <td class="text-center"><span class="text-sum">49 <small>TRX</small></span></td>
-                        </tr>
-                        <tr class="notranslate">
-                            <td class="text-center"><img src="/img/trx.png" height="20" alt="trx"> </td>
-                            <td>TEjCaB1Fa8FJ<span style="color: #ff5252;">***</span><br><small class="date">11 Jun 2024 - 10:53</small></td>
-                            <td class="text-center"><span class="text-sum">36 <small>TRX</small></span></td>
-                        </tr>
-                        <tr class="notranslate">
-                            <td class="text-center"><img src="/img/trx.png" height="20" alt="trx"> </td>
-                            <td>TDcK59bpYobW<span style="color: #ff5252;">***</span><br><small class="date">10 Jun 2024 - 21:20</small></td>
-                            <td class="text-center"><span class="text-sum">28 <small>TRX</small></span></td>
-                        </tr>
-                        <tr class="notranslate">
-                            <td class="text-center"><img src="/img/trx.png" height="20" alt="trx"> </td>
-                            <td>TGML8YG6R8Ca<span style="color: #ff5252;">***</span><br><small class="date">10 Jun 2024 - 19:07</small></td>
-                            <td class="text-center"><span class="text-sum">50 <small>TRX</small></span></td>
-                        </tr>
-                        <tr class="notranslate">
-                            <td class="text-center"><img src="/img/trx.png" height="20" alt="trx"> </td>
-                            <td>TDcK59bpYobW<span style="color: #ff5252;">***</span><br><small class="date">10 Jun 2024 - 15:25</small></td>
-                            <td class="text-center"><span class="text-sum">110 <small>TRX</small></span></td>
-                        </tr>
-                        <tr class="notranslate">
-                            <td class="text-center"><img src="/img/trx.png" height="20" alt="trx"> </td>
-                            <td>TLJTHrKzAZRG<span style="color: #ff5252;">***</span><br><small class="date">10 Jun 2024 - 09:59</small></td>
-                            <td class="text-center"><span class="text-sum">50 <small>TRX</small></span></td>
-                        </tr>
-                        <tr class="notranslate">
-                            <td class="text-center"><img src="/img/trx.png" height="20" alt="trx"> </td>
-                            <td>TBKnNfZRcM49<span style="color: #ff5252;">***</span><br><small class="date">10 Jun 2024 - 04:50</small></td>
-                            <td class="text-center"><span class="text-sum">20 <small>TRX</small></span></td>
-                        </tr>
-                        <tr class="notranslate">
-                            <td class="text-center"><img src="/img/trx.png" height="20" alt="trx"> </td>
-                            <td>TJ6iSFcVekCh<span style="color: #ff5252;">***</span><br><small class="date">10 Jun 2024 - 04:15</small></td>
-                            <td class="text-center"><span class="text-sum">20 <small>TRX</small></span></td>
-                        </tr>
-                        <tr class="notranslate">
-                            <td class="text-center"><img src="/img/trx.png" height="20" alt="trx"> </td>
-                            <td>TPMJ8KGhRM37<span style="color: #ff5252;">***</span><br><small class="date">09 Jun 2024 - 21:04</small></td>
-                            <td class="text-center"><span class="text-sum">32 <small>TRX</small></span></td>
-                        </tr>
-                        <tr class="notranslate">
-                            <td class="text-center"><img src="/img/trx.png" height="20" alt="trx"> </td>
-                            <td>TESrkCy4gg8X<span style="color: #ff5252;">***</span><br><small class="date">09 Jun 2024 - 20:15</small></td>
-                            <td class="text-center"><span class="text-sum">20 <small>TRX</small></span></td>
-                        </tr>
-                        <tr class="notranslate">
-                            <td class="text-center"><img src="/img/trx.png" height="20" alt="trx"> </td>
-                            <td>TTSVeSTff95d<span style="color: #ff5252;">***</span><br><small class="date">09 Jun 2024 - 17:05</small></td>
-                            <td class="text-center"><span class="text-sum">10 <small>TRX</small></span></td>
-                        </tr>
-                        <tr class="notranslate">
-                            <td class="text-center"><img src="/img/trx.png" height="20" alt="trx"> </td>
-                            <td>TTSVeSTff95d<span style="color: #ff5252;">***</span><br><small class="date">09 Jun 2024 - 16:55</small></td>
-                            <td class="text-center"><span class="text-sum">33 <small>TRX</small></span></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-3 order-3 order-lg-3">
-        <div class="stats pb-1 mt-3 mt-lg-0">
-            <div class="stats-title text-uppercase text-white">payouts</div>
-            <div class="table-responsive">
-                <table class="stats2 table table-sm table-striped mb-0">
-                    <thead>
-                        <tr>
-                            <th class="text-center">#</th>
-                            <th>User</th>
-                            <th class="text-center">Sum</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr class="notranslate">
-                            <td class="text-center"><img src="/img/trx.png" height="20" alt="trx"></td>
-                            <td>TLt1qcz8k1zG<span style="color: #ff5252;">***</span><br><small class="date">12 Jun 2024 - 05:41</small></td>
-                            <td class="text-center"><span class="text-sum">10 <small>TRX</small></span> </td>
-                        </tr>
-                        <tr class="notranslate">
-                            <td class="text-center"><img src="/img/trx.png" height="20" alt="trx"></td>
-                            <td>TQhXEP1UCCJE<span style="color: #ff5252;">***</span><br><small class="date">12 Jun 2024 - 04:16</small></td>
-                            <td class="text-center"><span class="text-sum">10 <small>TRX</small></span> </td>
-                        </tr>
-                        <tr class="notranslate">
-                            <td class="text-center"><img src="/img/trx.png" height="20" alt="trx"></td>
-                            <td>TNLfhZN9SQav<span style="color: #ff5252;">***</span><br><small class="date">12 Jun 2024 - 04:10</small></td>
-                            <td class="text-center"><span class="text-sum">10 <small>TRX</small></span> </td>
-                        </tr>
-                        <tr class="notranslate">
-                            <td class="text-center"><img src="/img/trx.png" height="20" alt="trx"></td>
-                            <td>TQXp7GGHBEio<span style="color: #ff5252;">***</span><br><small class="date">12 Jun 2024 - 03:51</small></td>
-                            <td class="text-center"><span class="text-sum">10 <small>TRX</small></span> </td>
-                        </tr>
-                        <tr class="notranslate">
-                            <td class="text-center"><img src="/img/trx.png" height="20" alt="trx"></td>
-                            <td>TF3RxyjQoLoM<span style="color: #ff5252;">***</span><br><small class="date">11 Jun 2024 - 22:34</small></td>
-                            <td class="text-center"><span class="text-sum">10 <small>TRX</small></span> </td>
-                        </tr>
-                        <tr class="notranslate">
-                            <td class="text-center"><img src="/img/trx.png" height="20" alt="trx"></td>
-                            <td>TASesnU9Mg98<span style="color: #ff5252;">***</span><br><small class="date">11 Jun 2024 - 20:15</small></td>
-                            <td class="text-center"><span class="text-sum">10 <small>TRX</small></span> </td>
-                        </tr>
-                        <tr class="notranslate">
-                            <td class="text-center"><img src="/img/trx.png" height="20" alt="trx"></td>
-                            <td>TTSVeSTff95d<span style="color: #ff5252;">***</span><br><small class="date">11 Jun 2024 - 18:47</small></td>
-                            <td class="text-center"><span class="text-sum">10 <small>TRX</small></span> </td>
-                        </tr>
-                        <tr class="notranslate">
-                            <td class="text-center"><img src="/img/trx.png" height="20" alt="trx"></td>
-                            <td>TDYCmDJVZwtt<span style="color: #ff5252;">***</span><br><small class="date">11 Jun 2024 - 13:32</small></td>
-                            <td class="text-center"><span class="text-sum">10 <small>TRX</small></span> </td>
-                        </tr>
-                        <tr class="notranslate">
-                            <td class="text-center"><img src="/img/trx.png" height="20" alt="trx"></td>
-                            <td>TGML8YG6R8Ca<span style="color: #ff5252;">***</span><br><small class="date">11 Jun 2024 - 12:23</small></td>
-                            <td class="text-center"><span class="text-sum">10 <small>TRX</small></span> </td>
-                        </tr>
-                        <tr class="notranslate">
-                            <td class="text-center"><img src="/img/trx.png" height="20" alt="trx"></td>
-                            <td>TLt1qcz8k1zG<span style="color: #ff5252;">***</span><br><small class="date">11 Jun 2024 - 11:32</small></td>
-                            <td class="text-center"><span class="text-sum">10 <small>TRX</small></span> </td>
-                        </tr>
-                        <tr class="notranslate">
-                            <td class="text-center"><img src="/img/trx.png" height="20" alt="trx"></td>
-                            <td>TTSVeSTff95d<span style="color: #ff5252;">***</span><br><small class="date">11 Jun 2024 - 10:05</small></td>
-                            <td class="text-center"><span class="text-sum">10 <small>TRX</small></span> </td>
-                        </tr>
-                        <tr class="notranslate">
-                            <td class="text-center"><img src="/img/trx.png" height="20" alt="trx"></td>
-                            <td>TWX1T9MP9hmu<span style="color: #ff5252;">***</span><br><small class="date">11 Jun 2024 - 08:32</small></td>
-                            <td class="text-center"><span class="text-sum">10 <small>TRX</small></span> </td>
-                        </tr>
-                        <tr class="notranslate">
-                            <td class="text-center"><img src="/img/trx.png" height="20" alt="trx"></td>
-                            <td>TBKnNfZRcM49<span style="color: #ff5252;">***</span><br><small class="date">10 Jun 2024 - 21:40</small></td>
-                            <td class="text-center"><span class="text-sum">10 <small>TRX</small></span> </td>
-                        </tr>
-                        <tr class="notranslate">
-                            <td class="text-center"><img src="/img/trx.png" height="20" alt="trx"></td>
-                            <td>TGML8YG6R8Ca<span style="color: #ff5252;">***</span><br><small class="date">10 Jun 2024 - 17:58</small></td>
-                            <td class="text-center"><span class="text-sum">10 <small>TRX</small></span> </td>
-                        </tr>
-                        <tr class="notranslate">
-                            <td class="text-center"><img src="/img/trx.png" height="20" alt="trx"></td>
-                            <td>TD56yiybWQzQ<span style="color: #ff5252;">***</span><br><small class="date">10 Jun 2024 - 16:14</small></td>
-                            <td class="text-center"><span class="text-sum">10 <small>TRX</small></span> </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
+    <?= $this->include('fragments/deposit_block.php'); ?>
+    <?= $this->include('fragments/withdraw_block.php'); ?>
 </div>
 <?= $this->endSection() ?>
