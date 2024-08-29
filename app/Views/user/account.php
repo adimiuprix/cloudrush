@@ -66,13 +66,22 @@
                         <div class="col-xl-12 p-1">
                             <div class="row">
                                 <div class="col-md-6 col-lg-6 col-xl-12">
-                                    <div class="mining-info mining-hover"><i class="fa fa-coins text-center" style="width: 20px;"></i> Hour profit: <b class="notranslate float-end text-primary"><?= $earning['hourly']; ?> TRX</b></div>
+                                    <div class="mining-info mining-hover">
+                                        <i class="fa fa-coins text-center" style="width: 20px;"></i> 
+                                        Hour profit: <b class="float-end text-primary"><?= $earning['hourly']; ?> TRX</b>
+                                    </div>
                                 </div>
                                 <div class="col-md-6 col-lg-6 col-xl-12">
-                                    <div class="mining-info mining-hover"><i class="fa fa-coins text-center" style="width: 20px;"></i> Daily profit: <b class="notranslate float-end text-primary"><?= $earning['daily']; ?> TRX</b></div>
+                                    <div class="mining-info mining-hover">
+                                        <i class="fa fa-coins text-center" style="width: 20px;"></i> 
+                                        Daily profit: <b class="float-end text-primary"><?= $earning['daily']; ?> TRX</b>
+                                    </div>
                                 </div>
                                 <div class="col-md-6 col-lg-6 col-xl-12">
-                                    <div class="mining-info mining-hover"><i class="fa fa-arrow-up text-center" style="width: 20px;"></i> My deposit: <b class="notranslate float-end text-primary">20 TRX</b></div>
+                                    <div class="mining-info mining-hover">
+                                        <i class="fa fa-arrow-up text-center" style="width: 20px;"></i> 
+                                        My deposit: <b class="float-end text-primary">20 TRX</b>
+                                    </div>
                                 </div>
                                 <div class="col-md-6 col-lg-6 col-xl-12">
                                     <div class="mining-info mining-hover">
