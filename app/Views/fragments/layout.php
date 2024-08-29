@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>Sitename - Mining trx earn money tron buy and price </title>
-        <meta name="description" content="tron online mining stake with real money withdrawal. Free bonus 20 TRX">
+        <title><?= $sitename; ?> - <?= $slogan; ?></title>
+        <meta name="description" content="<?= $description; ?>">
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link rel="icon" type="image/png" sizes="32x32" href="public/assets/img/fav/apple-touch-icon.png">

@@ -57,6 +57,10 @@ class InfoWebController extends BaseController
             ->getRow();
 
         $data = [
+            'sitename' => 'Ferontron',
+            'slogan' => 'slogan',
+            'description' => 'description',
+            'keywords' => 'keywords',
             'web_stats' => [
                 'total_user' => $user_model->countAll() ?: 0,
                 'total_deposit' => $tot_dp->sum_deposit ?: 0,
