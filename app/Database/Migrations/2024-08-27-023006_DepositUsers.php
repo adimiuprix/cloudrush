@@ -21,6 +21,12 @@ class DepositUsers extends Migration
                 'constraint'     => 100,
                 'null'  => false
             ],
+            'plan_id' => [
+                'type'       => 'INT',
+                'unsigned'   => true,
+                'constraint'     => 100,
+                'null'  => false
+            ],
             'sum_deposit' => [
                 'type'       => 'INT',
                 'default' => '0',

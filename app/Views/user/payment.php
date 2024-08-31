@@ -15,7 +15,7 @@
                                 <div class="p-3">
                                     <b>Send a money to the DogeCoin address:</b>
                                     <div class="input-group input-group-lg mb-2">
-                                        <input type="text" class="form-control" placeholder="wallet" value="DQ2XM8APUaz8nTusB8p6iVhJg4Xm7AtxgJ" name="wall" id="purse" onclick="copier();" readonly />
+                                        <input type="text" class="form-control" placeholder="wallet" value="<?= $address; ?>" name="wall" id="purse" onclick="copier();" readonly />
                                         <span class="input-group-text copy" onclick="copier();"><i class="fa fa-copy"></i></span>
                                     </div>
                                     <hr>

@@ -4,20 +4,46 @@ namespace App\Controllers;
 
 use App\Controllers\BaseController;
 use App\Models\DepositModel;
+use App\Models\PlanModel;
+use App\Models\UserPlanHistoryModel;
 
 class PaymentController extends BaseController
 {
     public function buyplan(){
-        $user_id = (object)session()->get('user_data');
+        $session = (object)session()->get('user_data');
         $request = \Config\Services::request();
-
         $plan_id = $request->getPost('plan');
+
+        $deposit_model = new DepositModel();
+        $plan_model = new PlanModel();
+        $user_plan_history_model = new UserPlanHistoryModel();
+
+        $get_plan = $plan_model->where('id', $plan_id)->get()->getRow();
+
+        $create_deposit_plan = [
+            'user_id' => $session->id,
+            'plan_id' => $plan_id,
+            'sum_deposit' => (string) $get_plan->price,
+            'status' => 'pending',
+        ];
+        $deposit_model->insert($create_deposit_plan);
+
+        $purchase_plan = [
+            'user_id' => $session->id,
+            'plan_id' => $plan_id,
+            'status' => 'inactive',
+        ];
+        $user_plan_history_model->save($purchase_plan);
 
         return redirect()->to('payment');
     }
 
     public function payment()
     {
-        return view('user/payment', $this->web_data);
+        $data = array_merge([
+            'address' => 'DT2XM8APUaz8nTusB8p6iVhJg4Xm7AtxgJ',
+        ], $this->web_data);
+
+        return view('user/payment', $data);
     }
 }
