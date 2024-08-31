@@ -22,7 +22,7 @@ class ClaimController extends BaseController
             return redirect()->to('bonus');
         }
 
-        if ($current_time > $can_claim && $tot_active_deposits >= 1) {
+        if ($current_time > $can_claim && $tot_active_deposits >= 0.00000001) {
 
             // Menampilkan data user
             $user = $this->db->table('users')->where('id', 1)->get()->getFirstRow('object');
