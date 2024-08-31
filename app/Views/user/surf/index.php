@@ -31,6 +31,7 @@
                             }
                         </script>
                         <div class="row row-cols-1 m-0">
+                            <?php foreach($surfs as $surf):?>
                             <div class="col col-lg-6 p-1">
                                 <div class="card h-100 serf shadow-sm mb-2" style="overflow: hidden;border: 1px solid #ec2043 !important;">
                                     <div class="p-1 pt-2 text-center serf-link h-100">
@@ -41,26 +42,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col col-lg-6 p-1">
-                                <div class="card h-100 serf shadow-sm mb-2" style="overflow: hidden;border: 1px solid #3b2929 !important;">
-                                    <div class="p-1 pt-2 text-center serf-link h-100">
-                                        BONUS 50 DOGE
-                                    </div>
-                                    <div class="text-center pt-0 p-2" title="Pay per view">
-                                        <a href="#" onclick="showFrame(this, '11');" class="btn btn-danger w-50 p-1" title="Click to view"><i class="fa fa-gift"></i> <b>0.08 TRX</b></a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col col-lg-6 p-1">
-                                <div class="card h-100 serf shadow-sm mb-2" style="overflow: hidden;border: 1px solid #3b2929 !important;">
-                                    <div class="p-1 pt-2 text-center serf-link h-100">
-                                        TRON X ✔️ BONUS 100 TRX
-                                    </div>
-                                    <div class="text-center pt-0 p-2" title="Pay per view">
-                                        <a href="#" onclick="showFrame(this, '3');" class="btn btn-danger w-50 p-1" title="Click to view"><i class="fa fa-gift"></i> <b>0.08 TRX</b></a>
-                                    </div>
-                                </div>
-                            </div>
+                            <?php endforeach;?>
                         </div>
                     </div>
                 </div>

@@ -34,11 +34,11 @@ class Adverts extends Migration
             'created_at DATETIME DEFAULT CURRENT_TIMESTAMP',
         ]);
         $this->forge->addKey('id', true);
-        $this->forge->createTable('adverts');
+        $this->forge->createTable('adsverts');
     }
 
     public function down()
     {
-        $this->forge->dropTable('adverts');
+        $this->forge->dropTable('adsverts');
     }
 }

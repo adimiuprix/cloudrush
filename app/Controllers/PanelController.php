@@ -57,21 +57,6 @@ class PanelController extends BaseController
         return view('user/account', $data);
     }
 
-    public function surf()
-    {
-        return view('user/surf/index', $this->web_data);
-    }
-
-    public function surfAdd()
-    {
-        return view('user/surf/add', $this->web_data);
-    }
-
-    public function surfLink()
-    {
-        return view('user/surf/link', $this->web_data);
-    }
-
     public function bonus()
     {
         $bonus_model = new BonusModel();

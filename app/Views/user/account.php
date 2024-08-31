@@ -118,7 +118,7 @@
                                             <table class="tarif-table">
                                                 <tbody>
                                                     <td>
-                                                        <form action="" method="post" class="m-0 text-center">
+                                                        <form action="<?= base_url('buy-plan'); ?>" method="post" class="m-0 text-center">
                                                             <input type="hidden" name="plan" value="<?= $plan->id; ?>">
                                                             <small class="text-uppercase">Buying tarif</small><br>
                                                             <button class="btn btn-danger" type="submit">
