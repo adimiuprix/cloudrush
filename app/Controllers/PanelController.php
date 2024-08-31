@@ -114,11 +114,6 @@ class PanelController extends BaseController
         return view('user/deposit', $this->web_data);
     }
 
-    public function payment()
-    {
-        return view('user/payment', $this->web_data);
-    }
-
     public function withdraw()
     {
         return view('user/withdraw', $this->web_data);

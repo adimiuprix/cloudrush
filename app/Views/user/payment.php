@@ -15,7 +15,7 @@
                                 <div class="p-3">
                                     <b>Send a money to the DogeCoin address:</b>
                                     <div class="input-group input-group-lg mb-2">
-                                        <input type="text" class="form-control notranslate" placeholder="wallet" value="DQ2XM8APUaz8nTusB8p6iVhJg4Xm7AtxgJ" name="wall" id="purse" onclick="copier();">
+                                        <input type="text" class="form-control" placeholder="wallet" value="DQ2XM8APUaz8nTusB8p6iVhJg4Xm7AtxgJ" name="wall" id="purse" onclick="copier();" readonly />
                                         <span class="input-group-text copy" onclick="copier();"><i class="fa fa-copy"></i></span>
                                     </div>
                                     <hr>
@@ -40,6 +40,14 @@
                             document.execCommand('copy');
                         	document.getElementById('purse').style.backgroundColor = '#2e2727';
                         	document.getElementById('purse').style.color = '#ec2043';
+
+                            Swal.fire({
+                                title: 'Copied!',
+                                text: 'Text successfully copied to clipboard.',
+                                icon: 'success',
+                                timer: 2000,
+                                showConfirmButton: false
+                            });
                         }
                     </script>
                 </div>

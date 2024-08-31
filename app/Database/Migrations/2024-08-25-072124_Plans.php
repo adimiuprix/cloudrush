@@ -58,6 +58,23 @@ class Plans extends Migration
                 'price'     => '0.00000000',
                 'profit'     => '100',
             ],
+            [
+                'plan_name'     => 'TRON 1',
+                'is_free'      => '0',
+                'earning_per_day'     => '0.36666667',
+                'earning_rate'     => '0.00025462',
+                'price'     => '10.00000000',
+                'profit'     => '110',
+            ],
+            [
+                'plan_name'     => 'TRON 2',
+                'is_free'      => '0',
+                'earning_per_day'     => '0.80000000',
+                'earning_rate'     => '0.00055555',
+                'price'     => '10.00000000',
+                'profit'     => '110',
+            ],
+
         ];
         $this->db->table('plans')->insertBatch($init_data);
     }

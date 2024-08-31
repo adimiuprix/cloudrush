@@ -25,6 +25,6 @@ $routes->group('', function($routes) {
 
     $routes->get('refs', 'PanelController::refs');
     $routes->get('deposit', 'PanelController::deposit');
-    $routes->get('payment', 'PanelController::payment');
+    $routes->get('payment', 'PaymentController::payment');
     $routes->get('withdraw', 'PanelController::withdraw');
 });
