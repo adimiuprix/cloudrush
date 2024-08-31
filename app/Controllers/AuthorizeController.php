@@ -40,7 +40,6 @@ class AuthorizeController extends BaseController
                 'user_wallet' => $wallet_post,
                 'reff_code' => $random_string->mixedcase()->size(8)->get(),
                 'reff_by' => '0',
-                'last_claim' => time(),
                 'ip_address' => service('request')->getIPAddress()
             ];
             $this->user_model->insert($new_user);

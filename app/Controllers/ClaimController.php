@@ -17,7 +17,12 @@ class ClaimController extends BaseController
 
         $tot_active_deposits = array_sum(array_column((array)$this->user_model->getActivePlans($user_session), 'price'));
 
-        if ($current_time > $can_claim) {
+        if($tot_active_deposits == 0){
+            session()->setFlashdata('alert', 'free_plan');
+            return redirect()->to('bonus');
+        }
+
+        if ($current_time > $can_claim && $tot_active_deposits >= 1) {
 
             // Menampilkan data user
             $user = $this->db->table('users')->where('id', 1)->get()->getFirstRow('object');

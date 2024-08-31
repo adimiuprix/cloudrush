@@ -146,6 +146,16 @@
                 confirmButtonText: 'OK'
             });
         <?php endif; ?>
+
+        <?php if (session()->getFlashdata('alert') === 'free_plan'): ?>
+            Swal.fire({
+                title: 'Failed!',
+                text: 'You need deposit for claim bonus',
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });
+        <?php endif; ?>
+
         </script>
     </body>
 </html>
