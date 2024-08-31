@@ -37,7 +37,7 @@ class ClaimController extends BaseController
             $bonus_model->save($bonus);
 
             // Memperbarui saldo user
-            $newBalance = $user->balance + 0.05;
+            $newBalance = $user->balance + $tot_active_deposits * 20 / 100;
 
             $this->user_model->update($user_session['id'], [
                 'balance' => $newBalance,
