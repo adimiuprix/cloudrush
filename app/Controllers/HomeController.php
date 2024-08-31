@@ -57,7 +57,13 @@ class HomeController extends BaseController
 
     public function bounty(): string
     {
-        return view('bounty', $this->web_data);
+        $user_session = session()->has('user_data');
+
+        $data = array_merge([
+            'session_avail' => $user_session,
+        ], $this->web_data);
+
+        return view('bounty', $data);
     }
 
     public function rules(): string

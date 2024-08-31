@@ -34,15 +34,27 @@
                 </div>
                 <div class="text-center">
                     <div class="p-2 pb-4">
+                        <?php if($session_avail): ?>
                         <form action="#" method="POST">
                             <div class="p-1 text-uppercase">
                                 <label>Youtube video:</label>
                                 <div class="input-group input-group-lg mb-2">
-                                    <input type="text" class="form-control" placeholder="Youtube link video" value="" name="youlink">
+                                    <input type="text" class="form-control" placeholder="Youtube link video" name="youlink" />
                                 </div>
-                                <button class="btn btn-lg btn-danger text-uppercase" name="yousend" type="submit">SEND VIDEO</button>
+                                <button class="btn btn-lg btn-danger text-uppercase" type="submit">SEND VIDEO</button>
                             </div>
                         </form>
+                        <?php else: ?>
+                            <form action="#" method="POST">
+                            <div class="p-1 text-uppercase">
+                                <label>Youtube video:</label>
+                                <div class="input-group input-group-lg mb-2">
+                                    <input type="text" class="form-control" placeholder="You have to login" name="youlink" readonly />
+                                </div>
+                                <button class="btn btn-lg btn-danger text-uppercase" type="button">SEND VIDEO</button>
+                            </div>
+                        </form>
+                        <?php endif; ?>
                     </div>
                 </div>
                 <!-- Post bounty -->
