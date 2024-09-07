@@ -28,8 +28,8 @@
                                 </div>
                             </div>
                             <div class="card-body">
-                                <form name="surforder" id="surforder" action="" class="mb-0" method="post">
-                                    <input type="hidden" name="@secury" value="">
+                                <form name="surforder" id="surforder" action="<?= base_url('surf_order')?>" class="mb-0" method="post">
+                                    <input type="hidden" name="<?= csrf_token() ?>" value="<?= csrf_hash() ?>" />
                                     <!-- Title -->
                                     <div class="input-group mb-2">
                                         <span class="input-group-text"><i class="far fa-edit"></i></span>
@@ -38,14 +38,16 @@
                                     <!-- URL -->
                                     <div class="input-group mb-2">
                                         <span class="input-group-text"><i class="fa fa-link"></i></span>
-                                        <input class="form-control" name="url" id="url" placeholder="URL: https://example.com" required />
+                                        <input class="form-control" name="link" id="url" placeholder="URL: https://example.com" required />
                                     </div>
                                     <div class="row">
                                         <!-- Timer -->
                                         <div class="col-md-4">
                                             <label class="mb-1">Timer</label>
                                             <div class="input-group input-group-sm mb-2" title="Timer">
-                                                <span class="input-group-text"><i class="fa fa-clock"></i></span>
+                                                <span class="input-group-text">
+                                                    <i class="fa fa-clock"></i>
+                                                </span>
                                                 <select class="form-control" name="timer" id="timer" onchange="PlanChange(this.form);" required>
                                                     <option value="10">Timer: 10 sec (+ 0.005 TRX)</option>
                                                     <option value="20">Timer: 20 sec (+ 0.01 TRX)</option>
@@ -72,7 +74,7 @@
                                             <label class="mb-1">Period</label>
                                             <div class="input-group input-group-sm mb-2" title="The repeat period after which the link will be available to the user again">
                                                 <span class="input-group-text"><i class="fa fa-reply"></i></span>
-                                                <select class="form-control" name="reply" id="reply" required>
+                                                <select class="form-control" name="period" id="period" required>
                                                     <option value="0">Every 24 hours</option>
                                                     <option value="1">Every 12 hours</option>
                                                 </select>
@@ -83,9 +85,6 @@
                                     <!-- Price View -->
                                     <div class="row align-items-center">
                                         <div class="col">
-                                            <input type="hidden" name="add">
-                                            <input type="hidden" id="type" name="type" value="add">
-                                            <input type="hidden" id="request" name="request" value="/ajax.php?action=surf&amp;type=add">
                                             <button type="submit" class="btn btn-lg btn-danger mt-2">SAVE</button>
                                         </div>
                                         <div class="col-sm-4 col-md-3 float-end">
@@ -150,8 +149,7 @@
                                     });
                                 </script>
                             </div>
-                        </div>
-                        <br>
+                        </div><br>
                     </div>
                 </div>
             </div>

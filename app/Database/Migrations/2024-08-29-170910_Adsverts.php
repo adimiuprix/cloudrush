@@ -30,7 +30,26 @@ class Adverts extends Migration
                 'constraint' => 255,
                 'null'  => false
             ],
-
+            'timer' => [
+                'type'       => 'INT',
+                'null'  => false
+            ],
+            'is_vip' => [
+                'type'       => 'ENUM',
+                'constraint' => ['0', '1'],
+                'default' => '0',
+            ],
+            'period' => [
+                'type'       => 'ENUM',
+                'constraint' => ['0', '1'],
+                'default' => '0',
+            ],
+            'reward' => [
+                'type'       => 'DECIMAL',
+                'constraint'     => '20,8',
+                'default' => '0.00000000',
+                'null'  => false
+            ],
             'created_at DATETIME DEFAULT CURRENT_TIMESTAMP',
         ]);
         $this->forge->addKey('id', true);

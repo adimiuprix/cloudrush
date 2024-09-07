@@ -19,6 +19,7 @@ $routes->group('', function($routes) {
 
     $routes->get('surf', 'PtcController::surf');
     $routes->get('surf/add', 'PtcController::surfAdd');
+    $routes->post('surf_order', 'PtcController::surfOrder');
     $routes->get('surf/links', 'PtcController::surfLink');
 
     $routes->get('bonus', 'PanelController::bonus');

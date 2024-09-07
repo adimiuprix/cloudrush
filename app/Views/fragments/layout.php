@@ -156,6 +156,16 @@
             });
         <?php endif; ?>
 
+        <?php if (session()->getFlashdata('surf') === 'surf_ok'): ?>
+            Swal.fire({
+                title: 'Success!',
+                text: 'You have create ads...',
+                icon: 'success',
+                showConfirmButton: false,
+                timer: 3000,
+            });
+        <?php endif; ?>
+
         </script>
     </body>
 </html>

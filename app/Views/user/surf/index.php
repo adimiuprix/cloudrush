@@ -35,10 +35,12 @@
                             <div class="col col-lg-6 p-1">
                                 <div class="card h-100 serf shadow-sm mb-2" style="overflow: hidden;border: 1px solid #ec2043 !important;">
                                     <div class="p-1 pt-2 text-center serf-link h-100">
-                                        TRONOK +240% EARN ! BONUS 50 TRX
+                                        <?= $surf['title']; ?>
                                     </div>
                                     <div class="text-center pt-0 p-2" title="Pay per view">
-                                        <a href="#" onclick="showFrame(this, '8');" class="btn btn-danger w-50 p-1" title="Click to view"><i class="fa fa-gift"></i> <b>0.08 TRX</b></a>
+                                        <a href="#" onclick="showFrame(this, <?= $surf['id']; ?>);" class="btn btn-danger w-50 p-1" title="Click to view">
+                                            <i class="fa fa-gift"></i> <b>0.08 TRX</b>
+                                        </a>
                                     </div>
                                 </div>
                             </div>

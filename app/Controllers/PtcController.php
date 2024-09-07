@@ -36,6 +36,46 @@ class PtcController extends BaseController
         return view('user/surf/add', $data);
     }
 
+    public function surfOrder()
+    {
+        $user_session = session()->get('user_data');
+        $title = $this->request->getPost('title');
+        $link = $this->request->getPost('link');
+        $timer = $this->request->getPost('timer');
+        $vip = $this->request->getPost('vip');
+        $period = $this->request->getPost('period');
+        $reward = $this->calculatePrice(0.04, 0.005, 0.005, $vip, $timer);
+
+        $surf_order_data = [
+            'user_id' => $user_session['id'],
+            'title' => $title,
+            'link' => $link,
+            'timer' => $timer,
+            'is_vip' => $vip,
+            'period' => $period,
+            'reward' => $reward,
+        ];
+        $this->ads_model->save($surf_order_data);
+        session()->setFlashdata('surf', 'surf_ok');
+        return redirect()->to('account');
+    }
+
+    public function calculatePrice($buy_price, $buy_price_move, $buy_price_timer, $vip, $timer) {
+        $lprice = $buy_price;
+
+        // VIP price addition
+        if ($vip == 1) {
+            $lprice += $buy_price_move;
+        }
+
+        // Timer price addition
+        $timerMultiplier = intval($timer) / 10;
+        $lprice += ($buy_price_timer * $timerMultiplier);
+
+        // Format price with 6 decimal places
+        return number_format($lprice, 6, '.', '');
+    }
+
     public function surfLink()
     {
         $data = array_merge([
