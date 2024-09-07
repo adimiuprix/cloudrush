@@ -17,7 +17,7 @@
                         <div class="about text-center text-uppercase">
                             <b>You do not have any active links </b><br>You can add links for advertising.
                             <hr>
-                            <a class="btn btn-lg btn-danger" href="/user/surf/add">Add link</a>
+                            <a class="btn btn-lg btn-danger" href="<?= base_url('surf/add')?>">Add link</a>
                         </div>
                         <div class="row">
                         </div>

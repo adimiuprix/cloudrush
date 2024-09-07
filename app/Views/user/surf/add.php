@@ -19,67 +19,6 @@
                     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
                     <!-- Page content -->
                     <div class="pt-0">
-                        <script> 
-                            function PlanChange(frm)
-                            {
-                               lprice = bux_price;
-                               if (frm.vip.value == 1) {
-                                   lprice += bux_price_move;
-                               }
-                               if (frm.timer.value == 10) {
-                                   lprice += bux_price_timer;
-                               } else
-                               if (frm.timer.value == 20) {
-                                   lprice += (bux_price_timer * 2);
-                               } else
-                               if (frm.timer.value == 30) {
-                                   lprice += (bux_price_timer * 3);
-                               } else
-                               if (frm.timer.value == 40) {
-                                   lprice += (bux_price_timer * 4);
-                               } else
-                               if (frm.timer.value == 50) {
-                                   lprice += (bux_price_timer * 5);
-                               } else
-                               if (frm.timer.value == 60) {
-                                   lprice += (bux_price_timer * 6);
-                               }
-                               frm.linkprice.value = number_format(lprice, 6, '.', '');
-                            }
-
-                            function number_format(number, decimals, dec_point, thousands_sep) {
-                               var i, j, kw, kd, km;
-                               if (isNaN(decimals = Math.abs(decimals))) {
-                                   decimals = 2;
-                               }
-                               if (dec_point == undefined) {
-                                   dec_point = ",";
-                               }
-                               if (thousands_sep == undefined) {
-                                   thousands_sep = ".";
-                               }
-                               i = parseInt(number = (+number || 0).toFixed(decimals)) + "";
-                               if ((j = i.length) > 3) {
-                                   j = j % 3;
-                               } else {
-                                   j = 0;
-                               }
-                               km = (j ? i.substr(0, j) + thousands_sep : "");
-                               kw = i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + thousands_sep);
-                               kd = (decimals ? dec_point + Math.abs(number - i).toFixed(decimals).replace(/-/, 0).slice(2) : "");
-                               return km + kw + kd;
-                            }
-                                       var bux_price = 0.04;
-                                       var bux_price_timer = 0.005;
-                                       var bux_price_move = 0.005;
-                                       function ClearForm()
-                                       {
-                                           document.forms['surforder'].timer.value = 10;
-                                           document.forms['surforder'].vip.value = 0;
-                                           PlanChange(document.forms['surforder']);
-                                       }
-                                       $(document).ready(function() { ClearForm(); });
-                        </script> 
                         <div class="card mt-2">
                             <div class="card-header text-uppercase p-2">
                                 <div class="row align-items-center">
@@ -89,46 +28,51 @@
                                 </div>
                             </div>
                             <div class="card-body">
-                                <form name="surforder" action="" class="mb-0" method="POST" id="surf_add" onsubmit="return false;">
+                                <form name="surforder" id="surforder" action="" class="mb-0" method="post">
                                     <input type="hidden" name="@secury" value="">
+                                    <!-- Title -->
                                     <div class="input-group mb-2">
                                         <span class="input-group-text"><i class="far fa-edit"></i></span>
-                                        <input class="form-control" name="title" id="title" placeholder="Title" required="">
+                                        <input class="form-control" name="title" id="title" placeholder="Title" required />
                                     </div>
+                                    <!-- URL -->
                                     <div class="input-group mb-2">
                                         <span class="input-group-text"><i class="fa fa-link"></i></span>
-                                        <input class="form-control" name="url" id="url" placeholder="URL: https://example.com" required="">
+                                        <input class="form-control" name="url" id="url" placeholder="URL: https://example.com" required />
                                     </div>
                                     <div class="row">
+                                        <!-- Timer -->
                                         <div class="col-md-4">
                                             <label class="mb-1">Timer</label>
                                             <div class="input-group input-group-sm mb-2" title="Timer">
                                                 <span class="input-group-text"><i class="fa fa-clock"></i></span>
-                                                <select class="form-control" name="timer" id="timer" onchange="PlanChange(this.form); return false;" required="">
-                                                    <option value="10">Timer: 10 sec  (+ 0.005 TRX)</option>
-                                                    <option value="20">Timer: 20 sec  (+ 0.01 TRX)</option>
-                                                    <option value="30">Timer: 30 sec  (+ 0.015 TRX)</option>
-                                                    <option value="40">Timer: 40 sec  (+ 0.02 TRX)</option>
-                                                    <option value="50">Timer: 50 sec  (+ 0.025 TRX)</option>
-                                                    <option value="60">Timer: 60 sec  (+ 0.03 TRX)</option>
+                                                <select class="form-control" name="timer" id="timer" onchange="PlanChange(this.form);" required>
+                                                    <option value="10">Timer: 10 sec (+ 0.005 TRX)</option>
+                                                    <option value="20">Timer: 20 sec (+ 0.01 TRX)</option>
+                                                    <option value="30">Timer: 30 sec (+ 0.015 TRX)</option>
+                                                    <option value="40">Timer: 40 sec (+ 0.02 TRX)</option>
+                                                    <option value="50">Timer: 50 sec (+ 0.025 TRX)</option>
+                                                    <option value="60">Timer: 60 sec (+ 0.03 TRX)</option>
                                                 </select>
                                             </div>
                                         </div>
+                                        <!-- VIP -->
                                         <div class="col-md-4">
                                             <label class="mb-1">VIP</label>
                                             <div class="input-group input-group-sm mb-2" title="List top link">
                                                 <span class="input-group-text"><i class="fa fa-star"></i></span>
-                                                <select class="form-control" name="vip" id="vip" onchange="PlanChange(this.form); return false;" required="">
+                                                <select class="form-control" name="vip" id="vip" onchange="PlanChange(this.form);" required>
                                                     <option value="0">Off</option>
-                                                    <option value="1">On  (+ 0.005 TRX)</option>
+                                                    <option value="1">On (+ 0.005 TRX)</option>
                                                 </select>
                                             </div>
                                         </div>
+                                        <!-- Period -->
                                         <div class="col-md-4">
                                             <label class="mb-1">Period</label>
                                             <div class="input-group input-group-sm mb-2" title="The repeat period after which the link will be available to the user again">
                                                 <span class="input-group-text"><i class="fa fa-reply"></i></span>
-                                                <select class="form-control" name="reply" id="reply" required="">
+                                                <select class="form-control" name="reply" id="reply" required>
                                                     <option value="0">Every 24 hours</option>
                                                     <option value="1">Every 12 hours</option>
                                                 </select>
@@ -136,6 +80,7 @@
                                         </div>
                                     </div>
                                     <hr class="my-1">
+                                    <!-- Price View -->
                                     <div class="row align-items-center">
                                         <div class="col">
                                             <input type="hidden" name="add">
@@ -144,14 +89,66 @@
                                             <button type="submit" class="btn btn-lg btn-danger mt-2">SAVE</button>
                                         </div>
                                         <div class="col-sm-4 col-md-3 float-end">
-                                            <label class="mb-1"><small>PRICE VIEW:</small></label>
+                                            <label class="mb-1">
+                                                <small>PRICE VIEW:</small>
+                                            </label>
                                             <div class="input-group">
-                                                <input class="form-control" style="font-size: 22px;font-weight:700;" name="linkprice" value="0.045" readonly="readonly">
+                                                <input class="form-control" style="font-size: 22px; font-weight: 700;" name="linkprice" value="" readonly />
                                                 <span class="input-group-text">TRX</span>
                                             </div>
                                         </div>
                                     </div>
                                 </form>
+                                <script>
+                                    const buy_price = <?= $buy_p; ?>;
+                                    const buy_price_timer = <?= $buy_pt; ?>;
+                                    const buy_price_move = <?= $buy_pm; ?>;
+
+                                    function PlanChange(form) {
+                                        let lprice = buy_price;
+
+                                        // VIP price addition
+                                        if (form.vip.value == 1) {
+                                            lprice += buy_price_move;
+                                        }
+
+                                        // Timer price addition
+                                        const timerMultiplier = parseInt(form.timer.value) / 10;
+                                        lprice += (buy_price_timer * timerMultiplier);
+
+                                        // Update link price field
+                                        form.linkprice.value = number_format(lprice, 6, '.', '');
+                                    }
+
+                                    function number_format(number, decimals, dec_point, thousands_sep) {
+                                        let i, j, kw, kd, km;
+                                        if (isNaN(decimals = Math.abs(decimals))) {
+                                            decimals = 2;
+                                        }
+                                        dec_point = dec_point || ".";
+                                        thousands_sep = thousands_sep || ",";
+
+                                        i = parseInt(number = (+number || 0).toFixed(decimals)) + "";
+                                        j = (i.length > 3) ? i.length % 3 : 0;
+
+                                        km = (j ? i.substr(0, j) + thousands_sep : "");
+                                        kw = i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + thousands_sep);
+                                        kd = (decimals ? dec_point + Math.abs(number - i).toFixed(decimals).slice(2) : "");
+
+                                        return km + kw + kd;
+                                    }
+
+                                    function ClearForm() {
+                                        const form = document.forms['surforder'];
+                                        form.timer.value = 10;
+                                        form.vip.value = 0;
+                                        PlanChange(form);
+                                    }
+
+                                    $(document).ready(function() {
+                                        ClearForm();
+                                    });
+                                </script>
                             </div>
                         </div>
                         <br>

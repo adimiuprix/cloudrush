@@ -28,7 +28,9 @@ class PtcController extends BaseController
     public function surfAdd()
     {
         $data = array_merge([
-
+            'buy_p' => 0.04,
+            'buy_pt' => 0.005,
+            'buy_pm' => 0.005,
         ], $this->web_data);
 
         return view('user/surf/add', $data);
