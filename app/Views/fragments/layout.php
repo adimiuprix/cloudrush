@@ -166,6 +166,16 @@
             });
         <?php endif; ?>
 
+        <?php if (session()->getFlashdata('surf') === 'surf_failed'): ?>
+            Swal.fire({
+                title: 'Failed!',
+                text: 'Insufficient balance!',
+                icon: 'warning',
+                showConfirmButton: false,
+                timer: 3000,
+            });
+        <?php endif; ?>
+
         </script>
     </body>
 </html>

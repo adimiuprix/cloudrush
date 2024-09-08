@@ -12,15 +12,8 @@ class AdsvertModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['user_id', 'title', 'link', 'timer', 'is_vip', 'period', 'reward'];
+    protected $allowedFields    = ['user_id', 'title', 'link', 'timer', 'is_vip', 'period'];
 
     protected bool $allowEmptyInserts = false;
     protected bool $updateOnlyChanged = true;
-
-    // Dates
-    protected $useTimestamps = false;
-    protected $dateFormat    = 'datetime';
-    protected $createdField  = 'created_at';
-    protected $updatedField  = 'updated_at';
-    protected $deletedField  = 'deleted_at';
 }

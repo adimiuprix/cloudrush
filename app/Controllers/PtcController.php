@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Controllers\BaseController;
 use App\Models\AdsvertModel;
+use App\Models\UserModel;
 
 class PtcController extends BaseController
 {
@@ -39,25 +40,31 @@ class PtcController extends BaseController
     public function surfOrder()
     {
         $user_session = session()->get('user_data');
+        $user = (new UserModel())->asObject()->find($user_session['id']);
+
         $title = $this->request->getPost('title');
         $link = $this->request->getPost('link');
         $timer = $this->request->getPost('timer');
         $vip = $this->request->getPost('vip');
         $period = $this->request->getPost('period');
-        $reward = $this->calculatePrice(0.04, 0.005, 0.005, $vip, $timer);
+        $price_view = $this->calculatePrice(0.04, 0.005, 0.005, $vip, $timer);
 
-        $surf_order_data = [
-            'user_id' => $user_session['id'],
-            'title' => $title,
-            'link' => $link,
-            'timer' => $timer,
-            'is_vip' => $vip,
-            'period' => $period,
-            'reward' => $reward,
-        ];
-        $this->ads_model->save($surf_order_data);
-        session()->setFlashdata('surf', 'surf_ok');
-        return redirect()->to('account');
+        if($user->ads_balance >= $price_view){
+            $surf_order_data = [
+                'user_id' => $user_session['id'],
+                'title' => $title,
+                'link' => $link,
+                'timer' => $timer,
+                'is_vip' => $vip,
+                'period' => $period,
+            ];
+            $this->ads_model->save($surf_order_data);
+            session()->setFlashdata('surf', 'surf_ok');
+            return redirect()->to('account');
+        }else{
+            session()->setFlashdata('surf', 'surf_failed');
+            return redirect()->to('surf/add');
+        }
     }
 
     public function calculatePrice($buy_price, $buy_price_move, $buy_price_timer, $vip, $timer) {
@@ -78,8 +85,11 @@ class PtcController extends BaseController
 
     public function surfLink()
     {
-        $data = array_merge([
+        $user_session = session()->get('user_data');
+        $adsense = $this->ads_model->where('user_id', $user_session['id'])->asObject()->findAll();
 
+        $data = array_merge([
+            'my_adsense' => $adsense
         ], $this->web_data);
 
         return view('user/surf/link', $data);

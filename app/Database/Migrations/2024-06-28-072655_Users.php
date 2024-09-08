@@ -55,6 +55,12 @@ class Users extends Migration
                 'null'  => true,
                 'default'    => null,
             ],
+            'ads_balance' => [
+                'type'       => 'DECIMAL',
+                'constraint'     => '20,8',
+                'default' => '0.00000000',
+                'null'  => true,
+            ],
             'ip_address' => [
                 'type'       => 'VARCHAR',
                 'constraint'     => 100,
