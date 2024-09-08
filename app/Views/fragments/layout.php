@@ -40,25 +40,25 @@
         <!-- Navbar -->
         <div class="row m-0 mb-2 navmenu">
             <nav class="navbar navbar-expand-lg navbar-dark">
-                <a class="navbar-brand notranslate text-uppercase" href="/" title="Sitename.com">
+                <a class="navbar-brand text-uppercase" href="<?= base_url(''); ?>" title="Sitename.com">
                     <img src="<?= base_url('public/assets/img/logo.png') ?>" style="width: 180px;" alt="Sitename">
                 </a>
                 <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
+                    <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ms-auto mb-lg-0 text-center" style="flex-wrap: wrap;">
                         <li class="nav-item">
-                            <a class="nav-link" href="news"> News <span></span></a>
+                            <a class="nav-link" href="<?= base_url('news'); ?>"> News <span></span></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="bounty"> Bounty <span></span></a>
+                            <a class="nav-link" href="<?= base_url('bounty'); ?>"> Bounty <span></span></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="terms"> Rules <span></span></a>
+                            <a class="nav-link" href="<?= base_url('terms'); ?>"> Rules <span></span></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link notranslate" href="faq"> Faq <span></span></a>
+                            <a class="nav-link" href="<?= base_url('faq'); ?>"> Faq <span></span></a>
                         </li>
                     </ul>
                 </div>
