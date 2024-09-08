@@ -47,9 +47,9 @@ class PtcController extends BaseController
         $timer = $this->request->getPost('timer');
         $vip = $this->request->getPost('vip');
         $period = $this->request->getPost('period');
-        $price_view = $this->calculatePrice(0.04, 0.005, 0.005, $vip, $timer);
+        $priceview = $this->calculatePrice(0.04, 0.005, 0.005, $vip, $timer);
 
-        if($user->ads_balance >= $price_view){
+        if($user->ads_balance >= $priceview){
             $surf_order_data = [
                 'user_id' => $user_session['id'],
                 'title' => $title,
