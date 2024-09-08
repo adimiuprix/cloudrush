@@ -61,7 +61,7 @@
                                             <script>
                                                 $(document).ready(function(){
                                                     $('a[href="exit"]').on('click', function(event) {
-                                                        event.preventDefault();
+                                                        event.preventDefault()
                                                         Swal.fire({
                                                             text: "Are you sure want to exit?",
                                                             icon: 'question',
@@ -73,7 +73,7 @@
                                                                 window.location.href = this.href;
                                                             }
                                                         })
-                                                    });
+                                                    })
                                                 })
                                             </script>
                                         </div>
