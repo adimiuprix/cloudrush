@@ -58,6 +58,24 @@
                                             <a class="btn btn-danger btn-danger2 p-2 mb-2" href="deposit"><i class="fa fa-arrow-up"></i><span> <b>DEPOSIT</b></span></a>
                                             <a class="btn btn-outline-danger p-2 mb-2" href="withdraw"><i class="fa fa-arrow-down"></i><span> <b>WITHDRAW</b></span></a>
                                             <a class="btn btn-outline-danger p-2 mb-2" href="exit"><i class="fa fa-power-off"></i><span> <b>EXIT</b></span></a>
+                                            <script>
+                                                $(document).ready(function(){
+                                                    $('a[href="exit"]').on('click', function(event) {
+                                                        event.preventDefault();
+                                                        Swal.fire({
+                                                            text: "Are you sure want to exit?",
+                                                            icon: 'question',
+                                                            showCancelButton: true,
+                                                            confirmButtonText: 'Yes',
+                                                            cancelButtonText: 'No'
+                                                        }).then((result) => {
+                                                            if(result.isConfirmed){
+                                                                window.location.href = this.href;
+                                                            }
+                                                        })
+                                                    });
+                                                })
+                                            </script>
                                         </div>
                                     </div>
                                 </div>
