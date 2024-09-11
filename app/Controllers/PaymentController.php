@@ -6,6 +6,7 @@ use App\Controllers\BaseController;
 use App\Models\DepositModel;
 use App\Models\PlanModel;
 use App\Models\UserPlanHistoryModel;
+use Takuya\RandomString\RandomString;
 
 class PaymentController extends BaseController
 {
@@ -17,6 +18,7 @@ class PaymentController extends BaseController
         $deposit_model = new DepositModel();
         $plan_model = new PlanModel();
         $user_plan_history_model = new UserPlanHistoryModel();
+        $randomize = new RandomString();
 
         $get_plan = $plan_model->where('id', $plan_id)->get()->getRow();
 
@@ -25,6 +27,7 @@ class PaymentController extends BaseController
             'plan_id' => $plan_id,
             'sum_deposit' => (string) $get_plan->price,
             'status' => 'pending',
+            'hash_tx' => $randomize->gen(12,RandomString::ALPHA_NUM | RandomString::LOWER)
         ];
         $deposit_model->insert($create_deposit_plan);
 

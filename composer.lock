@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "299c40fcdbb579144c6f5b8769a17d44",
+    "content-hash": "fa82235f3e42a490e944b09cbacd207b",
     "packages": [
         {
             "name": "codeigniter4/framework",
@@ -258,6 +258,50 @@
                 "source": "https://github.com/php-fig/log/tree/3.0.0"
             },
             "time": "2021-07-14T16:46:02+00:00"
+        },
+        {
+            "name": "takuya/php-random-string",
+            "version": "0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/takuya/php-random-string.git",
+                "reference": "ff115e5fbd2f965e6b57f26632d0c12a1fe07d66"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/takuya/php-random-string/zipball/ff115e5fbd2f965e6b57f26632d0c12a1fe07d66",
+                "reference": "ff115e5fbd2f965e6b57f26632d0c12a1fe07d66",
+                "shasum": ""
+            },
+            "require-dev": {
+                "ext-ctype": "*",
+                "phpunit/phpunit": "^9.5"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "src/helpers/functions.php"
+                ],
+                "psr-4": {
+                    "Takuya\\RandomString\\": "src/class"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-3.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "takuya",
+                    "email": "55338+takuya@users.noreply.github.com"
+                }
+            ],
+            "description": "generate random string.",
+            "support": {
+                "issues": "https://github.com/takuya/php-random-string/issues",
+                "source": "https://github.com/takuya/php-random-string/tree/v0.1"
+            },
+            "time": "2023-01-20T09:21:50+00:00"
         }
     ],
     "packages-dev": [
