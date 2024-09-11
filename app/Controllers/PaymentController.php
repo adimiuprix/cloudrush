@@ -11,32 +11,25 @@ use Takuya\RandomString\RandomString;
 class PaymentController extends BaseController
 {
     public function buyplan(){
+        $deposit_type = 'manual';
         $session = (object)session()->get('user_data');
         $request = \Config\Services::request();
         $plan_id = $request->getPost('plan');
 
-        $deposit_model = new DepositModel();
         $plan_model = new PlanModel();
-        $user_plan_history_model = new UserPlanHistoryModel();
         $randomize = new RandomString();
 
+        // Get plan id
         $get_plan = $plan_model->where('id', $plan_id)->get()->getRow();
 
-        $create_deposit_plan = [
-            'user_id' => $session->id,
-            'plan_id' => $plan_id,
-            'sum_deposit' => (string) $get_plan->price,
-            'status' => 'pending',
-            'hash_tx' => $randomize->gen(12,RandomString::ALPHA_NUM | RandomString::LOWER)
-        ];
-        $deposit_model->insert($create_deposit_plan);
-
-        $purchase_plan = [
-            'user_id' => $session->id,
-            'plan_id' => $plan_id,
-            'status' => 'inactive',
-        ];
-        $user_plan_history_model->save($purchase_plan);
+        switch ($deposit_type) {
+            case 'faucetpay':
+                $this->faucetpay();
+                break;
+            default:
+                $this->manual($session->id, $plan_id, $get_plan->price, $randomize->gen(12, RandomString::ALPHA_NUM | RandomString::LOWER));
+            break;
+        }
 
         return redirect()->to('payment');
     }
@@ -48,5 +41,31 @@ class PaymentController extends BaseController
         ], $this->web_data);
 
         return view('user/payment', $data);
+    }
+
+    public function manual(int $id, int $plan_id, float $amount, string $rand)
+    {
+        $deposit_model = new DepositModel();
+        $user_plan_history_model = new UserPlanHistoryModel();
+
+        $create_deposit_plan = [
+            'user_id' => $id,
+            'plan_id' => $plan_id,
+            'sum_deposit' => $amount,
+            'status' => 'pending',
+            'hash_tx' => $rand
+        ];
+        $deposit_model->insert($create_deposit_plan);
+
+        $purchase_plan = [
+            'user_id' => $id,
+            'plan_id' => $plan_id,
+            'status' => 'inactive',
+        ];
+        $user_plan_history_model->save($purchase_plan);
+    }
+
+    public function faucetpay(){
+
     }
 }
