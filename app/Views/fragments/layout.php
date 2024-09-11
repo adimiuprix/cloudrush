@@ -176,6 +176,35 @@
             });
         <?php endif; ?>
 
+        <?php if (session()->getFlashdata('payout') === 'payout_ok'): ?>
+            Swal.fire({
+                title: 'Success!',
+                text: 'You have create ads...',
+                icon: 'success',
+                showConfirmButton: false,
+                timer: 3000,
+            });
+        <?php endif; ?>
+
+        <?php if (session()->getFlashdata('payout') === 'payout_failed'): ?>
+            Swal.fire({
+                title: 'Failed!',
+                text: 'Insufficient balance!',
+                icon: 'warning',
+                showConfirmButton: false,
+                timer: 3000,
+            });
+        <?php endif; ?>
+
+        <?php if (session()->getFlashdata('payout') === 'free_plan'): ?>
+            Swal.fire({
+                title: 'Failed!',
+                text: 'You have to make a deposit for request withdrawal!',
+                icon: 'warning',
+                showConfirmButton: false,
+                timer: 5000,
+            });
+        <?php endif; ?>
         </script>
     </body>
 </html>

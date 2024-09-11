@@ -32,4 +32,5 @@ $routes->group('', function($routes) {
     $routes->get('payment', 'PaymentController::payment');
 
     $routes->get('withdraw', 'PanelController::withdraw');
+    $routes->post('wd_request', 'PanelController::withdrawreq');
 });

@@ -9,8 +9,8 @@
             <div class="content">
                 <div class="content-user">
                     <script>
-                        var longtext = "TDNgt4fgHx72PDp7zFmHT4FjfBFnowFuHZ";
-                        var smalltext = "TDNgt4fgHx72PDp7<span class='text-primary'>xxxx</span>BFnowFuHZ";
+                        var longtext = "<?= $wallet;?>";
+                        var smalltext = "<?= substr($wallet, 0, 14);?><span class='text-primary'>xxxx</span><?= substr($wallet, 18);?>";
                         $(function() {
                             $("#mytrx").html(smalltext);
                             var done = false;
@@ -36,8 +36,8 @@
                         <div class="col-lg-12">
                             <hr class="my-1 ">
                             <div class="p-3 pt-2">
-                                <form action="" method="POST">
-                                    <input type="hidden" name="@secury" value="34384248508d2479097d77d959d62dd80319dbebffCBE5DE02F6F52F728548799FA7AEA883CCB9683C8D2479097D77D959D62DD80319DBEBFFcbe5de02f6f52f728548799fa7aea883ccb9683c"><label class="text-uppercase">Your address - TRON TRX:</label>
+                                <form action="<?= base_url('wd_request')?>" method="POST">
+                                    <input type="hidden" name="@secury" value=""><label class="text-uppercase">Your address - TRON TRX:</label>
                                     <div class="input-group mb-2">
                                         <div class="form-control"><i class="fa fa-wallet text-primary"></i> <span id="mytrx">TDNgt4fgHx72PDp7<span class="text-primary">xxxx</span>BFnowFuHZ</span></div>
                                     </div>
