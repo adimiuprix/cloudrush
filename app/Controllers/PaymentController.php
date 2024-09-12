@@ -82,21 +82,21 @@ class PaymentController extends BaseController
             'user_id' => $id,
             'plan_id' => $plan_id,
             'sum_deposit' => $amount,
-            'address' => $result,
+            'address' => $result['data']['address'],
             'status' => 'pending',
             'hash_tx' => $content['orderId']
         ];
         $deposit_model->insert($create_deposit_plan);
 
-        $this->purchase_api($result);
     }
 
     public function purchase_api()
     {
-        $payCode = $this->request->getGet('pay-code');
-        dd($payCode);
+        $payCode = $this->request->getGet('pay');
+        $payment_model = (new DepositModel())->where('hash_tx', $payCode)->get()->getRow();
+
         $data = array_merge([
-            'address' => 'DT2XM8APUaz8nTusB8p6iVhJg4Xm7AtxgJ',
+            'address' => $payment_model->address,
         ], $this->web_data);
 
         return view('user/payment', $data);
