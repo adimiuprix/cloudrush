@@ -74,6 +74,7 @@ class PaymentController extends BaseController
             'headers' => $headers,
             'body' => $body,
         ]);
+        $result = json_decode($response->getBody(), true);
 
         $deposit_model = new DepositModel();
 
@@ -81,12 +82,12 @@ class PaymentController extends BaseController
             'user_id' => $id,
             'plan_id' => $plan_id,
             'sum_deposit' => $amount,
+            'address' => $result,
             'status' => 'pending',
             'hash_tx' => $content['orderId']
         ];
         $deposit_model->insert($create_deposit_plan);
 
-        $result = json_decode($response->getBody(), true);
         $this->purchase_api($result);
     }
 
