@@ -153,13 +153,13 @@ class PaymentController extends BaseController
         ];
         $user_plan_history_model->save($purchase_plan);
     }
-    
+
     public function ccpaylist(){
         $app_id = "OjuEsrv33924OwLH";
         $app_secret = "9e1e0fa9388253bd77f23a86c472645d";
         $url = "https://ccpayment.com/ccpayment/v2/getCoinList";
         $content = array();
-    
+
         $timestamp = time();
         $body = json_encode($content);
         $sign_text = $app_id . $timestamp;
@@ -169,9 +169,9 @@ class PaymentController extends BaseController
         } else {
             $body = "";
         }
-    
+
         $server_sign = hash_hmac('sha256', $sign_text, $app_secret);
-    
+
         $data = array(
             "headers" => array(
                 "Content-Type: application/json;charset=utf-8",
@@ -180,7 +180,7 @@ class PaymentController extends BaseController
                 "Timestamp: " . $timestamp
             ), "body" => $body
         );
-    
+
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_POST, true);

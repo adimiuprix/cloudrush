@@ -35,3 +35,5 @@ $routes->group('', function($routes) {
     $routes->get('withdraw', 'PanelController::withdraw');
     $routes->post('wd_request', 'WithdrawController::withdrawreq');
 });
+
+$routes->post('webhook', 'WebhookController::webhook');
