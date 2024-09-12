@@ -88,9 +88,10 @@ class PaymentController extends BaseController
         ];
         $deposit_model->insert($create_deposit_plan);
 
+        return redirect()->to('purchase-plan?pay=' . $content['orderId']);
     }
 
-    public function purchase_api()
+    public function purchase_api($data)
     {
         $payCode = $this->request->getGet('pay');
         $payment_model = (new DepositModel())->where('hash_tx', $payCode)->get()->getRow();
