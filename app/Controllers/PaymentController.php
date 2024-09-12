@@ -12,7 +12,7 @@ use GuzzleHttp\Client;
 class PaymentController extends BaseController
 {
     public function buyplan(){
-        $deposit_type = 'manual';
+        $deposit_type = 'ccpayment';
         $session = (object)session()->get('user_data');
         $request = \Config\Services::request();
         $plan_id = $request->getPost('plan');
@@ -28,6 +28,9 @@ class PaymentController extends BaseController
             case 'faucetpay':
                 $this->faucetpay();
                 break;
+            case 'ccpayment':
+                $this->ccpayment();
+                break;
             default:
                 $this->manual($session->id, $plan_id, $get_plan->price, $randomize->gen(12, RandomString::ALPHA_NUM | RandomString::LOWER));
             break;
@@ -36,8 +39,68 @@ class PaymentController extends BaseController
         return redirect()->to('payment');
     }
 
-    public function payment()
+    public function ccpayment(){
+        $app_id = "OjuEsrv33924OwLH";
+        $app_secret = "9e1e0fa9388253bd77f23a86c472645d";
+        $url = "https://ccpayment.com/ccpayment/v2/createAppOrderDepositAddress";
+
+        $content = [ "coinId"=> 1482,
+            "price"=> "1",
+            "orderId"=> "GpokCK4jowAOnniuf",
+            "chain"=> "TRX"
+        ];
+
+        $timestamp = time();
+        $body = json_encode($content);
+
+        $signText = $app_id . $timestamp;
+        if (strlen($body) !== 2) {
+            $signText .= $body;
+        }
+
+        $serverSign = hash_hmac('sha256', $signText, $app_secret);
+
+        $headers = [
+            'Content-Type' => 'application/json;charset=utf-8',
+            'Appid' => $app_id,
+            'Sign' => $serverSign,
+            'Timestamp' => $timestamp,
+        ];
+
+        $client = new Client();
+
+        $response = $client->post($url, [
+            'headers' => $headers,
+            'body' => $body,
+        ]);
+
+        $result = json_decode($response->getBody(), true);
+
+        $this->payment($result);
+    }
+
+    public function faucetpay(){
+        $params = [
+            'merchant_username' => 'MERCHANT_NAME',
+            'item_description' => 'ITEM_DESCRPTION',
+            'amount1' => 'AMOUNT1',
+            'currency1' => 'USD',
+            'currency2' => 'TRX',
+            'custom' => 'ORDER_ID',
+            'callback_url' => 'CALLBACK_URL',
+            'success_url' => 'SUCCESS_URL',
+            'cancel_url' => 'CANCEL_URL'
+        ];
+        $client = new Client();
+        $response = $client->post('https://faucetpay.io/merchant/webscr', [
+            'form_params' => $params,
+        ]);
+    }
+
+    public function payment($result)
     {
+        $ff = $result['data'];
+        dd($ff);
         $data = array_merge([
             'address' => 'DT2XM8APUaz8nTusB8p6iVhJg4Xm7AtxgJ',
         ], $this->web_data);
@@ -68,66 +131,42 @@ class PaymentController extends BaseController
         $user_plan_history_model->save($purchase_plan);
     }
 
-    public function faucetpay(){
-        $params = [
-            'merchant_username' => 'MERCHANT_NAME',
-            'item_description' => 'ITEM_DESCRPTION',
-            'amount1' => 'AMOUNT1',
-            'currency1' => 'USD',
-            'currency2' => 'TRX',
-            'custom' => 'ORDER_ID',
-            'callback_url' => 'CALLBACK_URL',
-            'success_url' => 'SUCCESS_URL',
-            'cancel_url' => 'CANCEL_URL'
-        ];
-        $client = new Client();
-        $response = $client->post('https://faucetpay.io/merchant/webscr', [
-            'form_params' => $params,
-        ]);
-    }
-
-    public function ccpayment(){
-        $app_id = "*** your app_id ***";
-        $app_secret = "*** your app_secret ***";
-        $url = "*** your_url ***";
-
-        $content = [
-            "coinId"  => 1280,
-            "price"   => "1",
-            "orderId" => "testorderid111133",
-            "chain"   => "POLYGON"
-        ];
+    public function ccpaylist(){
+        $app_id = "OjuEsrv33924OwLH";
+        $app_secret = "9e1e0fa9388253bd77f23a86c472645d";
+        $url = "https://ccpayment.com/ccpayment/v2/getCoinList";
+        $content = array();
 
         $timestamp = time();
         $body = json_encode($content);
         $sign_text = $app_id . $timestamp;
-
         if (strlen($body) != 2) {
-            $sign_text .= $body;
+        $sign_text = $sign_text . $body;
         } else {
-            $body = "";
+        $body = "";
         }
 
         $server_sign = hash_hmac('sha256', $sign_text, $app_secret);
 
-        $client = new Client();
-        try {
-            $response = $client->post($url, [
-                'headers' => [
-                    'Content-Type' => 'application/json;charset=utf-8',
-                    'Appid'        => $app_id,
-                    'Sign'         => $server_sign,
-                    'Timestamp'    => $timestamp,
-                ],
-                'body' => $body,
-            ]);
+        $data = array(
+        "headers" => array(
+          "Content-Type: application/json;charset=utf-8",
+          "Appid: " . $app_id,
+          "Sign: " . $server_sign,
+          "Timestamp: " . $timestamp
+        ),
+        "body" => $body
+        );
 
-            $result = json_decode($response->getBody(), true);
-            return $this->response->setJSON($result);
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $data['body']);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $data['headers']);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
-        } catch (\Exception $e) {
-            return $this->response->setJSON(['error' => $e->getMessage()]);
-        }
+        $response = curl_exec($ch);
+        curl_close($ch);
+        print_r($response);
     }
-
 }
