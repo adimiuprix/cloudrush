@@ -87,11 +87,13 @@ class PaymentController extends BaseController
         $deposit_model->insert($create_deposit_plan);
 
         $result = json_decode($response->getBody(), true);
-        return $result;
+        $this->purchase_api($result);
     }
 
-    public function purchase_api($data)
+    public function purchase_api()
     {
+        $payCode = $this->request->getGet('pay-code');
+        dd($payCode);
         $data = array_merge([
             'address' => 'DT2XM8APUaz8nTusB8p6iVhJg4Xm7AtxgJ',
         ], $this->web_data);

@@ -11,5 +11,5 @@ class DepositModel extends Model
     protected $useAutoIncrement = true;
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['user_id', 'plan_id', 'sum_deposit', 'hash_tx', 'status'];
+    protected $allowedFields    = ['user_id', 'plan_id', 'sum_deposit', 'address', 'hash_tx', 'status'];
 }

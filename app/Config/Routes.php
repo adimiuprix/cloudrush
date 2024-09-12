@@ -30,7 +30,7 @@ $routes->group('', function($routes) {
 
     $routes->post('buy-plan', 'PaymentController::buyplan');
     $routes->get('payment', 'PaymentController::payment');  // Manual
-    $routes->get('payment', 'PaymentController::purchase_api');  // API Payment Gateway
+    $routes->get('payment-api', 'PaymentController::purchase_api');  // API Payment Gateway
 
     $routes->get('withdraw', 'PanelController::withdraw');
     $routes->post('wd_request', 'WithdrawController::withdrawreq');

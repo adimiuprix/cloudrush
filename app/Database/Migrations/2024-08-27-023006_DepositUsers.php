@@ -32,6 +32,11 @@ class DepositUsers extends Migration
                 'default' => '0',
                 'null'  => false
             ],
+            'address' => [
+                'type'       => 'VARCHAR',
+                'constraint'     => 255,
+                'null'  => true
+            ],
             'hash_tx' => [
                 'type'       => 'VARCHAR',
                 'constraint'     => 255,
