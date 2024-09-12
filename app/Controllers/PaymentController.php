@@ -18,7 +18,7 @@ class PaymentController extends BaseController
         $plan_id = $request->getPost('plan');
 
         $plan_model = new PlanModel();
-        $randomize = new RandomString();
+        $randomize = (new RandomString())->gen(12, RandomString::ALPHA_NUM | RandomString::LOWER);
 
         // Get plan id
         $get_plan = $plan_model->where('id', $plan_id)->get()->getRow();
@@ -29,67 +29,64 @@ class PaymentController extends BaseController
                 $this->faucetpay();
                 break;
             case 'ccpayment':
-                $this->ccpayment($session->id, $plan_id, $get_plan->price, $randomize->gen(12, RandomString::ALPHA_NUM | RandomString::LOWER));
+                $app_id = "OjuEsrv33924OwLH";
+                $app_secret = "9e1e0fa9388253bd77f23a86c472645d";
+                $url = "https://ccpayment.com/ccpayment/v2/createAppOrderDepositAddress";
+
+                $content = [
+                    "coinId"=> 1482,
+                    "price"=> $get_plan->amount,
+                    "orderId"=> $randomize,
+                    "chain"=> "TRX"
+                ];
+
+                $timestamp = time();
+                $body = json_encode($content);
+
+                $signText = $app_id . $timestamp;
+                if (strlen($body) !== 2) {
+                    $signText .= $body;
+                }
+
+                $serverSign = hash_hmac('sha256', $signText, $app_secret);
+
+                $headers = [
+                    'Content-Type' => 'application/json;charset=utf-8',
+                    'Appid' => $app_id,
+                    'Sign' => $serverSign,
+                    'Timestamp' => $timestamp,
+                ];
+
+                $client = new Client();
+
+                $response = $client->post($url, [
+                    'headers' => $headers,
+                    'body' => $body,
+                ]);
+                $result = json_decode($response->getBody(), true);
+
+                $deposit_model = new DepositModel();
+
+                $create_deposit_plan = [
+                    'user_id' => $session->id,
+                    'plan_id' => $plan_id,
+                    'sum_deposit' => $get_plan->price,
+                    'address' => $result['data']['address'],
+                    'status' => 'pending',
+                    'hash_tx' => $content['orderId']
+                ];
+                $deposit_model->insert($create_deposit_plan);
+
                 break;
             default:
-                $this->manual($session->id, $plan_id, $get_plan->price, $randomize->gen(12, RandomString::ALPHA_NUM | RandomString::LOWER));
+                $this->manual($session->id, $plan_id, $get_plan->price, $randomize);
             break;
         }
-    }
-
-    public function ccpayment(int $id, int $plan_id, float $amount, string $rand){
-        $app_id = "OjuEsrv33924OwLH";
-        $app_secret = "9e1e0fa9388253bd77f23a86c472645d";
-        $url = "https://ccpayment.com/ccpayment/v2/createAppOrderDepositAddress";
-
-        $content = [
-            "coinId"=> 1482,
-            "price"=> "1",
-            "orderId"=> $rand,
-            "chain"=> "TRX"
-        ];
-
-        $timestamp = time();
-        $body = json_encode($content);
-
-        $signText = $app_id . $timestamp;
-        if (strlen($body) !== 2) {
-            $signText .= $body;
-        }
-
-        $serverSign = hash_hmac('sha256', $signText, $app_secret);
-
-        $headers = [
-            'Content-Type' => 'application/json;charset=utf-8',
-            'Appid' => $app_id,
-            'Sign' => $serverSign,
-            'Timestamp' => $timestamp,
-        ];
-
-        $client = new Client();
-
-        $response = $client->post($url, [
-            'headers' => $headers,
-            'body' => $body,
-        ]);
-        $result = json_decode($response->getBody(), true);
-
-        $deposit_model = new DepositModel();
-
-        $create_deposit_plan = [
-            'user_id' => $id,
-            'plan_id' => $plan_id,
-            'sum_deposit' => $amount,
-            'address' => $result['data']['address'],
-            'status' => 'pending',
-            'hash_tx' => $content['orderId']
-        ];
-        $deposit_model->insert($create_deposit_plan);
 
         return redirect()->to('purchase-plan?pay=' . $content['orderId']);
     }
 
-    public function purchase_api($data)
+    public function purchase_api()
     {
         $payCode = $this->request->getGet('pay');
         $payment_model = (new DepositModel())->where('hash_tx', $payCode)->get()->getRow();
