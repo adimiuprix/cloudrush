@@ -29,7 +29,7 @@ class PaymentController extends BaseController
                 $this->faucetpay();
                 break;
             case 'ccpayment':
-                $this->ccpayment();
+                $this->ccpayment($session->id, $plan_id, $get_plan->price, $randomize->gen(12, RandomString::ALPHA_NUM | RandomString::LOWER));
                 break;
             default:
                 $this->manual($session->id, $plan_id, $get_plan->price, $randomize->gen(12, RandomString::ALPHA_NUM | RandomString::LOWER));
@@ -39,14 +39,15 @@ class PaymentController extends BaseController
         return redirect()->to('payment');
     }
 
-    public function ccpayment(){
+    public function ccpayment(int $id, int $plan_id, float $amount, string $rand){
         $app_id = "OjuEsrv33924OwLH";
         $app_secret = "9e1e0fa9388253bd77f23a86c472645d";
         $url = "https://ccpayment.com/ccpayment/v2/createAppOrderDepositAddress";
 
-        $content = [ "coinId"=> 1482,
+        $content = [
+            "coinId"=> 1482,
             "price"=> "1",
-            "orderId"=> "GpokCK4jowAOnniuf",
+            "orderId"=> $rand,
             "chain"=> "TRX"
         ];
 
@@ -74,9 +75,37 @@ class PaymentController extends BaseController
             'body' => $body,
         ]);
 
-        $result = json_decode($response->getBody(), true);
+        $deposit_model = new DepositModel();
 
-        $this->payment($result);
+        $create_deposit_plan = [
+            'user_id' => $id,
+            'plan_id' => $plan_id,
+            'sum_deposit' => $amount,
+            'status' => 'pending',
+            'hash_tx' => $content['orderId']
+        ];
+        $deposit_model->insert($create_deposit_plan);
+
+        $result = json_decode($response->getBody(), true);
+        return $result;
+    }
+
+    public function purchase_api($data)
+    {
+        $data = array_merge([
+            'address' => 'DT2XM8APUaz8nTusB8p6iVhJg4Xm7AtxgJ',
+        ], $this->web_data);
+
+        return view('user/payment', $data);
+    }
+
+    public function payment()
+    {
+        $data = array_merge([
+            'address' => 'DT2XM8APUaz8nTusB8p6iVhJg4Xm7AtxgJ',
+        ], $this->web_data);
+
+        return view('user/payment', $data);
     }
 
     public function faucetpay(){
@@ -95,17 +124,6 @@ class PaymentController extends BaseController
         $response = $client->post('https://faucetpay.io/merchant/webscr', [
             'form_params' => $params,
         ]);
-    }
-
-    public function payment($result)
-    {
-        $ff = $result['data'];
-        dd($ff);
-        $data = array_merge([
-            'address' => 'DT2XM8APUaz8nTusB8p6iVhJg4Xm7AtxgJ',
-        ], $this->web_data);
-
-        return view('user/payment', $data);
     }
 
     // Manual Payments
@@ -130,43 +148,43 @@ class PaymentController extends BaseController
         ];
         $user_plan_history_model->save($purchase_plan);
     }
-
+    
     public function ccpaylist(){
         $app_id = "OjuEsrv33924OwLH";
         $app_secret = "9e1e0fa9388253bd77f23a86c472645d";
         $url = "https://ccpayment.com/ccpayment/v2/getCoinList";
         $content = array();
-
+    
         $timestamp = time();
         $body = json_encode($content);
         $sign_text = $app_id . $timestamp;
+
         if (strlen($body) != 2) {
-        $sign_text = $sign_text . $body;
+            $sign_text = $sign_text . $body;
         } else {
-        $body = "";
+            $body = "";
         }
-
+    
         $server_sign = hash_hmac('sha256', $sign_text, $app_secret);
-
+    
         $data = array(
-        "headers" => array(
-          "Content-Type: application/json;charset=utf-8",
-          "Appid: " . $app_id,
-          "Sign: " . $server_sign,
-          "Timestamp: " . $timestamp
-        ),
-        "body" => $body
+            "headers" => array(
+                "Content-Type: application/json;charset=utf-8",
+                "Appid: " . $app_id,
+                "Sign: " . $server_sign,
+                "Timestamp: " . $timestamp
+            ), "body" => $body
         );
-
+    
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_POST, true);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $data['body']);
         curl_setopt($ch, CURLOPT_HTTPHEADER, $data['headers']);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-
+    
         $response = curl_exec($ch);
         curl_close($ch);
-        print_r($response);
+    
     }
 }

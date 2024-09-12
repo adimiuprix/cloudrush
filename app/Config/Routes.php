@@ -29,7 +29,8 @@ $routes->group('', function($routes) {
     $routes->get('deposit', 'PanelController::deposit');
 
     $routes->post('buy-plan', 'PaymentController::buyplan');
-    $routes->get('payment', 'PaymentController::payment');
+    $routes->get('payment', 'PaymentController::payment');  // Manual
+    $routes->get('payment', 'PaymentController::purchase_api');  // API Payment Gateway
 
     $routes->get('withdraw', 'PanelController::withdraw');
     $routes->post('wd_request', 'WithdrawController::withdrawreq');
