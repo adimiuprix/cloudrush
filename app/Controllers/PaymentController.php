@@ -97,6 +97,7 @@ class PaymentController extends BaseController
 
         $data = array_merge([
             'address' => $payment_model->address,
+            'amount' => $payment_model->sum_deposit
         ], $this->web_data);
 
         return view('user/payment', $data);
