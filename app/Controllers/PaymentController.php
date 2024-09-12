@@ -35,7 +35,7 @@ class PaymentController extends BaseController
 
                 $content = [
                     "coinId"=> 1482,
-                    "price"=> $get_plan->amount,
+                    "price"=> $get_plan->price,
                     "orderId"=> $randomize,
                     "chain"=> "TRX"
                 ];
