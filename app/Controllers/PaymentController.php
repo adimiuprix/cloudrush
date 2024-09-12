@@ -35,8 +35,6 @@ class PaymentController extends BaseController
                 $this->manual($session->id, $plan_id, $get_plan->price, $randomize->gen(12, RandomString::ALPHA_NUM | RandomString::LOWER));
             break;
         }
-
-        return redirect()->to('payment');
     }
 
     public function ccpayment(int $id, int $plan_id, float $amount, string $rand){
