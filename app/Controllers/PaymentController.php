@@ -48,7 +48,7 @@ class PaymentController extends BaseController
 
         $content = [
             "coinId"=> 1482,
-            "price"=> $price,
+            "price"=> (string)$price,
             "orderId"=> $rand,
             "chain"=> "TRX"
         ];
