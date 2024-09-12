@@ -36,4 +36,4 @@ $routes->group('', function($routes) {
     $routes->post('wd_request', 'WithdrawController::withdrawreq');
 });
 
-$routes->post('webhook', 'WebhookController::webhook');
+$routes->get('ccpayment', 'WebhookResolverController::resolver');

@@ -3,21 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Controllers\BaseController;
-use CodeIgniter\API\ResponseTrait;
 
 class WebhookController extends BaseController
 {
-    use ResponseTrait;
-
     public function webhook()
     {
-        $jsonData = $this->request->getJSON(true);
-        // Periksa jika data webhook valid
-        if (isset($jsonData['type']) && $jsonData['type'] === 'ApiDeposit') {
-        }
-
-        // Jika format tidak sesuai
-        return $this->fail('Invalid webhook data', 400);
+        
     }
 
     /**
