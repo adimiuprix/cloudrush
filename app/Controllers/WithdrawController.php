@@ -112,6 +112,7 @@ class WithdrawController extends BaseController
             'body' => $body,
         ]);
         $result = json_decode($response->getBody(), true);
+        dd($result);
 
         // Initiall class
         $user_model = new UserModel();
