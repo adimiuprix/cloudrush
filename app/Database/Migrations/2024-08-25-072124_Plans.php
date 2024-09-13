@@ -45,6 +45,10 @@ class Plans extends Migration
                 'constraint'     => '50',
                 'default' => '0',
             ],
+            'duration' => [
+                'type'       => 'INT',
+                'default' => '1',
+            ],
             'created_at DATETIME DEFAULT CURRENT_TIMESTAMP',
         ]);
         $this->forge->addKey('id', true);
