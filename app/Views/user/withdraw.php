@@ -37,14 +37,15 @@
                             <hr class="my-1 ">
                             <div class="p-3 pt-2">
                                 <form action="<?= base_url('wd_request')?>" method="POST">
-                                    <input type="hidden" name="@secury" value=""><label class="text-uppercase">Your address - TRON TRX:</label>
+                                    <?= csrf_field(); ?>
+                                    <label class="text-uppercase">Your address - TRON TRX:</label>
                                     <div class="input-group mb-2">
                                         <div class="form-control"><i class="fa fa-wallet text-primary"></i> <span id="mytrx">TDNgt4fgHx72PDp7<span class="text-primary">xxxx</span>BFnowFuHZ</span></div>
                                     </div>
                                     <div class="col-lg-6 text-center p-3 text-uppercase mx-auto">
                                         <label>Payout amount:</label>
                                         <div class="input-group input-group-lg mb-2">
-                                            <input type="text" class="form-control" placeholder="Payout amount" value="0.1" min="10" max="2500" name="sum">
+                                            <input type="text" class="form-control" placeholder="Payout amount" name="amount" min="10" max="2500">
                                             <span class="input-group-text">TRX</span>
                                         </div>
                                     </div>

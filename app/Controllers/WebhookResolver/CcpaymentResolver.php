@@ -6,7 +6,9 @@ use CodeIgniter\I18n\Time;
 use App\Models\PlanModel;
 use App\Models\DepositModel;
 use App\Controllers\BaseController;
+use App\Models\UserModel;
 use App\Models\UserPlanHistoryModel;
+use App\Models\WithdrawModel;
 
 class CcpaymentResolver extends BaseController
 {
@@ -20,13 +22,15 @@ class CcpaymentResolver extends BaseController
         $deposit_model = new DepositModel();
         $user_plan_history_model = new UserPlanHistoryModel();
         $plan_model = new PlanModel();
+        $withdraw_model = new WithdrawModel();
+        $user_model = new UserModel();
 
         if($type == 'ApiDeposit'){
             switch ($status) {
                 case 'Procesing':
                     $order = $deposit_model->where('hash_tx', $orderId)->first();
                     $deposit_model->update($order['id'], ['status' => 'processing']);
-                  break;
+                break;
                 case 'Success':
                     $order = $deposit_model->where('hash_tx', $orderId)->first();
                     $deposit_model->update($order['id'], ['status' => 'paid']);
@@ -42,8 +46,19 @@ class CcpaymentResolver extends BaseController
                         'expire_date' => $exp_plan,
                     ];
                     $user_plan_history_model->insert($new_plan);
-                  break;
-              }
+                break;
+            }
+        }
+
+        if($type == 'ApiWithdrawal'){
+            switch($status){
+                case 'Processing':
+                break;
+                case 'Success':
+                break;
+                case 'Failed':
+                break;
+            }
         }
     }
 }
