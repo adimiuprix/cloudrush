@@ -19,6 +19,7 @@ class WithdrawController extends BaseController
         $id_user = session()->get('user_data')['id'];
         $balance = $this->user_model->where('id', $id_user)->get()->getFirstRow()->balance;
         $amount = $this->request->getPost('amount');
+        $randomize = (new RandomString())->gen(12, RandomString::ALPHA_NUM | RandomString::LOWER);
 
         $plan_available = new UserPlanHistoryModel();
         $check_avaiblity = $plan_available
@@ -42,7 +43,7 @@ class WithdrawController extends BaseController
                     case 'faucetpay':
                         break;
                     case 'ccpayment':
-                        $this->ccpayment($id_user, $amount);
+                        $this->ccpayment($id_user, $amount, $randomize);
                         break;
                     default:
                         $this->manual($id_user, $amount);
@@ -76,7 +77,7 @@ class WithdrawController extends BaseController
 
     }
 
-    public function ccpayment(int $id, $sum_wd){
+    public function ccpayment(int $id, $sum_wd, string $rand){
         // Initiall class
         $user_model = new UserModel();
         $withdraw_model = new WithdrawModel();
@@ -90,7 +91,7 @@ class WithdrawController extends BaseController
         $content = [
             "coinId"=> 1482,
             "address" => $user->user_wallet,
-            "orderId"=> (new RandomString())->gen(12, RandomString::ALPHA_NUM | RandomString::LOWER),
+            "orderId"=> $rand,
             "chain"=> "TRX",
             "amount"=> (string)$sum_wd,
         ];
@@ -118,14 +119,22 @@ class WithdrawController extends BaseController
             'headers' => $headers,
             'body' => $body,
         ]);
-        $result = json_decode($response->getBody(), true);
-        dd($result);
+        json_decode($response->getBody(), true);
 
-        // Initiall class
-        $user_model = new UserModel();
-        $withdraw_model = new WithdrawModel();
+        // update balance for user request
+        $newBalance = $user->balance - $sum_wd;
+        $user_model->update($user->id, [
+            'balance' => $newBalance,
+        ]);
 
-        $user = $user_model->where('id', $id)->get()->getFirstRow(); // find user
+        // create record withdrawal with pending status
+        $wd_request = [
+            'user_id' => $id,
+            'sum_withdraw' => $sum_wd,
+            'hash_tx' => $content['orderId'],
+            'status' => 'pending'
+        ];
+        $withdraw_model->insert($wd_request);
 
     }
 
