@@ -77,6 +77,8 @@ class CcpaymentResolver extends BaseController
     }
 }
 
+// $filePath = WRITEPATH . 'data.json';
+// file_put_contents($filePath, json_decode($order['sum_withdraw'], JSON_PRETTY_PRINT));
 
 // {
 //     "type": "ApiDeposit",
