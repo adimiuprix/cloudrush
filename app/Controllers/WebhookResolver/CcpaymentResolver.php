@@ -53,10 +53,24 @@ class CcpaymentResolver extends BaseController
         if($type == 'ApiWithdrawal'){
             switch($status){
                 case 'Processing':
+                    $order = $withdraw_model->where('hash_tx', $orderId)->first();
+                    $deposit_model->update($order['id'], ['status' => 'processing']);
                 break;
                 case 'Success':
+                    $order = $withdraw_model->where('hash_tx', $orderId)->first();
+                    $deposit_model->update($order['id'], ['status' => 'paid']);
                 break;
                 case 'Failed':
+                    $order = $withdraw_model->where('hash_tx', $orderId)->first();
+                    $deposit_model->update($order['id'], ['status' => 'fail']);
+
+                    $user = $user_model->where('id', $order['user_id'])->get()->getFirstRow(); // find user
+
+                    // update balance for user request
+                    $newBalance = $user->balance + $order['sum_withdraw'];
+                    $user_model->update($user->id, [
+                        'balance' => $newBalance,
+                    ]);
                 break;
             }
         }

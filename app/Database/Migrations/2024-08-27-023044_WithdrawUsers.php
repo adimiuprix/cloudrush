@@ -33,7 +33,7 @@ class WithdrawUsers extends Migration
             ],
             'status' => [
                 'type'       => 'ENUM',
-                'constraint'     => ['fail', 'pending', 'paid'],
+                'constraint'     => ['fail', 'pending', 'processing', 'paid'],
                 'default' => 'pending',
             ],
             'created_at DATETIME DEFAULT CURRENT_TIMESTAMP',
