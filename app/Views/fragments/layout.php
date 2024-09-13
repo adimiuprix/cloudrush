@@ -179,7 +179,7 @@
         <?php if (session()->getFlashdata('payout') === 'payout_ok'): ?>
             Swal.fire({
                 title: 'Success!',
-                text: 'You have create ads...',
+                text: 'You have create withdrawal request.',
                 icon: 'success',
                 showConfirmButton: false,
                 timer: 3000,
