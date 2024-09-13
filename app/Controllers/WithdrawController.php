@@ -13,7 +13,7 @@ class WithdrawController extends BaseController
 {
     public function withdrawreq()
     {
-        $withdraw_type = "manual";
+        $withdraw_type = "ccpayment";
         $deposit_mandatory = true;
         $min_wd = 10.00000000;
         $id_user = session()->get('user_data')['id'];
