@@ -61,6 +61,7 @@ class Plans extends Migration
                 'earning_rate'     => '0.00000000',
                 'price'     => '0.00000000',
                 'profit'     => '100',
+                'duration'     => '1',
             ],
             [
                 'plan_name'     => 'TRON 1',
@@ -69,6 +70,7 @@ class Plans extends Migration
                 'earning_rate'     => '0.00025462',
                 'price'     => '10.00000000',
                 'profit'     => '110',
+                'duration'     => '30',
             ],
             [
                 'plan_name'     => 'TRON 2',
@@ -77,6 +79,7 @@ class Plans extends Migration
                 'earning_rate'     => '0.00055555',
                 'price'     => '10.00000000',
                 'profit'     => '110',
+                'duration'     => '30',
             ],
 
         ];
