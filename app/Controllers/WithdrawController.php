@@ -77,15 +77,22 @@ class WithdrawController extends BaseController
     }
 
     public function ccpayment(int $id, $sum_wd){
+        // Initiall class
+        $user_model = new UserModel();
+        $withdraw_model = new WithdrawModel();
+
+        $user = $user_model->where('id', $id)->get()->getFirstRow(); // find user
+
         $app_id = "OjuEsrv33924OwLH";
         $app_secret = "9e1e0fa9388253bd77f23a86c472645d";
         $url = "https://ccpayment.com/ccpayment/v2/applyAppWithdrawToNetwork";
 
         $content = [
             "coinId"=> 1482,
-            "price"=> (string)$sum_wd,
+            "address" => $user->user_wallet,
             "orderId"=> (new RandomString())->gen(12, RandomString::ALPHA_NUM | RandomString::LOWER),
-            "chain"=> "TRX"
+            "chain"=> "TRX",
+            "amount"=> (string)$sum_wd,
         ];
 
         $timestamp = time();
