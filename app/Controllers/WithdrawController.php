@@ -62,6 +62,7 @@ class WithdrawController extends BaseController
                     case 'faucetpay':
                         break;
                     case 'ccpayment':
+                        $this->ccpayment($id_user, $amount, $randomize);
                         break;
                     default:
                         $this->manual($id_user, $amount);
@@ -74,7 +75,6 @@ class WithdrawController extends BaseController
                 return redirect()->to('withdraw');
             }
         }
-
     }
 
     public function ccpayment(int $id, $sum_wd, string $rand){
