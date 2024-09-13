@@ -114,21 +114,17 @@ class PaymentController extends BaseController
     }
 
     public function faucetpay(){
-        $params = [
-            'merchant_username' => 'MERCHANT_NAME',
-            'item_description' => 'ITEM_DESCRPTION',
-            'amount1' => 'AMOUNT1',
-            'currency1' => 'USD',
-            'currency2' => 'TRX',
-            'custom' => 'ORDER_ID',
-            'callback_url' => 'CALLBACK_URL',
-            'success_url' => 'SUCCESS_URL',
-            'cancel_url' => 'CANCEL_URL'
-        ];
         $client = new Client();
         $response = $client->post('https://faucetpay.io/merchant/webscr', [
-            'form_params' => $params,
+            'form_params' => [
+                'merchant_username' => 'tungaqhd',
+                'item_description' => 'buy plan',
+                'amount1' => '100',
+                'currency1' => 'USD',
+                'currency2' => 'TRX',
+            ]
         ]);
+        $body = $response->getBody();
     }
 
     // Manual Payments
