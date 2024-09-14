@@ -205,6 +205,37 @@
                 timer: 5000,
             });
         <?php endif; ?>
+
+        <?php if (session()->getFlashdata('collect') === 'collect_ok'): ?>
+            Swal.fire({
+                title: 'Success!',
+                text: 'Collect earning success',
+                icon: 'success',
+                showConfirmButton: false,
+                timer: 3000,
+            });
+        <?php endif; ?>
+
+        <?php if (session()->getFlashdata('collect') === 'collect_failed'): ?>
+            Swal.fire({
+                title: 'Failed!',
+                text: 'Insuficient balance!',
+                icon: 'warning',
+                showConfirmButton: false,
+                timer: 3000,
+            });
+        <?php endif; ?>
+
+        <?php if (session()->getFlashdata('collect') === 'collect_exceded'): ?>
+            Swal.fire({
+                title: 'Failed!',
+                text: 'You have reached the limit to be able to collect earnings. Come back tomorrow.',
+                icon: 'warning',
+                showConfirmButton: false,
+                timer: 6000,
+            });
+        <?php endif; ?>
+
         </script>
     </body>
 </html>

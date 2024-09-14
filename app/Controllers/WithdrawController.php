@@ -17,7 +17,7 @@ class WithdrawController extends BaseController
         $deposit_mandatory = true;
         $min_wd = 10.00000000;
         $id_user = session()->get('user_data')['id'];
-        $balance = $this->user_model->where('id', $id_user)->get()->getFirstRow()->balance;
+        $balance = $this->user_model->where('id', $id_user)->get()->getFirstRow()->earning_balance;
         $amount = $this->request->getPost('amount');
         $randomize = (new RandomString())->gen(12, RandomString::ALPHA_NUM | RandomString::LOWER);
 
@@ -124,7 +124,7 @@ class WithdrawController extends BaseController
         // update balance for user request
         $newBalance = $user->balance - $sum_wd;
         $user_model->update($user->id, [
-            'balance' => $newBalance,
+            'earning_balance' => $newBalance,
         ]);
 
         // create record withdrawal with pending status
@@ -149,7 +149,7 @@ class WithdrawController extends BaseController
         // update balance for user request
         $newBalance = $user->balance - $sum_wd;
         $user_model->update($user->id, [
-            'balance' => $newBalance,
+            'earning_balance' => $newBalance,
         ]);
 
         // create record withdrawal with pending status

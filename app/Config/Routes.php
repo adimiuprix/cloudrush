@@ -16,6 +16,7 @@ $routes->post('log_form', 'AuthorizeController::process');
 $routes->group('', function($routes) {
     $routes->get('exit', 'AuthorizeController::session_flush');
     $routes->get('account', 'PanelController::account');
+    $routes->get('collect', 'CollectController::collect');
 
     $routes->get('surf', 'PtcController::surf');
     $routes->get('surf/add', 'PtcController::surfAdd');
