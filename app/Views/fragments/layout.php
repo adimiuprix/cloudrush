@@ -196,6 +196,16 @@
             });
         <?php endif; ?>
 
+        <?php if (session()->getFlashdata('payout') === 'payout_minimum'): ?>
+            Swal.fire({
+                title: 'Failed!',
+                text: 'Minimum withdraw is 10 TRX',
+                icon: 'warning',
+                showConfirmButton: false,
+                timer: 3000,
+            });
+        <?php endif; ?>
+
         <?php if (session()->getFlashdata('payout') === 'free_plan'): ?>
             Swal.fire({
                 title: 'Failed!',

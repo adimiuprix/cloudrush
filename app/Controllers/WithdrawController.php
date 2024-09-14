@@ -13,11 +13,11 @@ class WithdrawController extends BaseController
 {
     public function withdrawreq()
     {
-        $withdraw_type = "ccpayment";
+        $withdraw_type = "manual";
         $deposit_mandatory = true;
-        $min_wd = 10.00000000;
-        $id_user = session()->get('user_data')['id'];
-        $balance = $this->user_model->where('id', $id_user)->get()->getFirstRow()->earning_balance;
+        $min_wd = 10.00000000; // minimum withdrawal
+        $id_user = session()->get('user_data')['id'];   // get id user
+        $balance = $this->user_model->where('id', $id_user)->get()->getFirstRow()->earning_balance; // current balance
         $amount = $this->request->getPost('amount');
         $randomize = (new RandomString())->gen(12, RandomString::ALPHA_NUM | RandomString::LOWER);
 
@@ -37,8 +37,13 @@ class WithdrawController extends BaseController
                 return redirect()->to('withdraw');
             }
 
+            if($amount <= $min_wd){
+                session()->setFlashdata('payout', 'payout_minimum');
+                return redirect()->to('withdraw');
+            }
+
             // check minimum withdrawal
-            if($balance >= $min_wd){
+            if($balance >= $min_wd && $amount >= $min_wd){
                 switch ($withdraw_type) {
                     case 'faucetpay':
                         break;
@@ -138,7 +143,7 @@ class WithdrawController extends BaseController
 
     }
 
-    public function manual(int $id, $sum_wd)
+    public function manual(int $id, $amount)
     {
         // Initiall class
         $user_model = new UserModel();
@@ -147,7 +152,7 @@ class WithdrawController extends BaseController
         $user = $user_model->where('id', $id)->get()->getFirstRow(); // find user
 
         // update balance for user request
-        $newBalance = $user->balance - $sum_wd;
+        $newBalance = $user->earning_balance - $amount;
         $user_model->update($user->id, [
             'earning_balance' => $newBalance,
         ]);
@@ -155,7 +160,7 @@ class WithdrawController extends BaseController
         // create record withdrawal with pending status
         $wd_request = [
             'user_id' => $id,
-            'sum_withdraw' => $sum_wd,
+            'sum_withdraw' => $amount,
             'hash_tx' => null,
             'status' => 'pending'
         ];
