@@ -2,12 +2,13 @@
 
 namespace App\Controllers;
 
-use App\Controllers\BaseController;
-use App\Models\DepositModel;
+use GuzzleHttp\Client;
 use App\Models\PlanModel;
+use CodeIgniter\HTTP\URI;
+use App\Models\DepositModel;
+use App\Controllers\BaseController;
 use App\Models\UserPlanHistoryModel;
 use Takuya\RandomString\RandomString;
-use GuzzleHttp\Client;
 
 class PaymentController extends BaseController
 {
@@ -114,17 +115,16 @@ class PaymentController extends BaseController
     }
 
     public function faucetpay(){
-        $client = new Client();
-        $response = $client->post('https://faucetpay.io/merchant/webscr', [
-            'form_params' => [
-                'merchant_username' => 'tungaqhd',
-                'item_description' => 'buy plan',
-                'amount1' => '100',
-                'currency1' => 'USD',
-                'currency2' => 'TRX',
-            ]
-        ]);
-        $body = $response->getBody();
+        $baseUrl = 'https://faucetpay.io/merchant/webscr';
+        $params = [
+            'merchant_username' => 'popcet',
+            'item_description'  => 'Buy plan on sakahayanginfo',
+            'amount1'           => 2,
+            'currency1'         => 'TRX',
+        ];
+
+        $uri = new URI($baseUrl);
+        $uri->setQuery(http_build_query($params));
     }
 
     // Manual Payments
