@@ -37,6 +37,7 @@ class WithdrawController extends BaseController
                 return redirect()->to('withdraw');
             }
 
+            // if amount lowest from minimum
             if($amount <= $min_wd){
                 session()->setFlashdata('payout', 'payout_minimum');
                 return redirect()->to('withdraw');
@@ -140,7 +141,6 @@ class WithdrawController extends BaseController
             'status' => 'pending'
         ];
         $withdraw_model->insert($wd_request);
-
     }
 
     public function manual(int $id, $amount)
