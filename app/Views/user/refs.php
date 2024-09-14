@@ -19,7 +19,9 @@
                                     <form action="" method="post" onsubmit="submitfromexchange(this);return false">
                                         <small class="text-warning text-uppercase">Referral link:</small>
                                         <div class="input-group">
-                                            <span class="input-group-text"> <i class="fa fa-link"></i> </span>
+                                            <span class="input-group-text">
+                                                <i class="fa fa-link"></i>
+                                            </span>
                                             <input type="text" id="ref-input" onclick="this.select()" class="form-control" value="<?= $reff_link; ?>" readonly />
                                         </div>
                                         <script>
@@ -40,9 +42,12 @@
                                         </script>
                                     </form>
                                 </div>
-                                <div class="col-lg-12 col-xl-4 text-center">
-                                    <button class="btn text-uppercase btn-danger mt-4" type="button" data-bs-toggle="collapse" data-bs-target="#demo"><i class="fa fa-copy"></i> <span class="btn-inner--text">GIF</span> </button>
-                                </div>
+                                <!-- <div class="col-lg-12 col-xl-4 text-center">
+                                    <button class="btn text-uppercase btn-danger mt-4" type="button" data-bs-toggle="collapse" data-bs-target="#demo">
+                                        <i class="fa fa-copy"></i>
+                                        <span class="btn-inner--text">GIF</span>
+                                    </button>
+                                </div> -->
                             </div>
                         </div>
                         <div class="col-xl-12">
@@ -70,7 +75,7 @@
                             </div>
                         </div>
                     </div>
-                    <div id="demo" class="p-3 collapse">
+                    <!-- <div id="demo" class="p-3 collapse">
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="mb-2">
@@ -97,7 +102,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                     <br>
                     <div class="stats pb-1 mb-2 mt-3">
                         <div class="stats-title text-uppercase text-white">Referrals</div>
