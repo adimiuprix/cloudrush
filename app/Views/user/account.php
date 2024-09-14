@@ -55,7 +55,7 @@
                                         });
                                         </script>
                                         <div class="w-100 mt-1 btn-balance">
-                                            <a class="btn btn-danger btn-danger2 p-2 mb-2" href="deposit"><i class="fa fa-arrow-up"></i><span> <b>DEPOSIT</b></span></a>
+                                            <a class="btn btn-danger btn-danger2 p-2 mb-2" href="collect"><i class="fa fa-parachute-box"></i><span> <b>COLLECT</b></span></a>
                                             <a class="btn btn-outline-danger p-2 mb-2" href="withdraw"><i class="fa fa-arrow-down"></i><span> <b>WITHDRAW</b></span></a>
                                             <a class="btn btn-outline-danger p-2 mb-2" href="exit"><i class="fa fa-power-off"></i><span> <b>EXIT</b></span></a>
                                             <script>
