@@ -8,12 +8,20 @@ use App\Models\WithdrawModel;
 use App\Controllers\BaseController;
 use App\Models\UserPlanHistoryModel;
 use Takuya\RandomString\RandomString;
+use App\Models\SettingModel;
 
 class WithdrawController extends BaseController
 {
+    protected $setting;
+
+    public function __construct()
+    {
+        $this->setting = (new SettingModel())->first();
+    }
+
     public function withdrawreq()
     {
-        $withdraw_type = "manual";
+        $withdraw_type = $this->setting['withdraw_method'];
         $deposit_mandatory = true;
         $min_wd = 10.00000000; // minimum withdrawal
         $id_user = session()->get('user_data')['id'];   // get id user

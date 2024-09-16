@@ -22,6 +22,7 @@ class PaymentController extends BaseController
 
     public function buyplan(){
         $deposit_type = $this->setting['deposit_method'];
+
         $session = (object)session()->get('user_data');
         $request = \Config\Services::request();
         $plan_id = $request->getPost('plan');
