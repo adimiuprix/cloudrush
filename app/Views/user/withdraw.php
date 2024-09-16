@@ -21,7 +21,7 @@
                                 }
                             });
                         });
-                    </script>	
+                    </script>
                     <div class="mb-2">
                         <div class="p-0 pt-2">
                             <h6 class="text-uppercase mb-0 text-center"><b>Payments are made quickly and automatically.</b></h6>
@@ -63,6 +63,26 @@
                                     <th class="text-end">Sum</th>
                                 </tr>
                             </thead>
+                            <tbody>
+                                <?php if($withdrawals):?>
+                                <?php foreach($withdrawals as $withdrawal): ?>
+                                <tr class="align-items-center">
+                                    <td class="text-start">
+                                        <span class="text-primary"><?= $withdrawal['status']; ?></span><br>
+                                    </td>
+                                    <td class="text-end align-items-center">
+                                        <span class="text-sum">
+                                            <?= $withdrawal['sum_withdraw']; ?> <small>TRX</small>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <?php endforeach; ?>
+                                <?php else: ?>
+                                <tr>
+                                    <td colspan="3" class="text-center">No record found!</td>
+                                </tr>
+                                <?php endif; ?>
+                            </tbody>
                         </table>
                     </div>
                 </div>

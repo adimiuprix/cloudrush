@@ -6,17 +6,20 @@ use App\Controllers\BaseController;
 use App\Models\PlanModel;
 use App\Models\UserModel;
 use App\Models\BonusModel;
+use App\Models\WithdrawModel;
 
 class PanelController extends BaseController
 {
     protected $user_model;
     protected $plan_model;
+    protected $withdraw_model;
     protected $user_session;
 
     public function __construct()
     {
         $this->user_model = new UserModel();
         $this->plan_model = new PlanModel();
+        $this->withdraw_model = new WithdrawModel();
         $this->user_session = $this->user_model->get()->getFirstRow();
     }
 
@@ -106,13 +109,14 @@ class PanelController extends BaseController
     public function withdraw()
     {
         $wallet = session()->get('user_data')['user_wallet'];
+        $id_user = $this->user_model->where('user_wallet', $wallet)->get()->getRow()->id;
+        $withdrawals = $this->withdraw_model->where('user_id', $id_user)->findAll();
 
         $data = array_merge([
             'wallet' => $wallet,
+            'withdrawals' => $withdrawals
         ], $this->web_data);
 
         return view('user/withdraw', $data);
     }
-
-
 }
