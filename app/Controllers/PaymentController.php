@@ -9,11 +9,19 @@ use App\Models\DepositModel;
 use App\Controllers\BaseController;
 use App\Models\UserPlanHistoryModel;
 use Takuya\RandomString\RandomString;
+use App\Models\SettingModel;
 
 class PaymentController extends BaseController
 {
+    protected $setting;
+
+    public function __construct()
+    {
+        $this->setting = (new SettingModel())->first();
+    }
+
     public function buyplan(){
-        $deposit_type = 'ccpayment';
+        $deposit_type = $this->setting['deposit_method'];
         $session = (object)session()->get('user_data');
         $request = \Config\Services::request();
         $plan_id = $request->getPost('plan');
@@ -108,7 +116,7 @@ class PaymentController extends BaseController
     public function payment()
     {
         $data = array_merge([
-            'address' => 'DT2XM8APUaz8nTusB8p6iVhJg4Xm7AtxgJ',
+            'address' => '',
         ], $this->web_data);
 
         return view('user/payment', $data);
@@ -138,6 +146,7 @@ class PaymentController extends BaseController
             'plan_id' => $plan_id,
             'sum_deposit' => $amount,
             'status' => 'pending',
+            'address' => 'DT2XM8APUaz8nTusB8p6iVhJg4Xm7AtxgJ',
             'hash_tx' => $rand
         ];
         $deposit_model->insert($create_deposit_plan);
