@@ -20,7 +20,8 @@ class PanelController extends BaseController
         $this->user_model = new UserModel();
         $this->plan_model = new PlanModel();
         $this->withdraw_model = new WithdrawModel();
-        $this->user_session = $this->user_model->get()->getFirstRow();
+        $id_user = session()->get('user_data');
+        $this->user_session = $this->user_model->where('id', $id_user['id'])->get()->getFirstRow();
     }
 
     public function account()
@@ -89,7 +90,7 @@ class PanelController extends BaseController
         $income_ref = $this->user_model->selectSum('upline_reward')->where('reff_by', $this->user_session->id)->get()->getRow();
         $reff_count = $this->user_model->where('reff_by', $this->user_session->id)->countAllResults();
         $referrals = $this->user_model->select(['id', 'username', 'user_wallet', 'total_earn', 'reff_by', 'upline_reward'])->where('reff_by', '1', true)->get()->getResult();
-        $reff_link = base_url('refflink/' . $this->user_session->reff_code);
+        $reff_link = base_url('ref/?refflink=' . session()->get('user_data')['reff_code']);
 
         $data = array_merge([
             'income_ref' => number_format($income_ref->upline_reward, 2) ?: 0,

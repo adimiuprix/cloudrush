@@ -12,6 +12,7 @@ $routes->get('bounty', 'HomeController::bounty');
 $routes->get('terms', 'HomeController::rules');
 $routes->get('faq', 'HomeController::faq');
 $routes->post('log_form', 'AuthorizeController::process');
+$routes->get('ref', 'AuthorizeController::refflink');
 
 $routes->group('', function($routes) {
     $routes->get('exit', 'AuthorizeController::session_flush');

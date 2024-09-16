@@ -36,12 +36,16 @@ class AuthorizeController extends BaseController
         }else{
             $random_string = new Random();
 
+            $ref = $this->request->getCookie('refflink');
+            $userId = $this->user_model->where('reff_code', $ref)->get()->getRow();
+
             $new_user = [
                 'user_wallet' => $wallet_post,
                 'reff_code' => $random_string->mixedcase()->size(8)->get(),
-                'reff_by' => '0',
+                'reff_by' => $userId->id ?? 0,
                 'ip_address' => service('request')->getIPAddress()
             ];
+
             $this->user_model->insert($new_user);
             $user_id = $this->user_model->insertID();
 
@@ -70,9 +74,10 @@ class AuthorizeController extends BaseController
         }
     }
 
-    public function refflink($reffcode)
+    public function refflink()
     {
-        helper('cookie');
+        $reffcode = $this->request->getGet('refflink');
+
         setcookie('refflink', $reffcode, time() + 8400, "/");
         return redirect()->to('/');
     }
