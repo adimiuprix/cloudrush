@@ -99,8 +99,11 @@
         </style>
         <div class="container-xl text-center p-3">
             <p class="mb-0 pb-0 notranslate" style="font-size: 120%;">
-                <i class="fa fa-envelope"></i> email: <span class="text-warning">support@Sitename.com</span> |
-                <i class="fa fa-paper-plane"></i> telegram: <a target="_blank" href="https://t.me/news_Sitename" style="text-decoration: none"><span class="text-info">@news_Sitename</span></a>
+                <i class="fa fa-envelope"></i> email: <span class="text-warning"><?= $email->link;?></span> |
+                <i class="fa fa-paper-plane"></i> telegram:
+                <a target="_blank" href="<?= $telegram->link;?>" style="text-decoration: none">
+                    <span class="text-info">@site_name</span>
+                </a>
             </p>
             <b> Sitename.com </b> © 2024 - All rights reserved.
             <!-- Генерация страницы: 0.00192 -->

@@ -52,8 +52,8 @@ class PaymentController extends BaseController
 
     public function ccpayment(int $id, int $p_id, float $price, string $rand)
     {
-        $app_id = "OjuEsrv33924OwLH";
-        $app_secret = "9e1e0fa9388253bd77f23a86c472645d";
+        $app_id = env("CCPAYMENT_APP_ID");
+        $app_secret = env("CCPAYMENT_APP_SEC");
         $url = "https://ccpayment.com/ccpayment/v2/createAppOrderDepositAddress";
 
         $content = [

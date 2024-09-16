@@ -7,18 +7,21 @@ use App\Models\UserModel;
 use App\Models\SettingModel;
 use App\Models\DepositModel;
 use App\Models\WithdrawModel;
+use App\Models\ContactModel;
 
 class InfoWebController extends BaseController
 {
     protected $setting_model;
     protected $deposit_model;
     protected $withdraw_model;
+    protected $contact_model;
 
     public function __construct()
     {
         $this->setting_model = new SettingModel();
         $this->deposit_model = new DepositModel();
         $this->withdraw_model = new WithdrawModel();
+        $this->contact_model = new ContactModel();
     }
 
     public function getInfoApp(): array
@@ -56,6 +59,9 @@ class InfoWebController extends BaseController
             ->get()
             ->getRow();
 
+        $email = $this->contact_model->where('sosmed', 'Email')->get()->getRow();
+        $telegram = $this->contact_model->where('sosmed', 'Telegram')->get()->getRow();
+
         $data = [
             'sitename' => 'Ferontron',
             'slogan' => 'slogan',
@@ -70,6 +76,8 @@ class InfoWebController extends BaseController
             'deposits' => $deposits_array,
             'withdraws' => $withdraws_array,
             'crypto' => $curr_code,
+            'email' => $email,
+            'telegram' => $telegram
         ];
 
         return $data;
