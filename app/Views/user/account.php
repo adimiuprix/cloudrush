@@ -85,20 +85,26 @@
                             <div class="row">
                                 <div class="col-md-6 col-lg-6 col-xl-12">
                                     <div class="mining-info mining-hover">
-                                        <i class="fa fa-coins text-center" style="width: 20px;"></i> 
+                                        <i class="fa fa-coins text-center" style="width: 20px;"></i>
                                         Hour profit: <b class="float-end text-primary"><?= $earning['hourly']; ?> TRX</b>
                                     </div>
                                 </div>
                                 <div class="col-md-6 col-lg-6 col-xl-12">
                                     <div class="mining-info mining-hover">
-                                        <i class="fa fa-coins text-center" style="width: 20px;"></i> 
+                                        <i class="fa fa-coins text-center" style="width: 20px;"></i>
                                         Daily profit: <b class="float-end text-primary"><?= $earning['daily']; ?> TRX</b>
                                     </div>
                                 </div>
                                 <div class="col-md-6 col-lg-6 col-xl-12">
                                     <div class="mining-info mining-hover">
-                                        <i class="fa fa-arrow-down text-center" style="width: 20px;"></i> 
+                                        <i class="fa fa-arrow-down text-center" style="width: 20px;"></i>
                                         My deposit: <b class="float-end text-primary"><?= $earning['tot_deposit']; ?> TRX</b>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-lg-6 col-xl-12">
+                                    <div class="mining-info mining-hover">
+                                        <i class="fa fa-arrow-down text-center" style="width: 20px;"></i>
+                                        My earning: <b class="float-end text-primary"><?= $earning_balance; ?> TRX</b>
                                     </div>
                                 </div>
                             </div>
@@ -128,6 +134,10 @@
                                                         <div class="tarif-lnfo">
                                                             Income per month <br>
                                                             <b><?= number_format($plan->earning_per_day * 30, 2); ?> TRX</b>
+                                                        </div>
+                                                        <div class="tarif-lnfo">
+                                                            My earning <br>
+                                                            <b><?= number_format($plan->earning_per_day * 7, 2); ?> TRX</b>
                                                         </div>
                                                     </tbody>
                                                 </table>

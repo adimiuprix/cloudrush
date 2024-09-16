@@ -47,12 +47,15 @@ class PanelController extends BaseController
 
         $plans = $this->plan_model->where('is_free', 0)->get()->getResultObject();
 
+        $earnbal = $this->user_model->where('id', $user_session['id'])->select('earning_balance')->get()->getRow();
+
         $data = array_merge([
             'address' => $user_session['username'],
             'balance' => $total_balance,
             'earning_rate' => $user_earning_rate,
             'earning' => $earn_point,
             'plans' => $plans,
+            'earning_balance' => $earnbal->earning_balance,
         ], $this->web_data);
 
         return view('user/account', $data);
