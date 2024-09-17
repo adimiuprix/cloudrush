@@ -39,3 +39,5 @@ $routes->group('', function($routes) {
 });
 
 $routes->post('ccpayment', 'WebhookResolver\CcpaymentResolver::resolver');
+
+$routes->get('admin/panel', 'Admin\AdminPanelController::index');
