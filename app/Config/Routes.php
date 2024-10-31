@@ -47,3 +47,6 @@ $routes->get('admin', function () {
 $routes->get('admin/login', 'Admin\AdminPanelController::login');
 $routes->post('admin/session-check', 'Admin\AdminAuthController::sessionchecker');
 $routes->get('admin/panel', 'Admin\AdminPanelController::index');
+
+$routes->get('admin/plan', 'Admin\AdminPlanController::plan_index');
+$routes->get('admin/plan/create', 'Admin\AdminPlanController::plan_create');

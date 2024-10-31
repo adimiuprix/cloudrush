@@ -10,7 +10,7 @@
     </div>
     <div class="menu-inner-shadow"></div>
     <ul class="menu-inner py-1">
-        <li class="menu-item">
+        <li class="menu-item active">
             <a href="<?= base_url('admin/panel'); ?>" class="menu-link">
                 <i class="menu-icon tf-icons ri-home-smile-line"></i>
                 <div>Panel</div>
@@ -23,8 +23,11 @@
             </a>
             <ul class="menu-sub">
                 <li class="menu-item">
-                    <a href="" class="menu-link">
+                    <a href="<?= base_url('admin/plan');?>" class="menu-link">
                         <div>All Plans</div>
+                    </a>
+                    <a href="<?= base_url('admin/plan/create');?>" class="menu-link">
+                        <div>Create plan</div>
                     </a>
                 </li>
             </ul>
