@@ -40,4 +40,10 @@ $routes->group('', function($routes) {
 
 $routes->post('ccpayment', 'WebhookResolver\CcpaymentResolver::resolver');
 
+$routes->get('admin', function () {
+    return redirect()->route('admin/login');;
+});
+
+$routes->get('admin/login', 'Admin\AdminPanelController::login');
+$routes->post('admin/session-check', 'Admin\AdminAuthController::sessionchecker');
 $routes->get('admin/panel', 'Admin\AdminPanelController::index');

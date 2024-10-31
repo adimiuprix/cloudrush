@@ -11,71 +11,105 @@
     <div class="menu-inner-shadow"></div>
     <ul class="menu-inner py-1">
         <li class="menu-item">
-            <a href="" class="menu-link menu-toggle">
+            <a href="<?= base_url('admin/panel'); ?>" class="menu-link">
                 <i class="menu-icon tf-icons ri-home-smile-line"></i>
                 <div>Panel</div>
             </a>
         </li>
         <li class="menu-item">
-            <a href="" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons ri-home-smile-line"></i>
+            <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons ri-luggage-deposit-line"></i>
                 <div>Plans</div>
             </a>
+            <ul class="menu-sub">
+                <li class="menu-item">
+                    <a href="" class="menu-link">
+                        <div>All Plans</div>
+                    </a>
+                </li>
+            </ul>
         </li>
         <li class="menu-item">
-            <a href="" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons ri-home-smile-line"></i>
+            <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons ri-file-user-line"></i>
                 <div>Users</div>
             </a>
+            <ul class="menu-sub">
+                <li class="menu-item">
+                    <a href="" class="menu-link">
+                        <div>All users</div>
+                    </a>
+                </li>
+            </ul>
         </li>
         <li class="menu-item">
-            <a href="" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons ri-home-smile-line"></i>
+            <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons ri-news-line"></i>
                 <div>News</div>
             </a>
+            <ul class="menu-sub">
+                <li class="menu-item">
+                    <a href="" class="menu-link">
+                        <div>News management</div>
+                    </a>
+                    <a href="" class="menu-link">
+                        <div>Create news</div>
+                    </a>
+                </li>
+            </ul>
         </li>
         <li class="menu-item">
-            <a href="" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons ri-home-smile-line"></i>
+            <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons ri-secure-payment-line"></i>
                 <div>Payment Methods</div>
             </a>
+            <ul class="menu-sub">
+                <li class="menu-item">
+                    <a href="" class="menu-link">
+                        <div>News management</div>
+                    </a>
+                    <a href="" class="menu-link">
+                        <div>Create news</div>
+                    </a>
+                </li>
+            </ul>
         </li>
-        <li class="menu-item">
-            <a href="" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons ri-home-smile-line"></i>
-                <div>FAQs</div>
-            </a>
-        </li>
-        <li class="menu-item">
-            <a href="" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons ri-home-smile-line"></i>
-                <div>Statistics</div>
-            </a>
-        </li>
-        <li class="menu-item">
-            <a href="" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons ri-home-smile-line"></i>
-                <div>PTC</div>
-            </a>
-        </li>
-        <li class="menu-item">
-            <a href="" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons ri-home-smile-line"></i>
-                <div>Settings</div>
-            </a>
-        </li>
-        <li class="menu-item">
-            <a href="" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons ri-home-smile-line"></i>
-                <div>Fake History</div>
-            </a>
-        </li>
-        <li class="menu-item">
-            <a href="" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons ri-home-smile-line"></i>
-                <div>About App</div>
-            </a>
-        </li>
-    </ul>
+            <li class="menu-item">
+                <a href="" class="menu-link menu-toggle">
+                    <i class="menu-icon tf-icons ri-question-answer-line"></i>
+                    <div>FAQs</div>
+                </a>
+            </li>
+            <li class="menu-item">
+                <a href="" class="menu-link menu-toggle">
+                    <i class="menu-icon tf-icons ri-home-smile-line"></i>
+                    <div>Statistics</div>
+                </a>
+            </li>
+            <li class="menu-item">
+                <a href="" class="menu-link menu-toggle">
+                    <i class="menu-icon tf-icons ri-home-smile-line"></i>
+                    <div>PTC</div>
+                </a>
+            </li>
+            <li class="menu-item">
+                <a href="" class="menu-link menu-toggle">
+                    <i class="menu-icon tf-icons ri-settings-2-line"></i>
+                    <div>Settings</div>
+                </a>
+            </li>
+            <li class="menu-item">
+                <a href="" class="menu-link menu-toggle">
+                    <i class="menu-icon tf-icons ri-home-smile-line"></i>
+                    <div>Fake History</div>
+                </a>
+            </li>
+            <li class="menu-item">
+                <a href="" class="menu-link menu-toggle">
+                    <i class="menu-icon tf-icons ri-info-i"></i>
+                    <div>About App</div>
+                </a>
+            </li>
+        </ul>
 </aside>
 <!-- / Menu Side -->
