@@ -29,6 +29,9 @@
                     <a href="<?= base_url('admin/plan/create');?>" class="menu-link">
                         <div>Create plan</div>
                     </a>
+                    <a href="<?= base_url('admin/plan/freeplan');?>" class="menu-link">
+                        <div>Free plan management</div>
+                    </a>
                 </li>
             </ul>
         </li>

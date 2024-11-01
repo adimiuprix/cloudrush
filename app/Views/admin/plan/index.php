@@ -18,24 +18,27 @@
                         </tr>
                     </thead>
                     <tbody class="table-border-bottom-0">
+                        <?php $id_plan = 1; ?>
+                        <?php foreach($plans as $plan):?>
                         <tr class="table-primary">
-                            <td>#1</td>
-                            <td>Tron 1</td>
-                            <td>0.36666667</td>
-                            <td>10.00000000</td>
-                            <td>110 %</td>
+                            <td>#<?= $id_plan++; ?></td>
+                            <td><?= $plan['plan_name']; ?></td>
+                            <td><?= $plan['earning_per_day']; ?></td>
+                            <td><?= $plan['price']; ?></td>
+                            <td><?= $plan['profit']; ?> %</td>
                             <td>
                                 <div class="dropdown">
                                     <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
                                         <i class="ri-more-2-line"></i>
                                     </button>
                                     <div class="dropdown-menu">
-                                        <a class="dropdown-item waves-effect" href="edit.html"><i class="ri-pencil-line me-1"></i> Edit</a>
-                                        <a class="dropdown-item waves-effect" href=""><i class="ri-delete-bin-6-line me-1"></i> Delete</a>
+                                        <a class="dropdown-item waves-effect" href="<?= base_url('admin/plan/edit/' . $plan['id']); ?>"><i class="ri-pencil-line me-1"></i> Edit</a>
+                                        <a class="dropdown-item waves-effect" href="<?= base_url('admin/plan/delete/' . $plan['id']); ?>"><i class="ri-delete-bin-6-line me-1"></i> Delete</a>
                                     </div>
                                 </div>
                             </td>
                         </tr>
+                        <?php endforeach;?>
                     </tbody>
                 </table>
             </div>
