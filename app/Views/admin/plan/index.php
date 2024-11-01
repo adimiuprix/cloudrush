@@ -33,7 +33,13 @@
                                     </button>
                                     <div class="dropdown-menu">
                                         <a class="dropdown-item waves-effect" href="<?= base_url('admin/plan/edit/' . $plan['id']); ?>"><i class="ri-pencil-line me-1"></i> Edit</a>
-                                        <a class="dropdown-item waves-effect" href="<?= base_url('admin/plan/delete/' . $plan['id']); ?>"><i class="ri-delete-bin-6-line me-1"></i> Delete</a>
+
+                                        <!-- Button for delete -->
+                                        <form action="<?= site_url('admin/plan/delete/' . $plan['id']); ?>" method="post">
+                                            <?= csrf_field() ?>
+                                            <button class="dropdown-item waves-effect"><i class="ri-delete-bin-6-line me-1"></i> Delete</button>
+                                        </form>
+
                                     </div>
                                 </div>
                             </td>
