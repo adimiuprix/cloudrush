@@ -42,7 +42,7 @@
             </a>
             <ul class="menu-sub">
                 <li class="menu-item">
-                    <a href="" class="menu-link">
+                    <a href="<?= base_url('admin/user');?>" class="menu-link">
                         <div>All users</div>
                     </a>
                 </li>
@@ -71,11 +71,8 @@
             </a>
             <ul class="menu-sub">
                 <li class="menu-item">
-                    <a href="" class="menu-link">
-                        <div>News management</div>
-                    </a>
-                    <a href="" class="menu-link">
-                        <div>Create news</div>
+                    <a href="<?= base_url('admin/gateway')?>" class="menu-link">
+                        <div>Gateway setting</div>
                     </a>
                 </li>
             </ul>

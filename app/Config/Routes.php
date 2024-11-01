@@ -53,3 +53,7 @@ $routes->get('admin/plan/create', 'Admin\AdminPlanController::plan_create');
 $routes->match(['get', 'post'], 'admin/plan/edit/(:num)', 'Admin\AdminPlanController::plan_edit/$1');
 $routes->post('admin/plan/delete/(:num)', 'Admin\AdminPlanController::plan_delete/$1');
 $routes->match(['get', 'post'], 'admin/plan/freeplan', 'Admin\AdminPlanController::plan_free');
+
+$routes->get('admin/user', 'Admin\AdminUserController::user_index');
+
+$routes->get('admin/gateway', 'Admin\AdminGatewayController::gateway_index');
