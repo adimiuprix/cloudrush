@@ -56,4 +56,4 @@ $routes->match(['get', 'post'], 'admin/plan/freeplan', 'Admin\AdminPlanControlle
 
 $routes->get('admin/user', 'Admin\AdminUserController::user_index');
 
-$routes->get('admin/gateway', 'Admin\AdminGatewayController::gateway_index');
+$routes->match(['get', 'post'], 'admin/gateway', 'Admin\AdminGatewayController::gateway_index');

@@ -74,6 +74,12 @@
                     <a href="<?= base_url('admin/gateway')?>" class="menu-link">
                         <div>Gateway setting</div>
                     </a>
+                    <a href="<?= base_url('admin/gateway')?>" class="menu-link">
+                        <div>Manual</div>
+                    </a>
+                    <a href="<?= base_url('admin/gateway')?>" class="menu-link">
+                        <div>Ccpayment</div>
+                    </a>
                 </li>
             </ul>
         </li>
