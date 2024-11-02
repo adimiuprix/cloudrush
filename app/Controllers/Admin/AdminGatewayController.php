@@ -19,19 +19,15 @@ class AdminGatewayController extends BaseController
         $builder = $this->db->table('settings');
 
         if ($this->request->getMethod() === 'POST') {
-            $pg_method = [
+            $builder->where('id', 1)->update([
                 'deposit_method' => $this->request->getPost('depo_mthd'),
                 'withdraw_method' => $this->request->getPost('wd_mthd'),
-            ];
-            $builder->where('id', 1);
-            $builder->update($pg_method);
+            ]);
             return redirect()->back();
-        }else{
-            $payment_method = $builder->select(['deposit_method', 'withdraw_method'])->limit(1)->get();
-            $data = [
-                'paygateway' => $payment_method->getRow(),
-            ];
-            return view('admin/gateway/index', $data);
         }
+
+        return view('admin/gateway/index', [
+            'paygateway' => $builder->select(['deposit_method', 'withdraw_method'])->get()->getRow()
+        ]);
     }
 }
