@@ -193,9 +193,9 @@ class PaymentController extends BaseController
         curl_setopt($ch, CURLOPT_POSTFIELDS, $data['body']);
         curl_setopt($ch, CURLOPT_HTTPHEADER, $data['headers']);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    
+
         $response = curl_exec($ch);
         curl_close($ch);
-    
+
     }
 }

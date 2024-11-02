@@ -30,4 +30,9 @@ class AdminGatewayController extends BaseController
             'paygateway' => $builder->select(['deposit_method', 'withdraw_method'])->get()->getRow()
         ]);
     }
+
+    public function gateway_ccpayment()
+    {
+        return view('admin/gateway/ccpayment');
+    }
 }
