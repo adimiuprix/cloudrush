@@ -25,7 +25,21 @@ class AdminPlanController extends BaseController
 
     public function plan_create()
     {
-        return view('admin/plan/create');
+        if ($this->request->getMethod() === 'POST') {
+            $plan_data = [
+                'plan_name'             => $this->request->getPost('plan_name'),
+                'is_free'               => 0,
+                'earning_per_day'       => $this->request->getPost('earning_day'),
+                'earning_rate'          => $this->request->getPost('earning_rate'),
+                'price'                 => $this->request->getPost('price'),
+                'profit'                => $this->request->getPost('profit'),
+                'duration'              => $this->request->getPost('duration')
+            ];
+            $this->plan_model->insert($plan_data);
+            return redirect()->to('/admin/plan');
+        }else{
+            return view('admin/plan/create');
+        }
     }
 
     public function plan_edit($id)

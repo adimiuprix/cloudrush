@@ -6,39 +6,35 @@
         <div class="col-md-12">
             <div class="card mb-6">
                 <h5 class="card-header">Plan maker</h5>
-                <form action="" method="post">
+                <form action="<?= base_url('admin/plan/create'); ?>" method="post">
                     <div class="card-body demo-vertical-spacing demo-only-element">
                         <small class="text-light fw-medium d-block">Plan name</small>
                         <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Plan name">
-                        </div>
-                        <small class="text-light fw-medium d-block">Free Plan</small>
-                        <div class="input-group">
-                            <select class="form-select">
-                                <option selected>Choose...</option>
-                                <option value="1">One</option>
-                                <option value="2">Two</option>
-                            </select>
+                            <input type="text" class="form-control" name="plan_name" placeholder="Plan name">
                         </div>
                         <small class="text-light fw-medium d-block">Earning (day)</small>
                         <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Earning per day">
+                            <input type="text" class="form-control" name="earning_day" placeholder="Earning per day">
                         </div>
                         <small class="text-light fw-medium d-block">Earning rate</small>
                         <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Earning rate">
+                            <input type="text" class="form-control" name="earning_rate" placeholder="Earning rate">
                         </div>
                         <small class="text-light fw-medium d-block">Price</small>
                         <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Price">
+                            <input type="text" class="form-control" name="price" placeholder="Input price">
                         </div>
-                        <small class="text-light fw-medium d-block">Profit</small>
+                        <small class="text-light fw-medium d-block">Profit (%)</small>
                         <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Profit">
+                            <input type="text" class="form-control" name="profit" placeholder="Input profit">
+                        </div>
+                        <small class="text-light fw-medium d-block">Duration (day)</small>
+                        <div class="input-group">
+                            <input type="number" class="form-control" name="duration" placeholder="Input duration">
                         </div>
                     </div>
                     <div class="d-grid col-lg-6 mx-auto mb-5">
-                        <button type="submit" class="btn btn-primary btn-lg waves-effect waves-light">Submit</button>
+                        <button type="submit" class="btn btn-primary btn-lg waves-effect waves-light">Create plan</button>
                     </div>
                 </form>
             </div>
