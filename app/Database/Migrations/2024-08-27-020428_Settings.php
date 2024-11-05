@@ -45,12 +45,12 @@ class Settings extends Migration
             ],
             'deposit_method' => [
                 'type'              => 'ENUM',
-                'constraint'        => ['manual', 'ccpayments'],
+                'constraint'        => ['manual', 'ccpayments', 'faucetpay'],
                 'default'           => 'manual',
             ],
             'withdraw_method' => [
                 'type'              => 'ENUM',
-                'constraint'        => ['manual', 'ccpayments'],
+                'constraint'        => ['manual', 'ccpayments', 'faucetpay'],
                 'default'           => 'manual',
             ],
             'created_at DATETIME DEFAULT CURRENT_TIMESTAMP',
