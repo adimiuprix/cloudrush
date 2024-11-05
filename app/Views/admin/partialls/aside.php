@@ -91,13 +91,13 @@
             </li>
             <li class="menu-item">
                 <a href="" class="menu-link menu-toggle">
-                    <i class="menu-icon tf-icons ri-home-smile-line"></i>
+                    <i class="menu-icon tf-icons ri-bar-chart-box-line"></i>
                     <div>Statistics</div>
                 </a>
             </li>
             <li class="menu-item">
                 <a href="<?= base_url('admin/ptc'); ?>" class="menu-link menu-toggle">
-                    <i class="menu-icon tf-icons ri-home-smile-line"></i>
+                    <i class="menu-icon tf-icons ri-money-dollar-box-line"></i>
                     <div>PTC</div>
                 </a>
             </li>
@@ -109,7 +109,7 @@
             </li>
             <li class="menu-item">
                 <a href="" class="menu-link menu-toggle">
-                    <i class="menu-icon tf-icons ri-home-smile-line"></i>
+                    <i class="menu-icon tf-icons ri-history-line"></i>
                     <div>Fake History</div>
                 </a>
             </li>
