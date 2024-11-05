@@ -4,14 +4,17 @@ namespace App\Controllers\Admin;
 
 use App\Controllers\BaseController;
 use App\Models\SettingModel;
+use App\Models\CcpaymentModel;
 
 class AdminGatewayController extends BaseController
 {
     protected $setting_model;
+    protected $ccpayment_model;
 
     public function __construct()
     {
         $this->setting_model = new SettingModel();
+        $this->ccpayment_model = new CcpaymentModel();
     }
 
     public function gateway_index()
@@ -33,6 +36,21 @@ class AdminGatewayController extends BaseController
 
     public function gateway_ccpayment()
     {
-        return view('admin/gateway/ccpayment');
+        if ($this->request->getMethod() === 'POST') {
+            $builder = $this->db->table('ccpayments');
+            $builder->where('id', 1)->update([
+                'coin_id'       => $this->request->getPost('coin_id'),
+                'chain'         => $this->request->getPost('chain'),
+                'app_id'        => $this->request->getPost('app_id'),
+                'app_secret'    => $this->request->getPost('app_sec'),
+            ]);
+
+            return redirect()->back();
+        }else{
+            $data = [
+                'ccp' => $this->ccpayment_model->asObject()->first(),
+            ];
+            return view('admin/gateway/ccpayment', $data);
+        }
     }
 }

@@ -23,9 +23,10 @@
                         </tr>
                     </thead>
                     <tbody class="table-border-bottom-0">
+                        <?php $idFaq = 1;?>
                         <?php foreach($faqs as $faq):?>
                         <tr class="table-primary">
-                            <td>#1</td>
+                            <td>#<?= $idFaq++; ?></td>
                             <td><?= substr($faq->question, 0, 20); ?>...</td>
                             <td><?= substr($faq->question, 0, 20); ?>...</td>
                             <td>

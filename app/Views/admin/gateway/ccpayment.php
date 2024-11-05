@@ -6,15 +6,23 @@
         <div class="col-md-12">
             <div class="card mb-6">
                 <h5 class="card-header">Ccpayment setting</h5>
-                <form action="<?= base_url('admin/gateway'); ?>" method="post">
+                <form action="<?= base_url('admin/gateway/ccpayment'); ?>" method="post">
                     <div class="card-body demo-vertical-spacing demo-only-element">
                         <small class="text-light fw-medium d-block">App ID</small>
                         <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Input app id">
+                            <input type="text" class="form-control" value="<?= $ccp->app_id; ?>" name="app_id" placeholder="Input app id">
                         </div>
                         <small class="text-light fw-medium d-block">App secret</small>
                         <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Input app id">
+                            <input type="text" class="form-control" value="<?= $ccp->app_secret; ?>" name="app_sec" placeholder="Input app secret">
+                        </div>
+                        <small class="text-light fw-medium d-block">Chain</small>
+                        <div class="input-group">
+                            <input type="text" class="form-control" value="<?= $ccp->chain; ?>" name="chain" placeholder="Input type chain">
+                        </div>
+                        <small class="text-light fw-medium d-block">Coin ID</small>
+                        <div class="input-group">
+                            <input type="text" class="form-control" value="<?= $ccp->coin_id; ?>" name="coin_id" placeholder="Input coin id">
                         </div>
                     </div>
                     <div class="d-grid col-lg-6 mx-auto mb-5">

@@ -10,19 +10,21 @@ use App\Controllers\BaseController;
 use App\Models\UserPlanHistoryModel;
 use Takuya\RandomString\RandomString;
 use App\Models\SettingModel;
+use App\Models\CcpaymentModel;
 
 class PaymentController extends BaseController
 {
     protected $setting;
+    protected $ccpayments;
 
     public function __construct()
     {
         $this->setting = (new SettingModel())->first();
+        $this->ccpayments = (new CcpaymentModel())->first();
     }
 
     public function buyplan(){
         $deposit_type = $this->setting['deposit_method'];
-
         $session = (object)session()->get('user_data');
         $request = \Config\Services::request();
         $plan_id = $request->getPost('plan');
@@ -38,7 +40,7 @@ class PaymentController extends BaseController
             case 'faucetpay':
                 $this->faucetpay();
                 break;
-            case 'ccpayment':
+            case 'ccpayments':
                 $this->ccpayment($session->id, $plan_id, $get_plan->price, $randomize);
                 break;
             default:
@@ -49,18 +51,18 @@ class PaymentController extends BaseController
         return redirect()->to('purchase-plan?pay=' . $randomize);
     }
 
-
     public function ccpayment(int $id, int $p_id, float $price, string $rand)
     {
-        $app_id = env("CCPAYMENT_APP_ID");
-        $app_secret = env("CCPAYMENT_APP_SEC");
+        $ccpayment = $this->db->table('ccpayments')->get()->getFirstRow();
+        $app_id = $ccpayment->app_id;
+        $app_secret = $ccpayment->app_secret;
         $url = "https://ccpayment.com/ccpayment/v2/createAppOrderDepositAddress";
 
         $content = [
-            "coinId"=> 1482,
+            "coinId"=> $ccpayment->coin_id,
             "price"=> (string)$price,
             "orderId"=> $rand,
-            "chain"=> "TRX"
+            "chain"=> $ccpayment->chain
         ];
 
         $timestamp = time();
