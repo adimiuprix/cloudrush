@@ -26,4 +26,8 @@ class AdminPanelController extends BaseController
 
         return view('admin/index', $data);
     }
+
+    public function about(){
+        return view('admin/about');
+    }
 }

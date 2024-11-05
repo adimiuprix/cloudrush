@@ -62,3 +62,5 @@ $routes->match(['get', 'post'], 'admin/gateway/ccpayment', 'Admin\AdminGatewayCo
 $routes->match(['get', 'post'], 'admin/setting', 'Admin\AdminSettingController::setting_index');
 
 $routes->get('admin/faqs', 'Admin\AdminFaqsController::faqs_index');
+
+$routes->get('admin/about', 'Admin\AdminPanelController::about');
