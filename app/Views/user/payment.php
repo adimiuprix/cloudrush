@@ -19,8 +19,8 @@
                                         <span class="input-group-text copy" onclick="copier();"><i class="fa fa-copy"></i></span>
                                     </div>
                                     <hr>
-                                    <p>Minimal deposit: <b>10.000000 DOGE</b> </p>
-                                    <p>Minimum in site currency: <b>14 TRX</b> </p>
+                                    <p>Minimal deposit: <b><?= number_format($amount, 8);?> TRX</b> </p>
+                                    <p>Minimum in site currency: <b><?= $amount;?> TRX</b> </p>
                                 </div>
                             </div>
                         </div>
