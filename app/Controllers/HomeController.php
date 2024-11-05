@@ -52,8 +52,6 @@ class HomeController extends BaseController
 
     public function news(): string
     {
-        $r = $this->request->headers();
-        dd($r);
         return view('news',$this->web_data);
     }
 
