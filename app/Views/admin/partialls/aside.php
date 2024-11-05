@@ -84,7 +84,7 @@
             </ul>
         </li>
             <li class="menu-item">
-                <a href="" class="menu-link menu-toggle">
+                <a href="<?= base_url('admin/faqs'); ?>" class="menu-link">
                     <i class="menu-icon tf-icons ri-question-answer-line"></i>
                     <div>FAQs</div>
                 </a>
