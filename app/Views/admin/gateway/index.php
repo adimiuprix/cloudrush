@@ -13,7 +13,7 @@
                             <select class="form-select" name="depo_mthd">
                                 <option>Choose...</option>
                                 <option value="manual" <?= ($paygateway->deposit_method == 'manual') ? 'selected' : '' ?>>Manual</option>
-                                <option value="ccpayments" <?= ($paygateway->deposit_method == 'ccpayments') ? 'selected' : '' ?>>Ccpayment</option>
+                                <option value="ccpayments" <?= ($paygateway->deposit_method == 'ccpayments') ? 'selected' : '' ?>>Ccpayments</option>
                             </select>
                         </div>
                         <small class="text-light fw-medium d-block">Withdraw method</small>
@@ -21,7 +21,7 @@
                             <select class="form-select" name="wd_mthd">
                                 <option>Choose...</option>
                                 <option value="manual" <?= $paygateway->withdraw_method == 'manual' ? 'selected' : '' ?>>Manual</option>
-                                <option value="ccpayments" <?= $paygateway->withdraw_method == 'ccpayments' ? 'selected' : '' ?>>Ccpayment</option>
+                                <option value="ccpayments" <?= $paygateway->withdraw_method == 'ccpayments' ? 'selected' : '' ?>>Ccpayments</option>
                             </select>
                         </div>
                     </div>
