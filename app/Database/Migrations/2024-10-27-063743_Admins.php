@@ -4,7 +4,7 @@ namespace App\Database\Migrations;
 
 use CodeIgniter\Database\Migration;
 
-class Admin extends Migration
+class Admins extends Migration
 {
     public function up()
     {
@@ -28,11 +28,18 @@ class Admin extends Migration
             'created_at DATETIME DEFAULT CURRENT_TIMESTAMP',
         ]);
         $this->forge->addKey('id', true);
-        $this->forge->createTable('admin');
+        $this->forge->createTable('admins');
+        $init_data = [
+            [
+                'username'      => 'admin',
+                'password'      => password_hash('123456', PASSWORD_BCRYPT),
+            ],
+        ];
+        $this->db->table('admins')->insertBatch($init_data);
     }
 
     public function down()
     {
-        $this->forge->dropTable('admin');
+        $this->forge->dropTable('admins');
     }
 }

@@ -4,7 +4,7 @@ namespace App\Database\Migrations;
 
 use CodeIgniter\Database\Migration;
 
-class Contact extends Migration
+class Contacts extends Migration
 {
     public function up()
     {

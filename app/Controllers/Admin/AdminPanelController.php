@@ -3,6 +3,7 @@
 namespace App\Controllers\Admin;
 
 use App\Controllers\BaseController;
+use App\Models\UserModel;
 
 class AdminPanelController extends BaseController
 {
@@ -17,6 +18,12 @@ class AdminPanelController extends BaseController
 
     public function index()
     {
-        return view('admin/index');
+        $user_model = new UserModel();
+
+        $data = [
+            'users' => $user_model->get()->getResult(),
+        ];
+
+        return view('admin/index', $data);
     }
 }
