@@ -23,7 +23,7 @@
                                     </div>
                                     <div class="ms-3">
                                         <p class="mb-0">Member</p>
-                                        <h5 class="mb-0">12.5k</h5>
+                                        <h5 class="mb-0"><?= $tot_member; ?></h5>
                                     </div>
                                 </div>
                             </div>
@@ -36,7 +36,7 @@
                                     </div>
                                     <div class="ms-3">
                                         <p class="mb-0">Deposit</p>
-                                        <h5 class="mb-0">2000 TRX</h5>
+                                        <h5 class="mb-0"><?= $tot_depo->sum_deposit ?: 0; ?> TRX</h5>
                                     </div>
                                 </div>
                             </div>
@@ -49,7 +49,7 @@
                                     </div>
                                     <div class="ms-3">
                                         <p class="mb-0">Withdraw</p>
-                                        <h5 class="mb-0">500 TRX</h5>
+                                        <h5 class="mb-0"><?= $tot_wd->sum_withdraw ?: 0 ;?> TRX</h5>
                                     </div>
                                 </div>
                             </div>
@@ -62,7 +62,7 @@
                                     </div>
                                     <div class="ms-3">
                                         <p class="mb-0">Income</p>
-                                        <h5 class="mb-0">3800 TRX</h5>
+                                        <h5 class="mb-0"><?= $tot_depo->sum_deposit - $tot_wd->sum_withdraw ?: 0; ?> TRX</h5>
                                     </div>
                                 </div>
                             </div>
