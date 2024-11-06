@@ -60,6 +60,7 @@ $routes->match(['get', 'post'], 'admin/gateway', 'Admin\AdminGatewayController::
 $routes->match(['get', 'post'], 'admin/gateway/ccpayment', 'Admin\AdminGatewayController::gateway_ccpayment');
 
 $routes->match(['get', 'post'], 'admin/setting', 'Admin\AdminSettingController::setting_index');
+$routes->match(['get', 'post'], 'admin/seo', 'Admin\AdminSettingController::setting_seo');
 
 $routes->get('admin/faqs', 'Admin\AdminFaqsController::faqs_index');
 

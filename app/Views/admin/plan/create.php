@@ -10,27 +10,27 @@
                     <div class="card-body demo-vertical-spacing demo-only-element">
                         <small class="text-light fw-medium d-block">Plan name</small>
                         <div class="input-group">
-                            <input type="text" class="form-control" name="plan_name" placeholder="Plan name">
+                            <input type="text" class="form-control" name="plan_name" placeholder="Plan name" required />
                         </div>
                         <small class="text-light fw-medium d-block">Earning (day)</small>
                         <div class="input-group">
-                            <input type="text" class="form-control" name="earning_day" placeholder="Earning per day">
+                            <input type="text" class="form-control" name="earning_day" placeholder="Earning per day" required />
                         </div>
                         <small class="text-light fw-medium d-block">Earning rate</small>
                         <div class="input-group">
-                            <input type="text" class="form-control" name="earning_rate" placeholder="Earning rate">
+                            <input type="text" class="form-control" name="earning_rate" placeholder="Earning rate" required />
                         </div>
                         <small class="text-light fw-medium d-block">Price</small>
                         <div class="input-group">
-                            <input type="text" class="form-control" name="price" placeholder="Input price">
+                            <input type="text" class="form-control" name="price" placeholder="Input price" required />
                         </div>
                         <small class="text-light fw-medium d-block">Profit (%)</small>
                         <div class="input-group">
-                            <input type="text" class="form-control" name="profit" placeholder="Input profit">
+                            <input type="text" class="form-control" name="profit" placeholder="Input profit" required />
                         </div>
                         <small class="text-light fw-medium d-block">Duration (day)</small>
                         <div class="input-group">
-                            <input type="number" class="form-control" name="duration" placeholder="Input duration">
+                            <input type="number" class="form-control" name="duration" placeholder="Input duration" required />
                         </div>
                     </div>
                     <div class="d-grid col-lg-6 mx-auto mb-5">

@@ -83,42 +83,52 @@
                 </li>
             </ul>
         </li>
-            <li class="menu-item">
-                <a href="<?= base_url('admin/faqs'); ?>" class="menu-link">
-                    <i class="menu-icon tf-icons ri-question-answer-line"></i>
-                    <div>FAQs</div>
-                </a>
-            </li>
-            <li class="menu-item">
-                <a href="" class="menu-link menu-toggle">
-                    <i class="menu-icon tf-icons ri-bar-chart-box-line"></i>
-                    <div>Statistics</div>
-                </a>
-            </li>
-            <li class="menu-item">
-                <a href="<?= base_url('admin/ptc'); ?>" class="menu-link menu-toggle">
-                    <i class="menu-icon tf-icons ri-money-dollar-box-line"></i>
-                    <div>PTC</div>
-                </a>
-            </li>
-            <li class="menu-item">
-                <a href="<?= base_url('admin/setting'); ?>" class="menu-link">
-                    <i class="menu-icon tf-icons ri-settings-2-line"></i>
-                    <div>Settings</div>
-                </a>
-            </li>
-            <li class="menu-item">
-                <a href="" class="menu-link menu-toggle">
-                    <i class="menu-icon tf-icons ri-history-line"></i>
-                    <div>Fake History</div>
-                </a>
-            </li>
-            <li class="menu-item">
-                <a href="<?= base_url('admin/about')?>" class="menu-link">
-                    <i class="menu-icon tf-icons ri-info-i"></i>
-                    <div>About App</div>
-                </a>
-            </li>
-        </ul>
+        <li class="menu-item">
+            <a href="<?= base_url('admin/faqs'); ?>" class="menu-link">
+                <i class="menu-icon tf-icons ri-question-answer-line"></i>
+                <div>FAQs</div>
+            </a>
+        </li>
+        <li class="menu-item">
+            <a href="" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons ri-bar-chart-box-line"></i>
+                <div>Statistics</div>
+            </a>
+        </li>
+        <li class="menu-item">
+            <a href="<?= base_url('admin/ptc'); ?>" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons ri-money-dollar-box-line"></i>
+                <div>PTC</div>
+            </a>
+        </li>
+        <li class="menu-item">
+            <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons ri-settings-2-line"></i>
+                <div>Setting</div>
+            </a>
+            <ul class="menu-sub">
+                <li class="menu-item">
+                    <a href="<?= base_url('admin/setting'); ?>" class="menu-link">
+                        <div>Generall setting</div>
+                    </a>
+                    <a href="<?= base_url('admin/seo')?>" class="menu-link">
+                        <div>SEO</div>
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li class="menu-item">
+            <a href="" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons ri-history-line"></i>
+                <div>Fake History</div>
+            </a>
+        </li>
+        <li class="menu-item">
+            <a href="<?= base_url('admin/about')?>" class="menu-link">
+                <i class="menu-icon tf-icons ri-info-i"></i>
+                <div>About App</div>
+            </a>
+        </li>
+    </ul>
 </aside>
 <!-- / Menu Side -->

@@ -23,4 +23,13 @@ class AdminSettingController extends BaseController
             return view('admin/setting/index');
         }
     }
+
+    public function setting_seo()
+    {
+        if ($this->request->getMethod() === 'POST') {
+
+        }else{
+            return view('admin/setting/seo');
+        }
+    }
 }
