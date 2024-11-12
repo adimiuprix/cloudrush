@@ -53,4 +53,13 @@ class AdminGatewayController extends BaseController
             return view('admin/gateway/ccpayment', $data);
         }
     }
+
+    public function gateway_faucetpay()
+    {
+        if ($this->request->getMethod() === 'POST') {
+
+        }else{
+            return view('admin/gateway/faucetpay');
+        }
+    }
 }

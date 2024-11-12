@@ -18,6 +18,7 @@ class InfoWebController extends BaseController
 
     public function __construct()
     {
+        $this->db = \Config\Database::connect();
         $this->setting_model = new SettingModel();
         $this->deposit_model = new DepositModel();
         $this->withdraw_model = new WithdrawModel();
@@ -29,6 +30,8 @@ class InfoWebController extends BaseController
         $user_model = new UserModel();
 
         $curr_code = ($this->setting_model)->select('curr_code')->first();
+
+        $setting = $this->db->table('settings')->select(['site_name', 'keywords', 'description'])->get(1)->getFirstRow();
 
         $deposits_array = ($this->deposit_model)
             ->join('users', 'users.id = deposit_histories.user_id')
@@ -63,10 +66,10 @@ class InfoWebController extends BaseController
         $telegram = $this->contact_model->where('sosmed', 'Telegram')->get()->getRow();
 
         $data = [
-            'sitename' => 'Ferontron',
-            'slogan' => 'slogan',
-            'description' => 'description',
-            'keywords' => 'keywords',
+            'sitename' => $setting->site_name,
+            'slogan' => 'Simple earning',
+            'description' => $setting->description,
+            'keywords' => $setting->keywords,
             'web_stats' => [
                 'total_user' => $user_model->countAll() ?: 0,
                 'total_deposit' => $tot_dp->sum_deposit ?: 0,

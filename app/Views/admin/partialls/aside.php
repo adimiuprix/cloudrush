@@ -80,6 +80,9 @@
                     <a href="<?= base_url('admin/gateway/ccpayment')?>" class="menu-link">
                         <div>Ccpayment</div>
                     </a>
+                    <a href="<?= base_url('admin/gateway/faucetpay')?>" class="menu-link">
+                        <div>Faucetpay</div>
+                    </a>
                 </li>
             </ul>
         </li>

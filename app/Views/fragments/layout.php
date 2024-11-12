@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title><?= $sitename; ?> - <?= $slogan; ?></title>
+        <title><?= esc($sitename); ?> - <?= $slogan; ?></title>
         <meta name="description" content="<?= $description; ?>">
+        <meta name="keywords" content="<?= $keywords; ?>">
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link rel="icon" type="image/png" sizes="32x32" href="public/assets/img/fav/apple-touch-icon.png">
