@@ -59,7 +59,7 @@ class Settings extends Migration
         $this->forge->createTable('settings');
         $init_data = [
             [
-                'site_name'             => 'Ferontron',
+                'site_name'             => 'Cloudrush',
                 'keywords'              => 'mining trx, mining, app, web mining, crypto earning',
                 'description'           => 'Crypto mining that can give you earning',
                 'start_from'            => date('Y-m-d H:i:s'),

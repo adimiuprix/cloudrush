@@ -29,6 +29,18 @@ class Contacts extends Migration
         ]);
         $this->forge->addKey('id', true);
         $this->forge->createTable('contacts');
+        $init_data = [
+            [
+                'sosmed'      => 'email',
+                'link'      => 'admin@cloudrush.com',
+            ],
+            [
+                'sosmed'      => 'telegram',
+                'link'      => '@cloudrush_official',
+            ],
+        ];
+        $this->db->table('contacts')->insertBatch($init_data);
+
     }
 
     public function down()
