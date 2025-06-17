@@ -8,19 +8,28 @@ use App\Models\UserModel;
 
 class PtcController extends BaseController
 {
-    protected $ads_model;
+    protected $ptc_model;
 
     public function __construct()
     {
-        $this->ads_model = new PtcModel();
+        $this->ptc_model = new PtcModel();
     }
 
     public function surf()
     {
-        $surfs = $this->ads_model->findAll();
+        $userId = session()->get('user_data')['id'];
+        $totalReward = 0;
+
+        $availableAds = $this->ptc_model->availableAds($userId);
+
+        $totalAds = count($availableAds);
+
+        foreach ($availableAds as $ads) {
+			$totalReward += $ads['reward'];
+		}
 
         $data = array_merge([
-            'surfs' => $surfs,
+            'surfs' => $totalAds,
         ], $this->web_data);
 
         return view('user/surf/index', $data);
@@ -49,7 +58,7 @@ class PtcController extends BaseController
         $period = $this->request->getPost('period');
         $priceview = $this->calculatePrice(0.04, 0.005, 0.005, $vip, $timer);
 
-        if($user->ads_balance >= $priceview){
+        if($user->earning_balance >= $priceview){
             $surf_order_data = [
                 'user_id' => $user_session['id'],
                 'title' => $title,

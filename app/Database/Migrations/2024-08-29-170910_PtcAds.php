@@ -49,6 +49,19 @@ class PtcAds extends Migration
                 'constraint' => '20,8',
                 'null'  => false
             ],
+            'total_view' => [
+                'type'       => 'INT',
+                'null'  => false
+            ],
+            'views' => [
+                'type'       => 'INT',
+                'null'  => false
+            ],
+            'status' => [
+                'type'       => 'ENUM',
+                'constraint' => ['active', 'inactive'],
+                'default' => 'completed',
+            ],
             'created_at DATETIME DEFAULT CURRENT_TIMESTAMP',
         ]);
         $this->forge->addKey('id', true);
