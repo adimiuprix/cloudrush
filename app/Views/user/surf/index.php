@@ -24,12 +24,6 @@
                             .surfblockopen{background-color: #d0F0e0;border-color: #D0D0D0;color: #808080;opacity:0.3;display:none;}
                             .panel-success {border-width: 2px;}
                         </style>
-                        <script>
-                            function showFrame(div, link) {
-                              window.open('/view/'+link, '_blank');
-                              $(div).parent().parent().parent().addClass("surfblockopen");
-                            }
-                        </script>
                         <div class="row row-cols-1 m-0">
                             <?php foreach($surfs as $surf):?>
                             <div class="col col-lg-6 p-1">
@@ -38,8 +32,8 @@
                                         <?= $surf['title']; ?>
                                     </div>
                                     <div class="text-center pt-0 p-2" title="Pay per view">
-                                        <a href="#" onclick="showFrame(this, <?= $surf['id']; ?>);" class="btn btn-danger w-50 p-1" title="Click to view">
-                                            <i class="fa fa-gift"></i> <b>0.08 TRX</b>
+                                        <a href="<?= base_url('surf/view/' . $surf['id']); ?>" onclick="showFrame(this, <?= $surf['id']; ?>);" class="btn btn-danger w-50 p-1" title="Click to view">
+                                            <i class="fa fa-gift"></i> <b><?= floatval($surf['reward']); ?> TRX</b>
                                         </a>
                                     </div>
                                 </div>

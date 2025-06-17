@@ -10,7 +10,7 @@
         </ul>
     </div>
 </div>
-<script>
+<!-- <script>
     $(document).ready(function(event){
         $('#ptc').on('click', function(event) {
             event.preventDefault()
@@ -22,4 +22,4 @@
             });
         })
     })
-</script>
+</script> -->

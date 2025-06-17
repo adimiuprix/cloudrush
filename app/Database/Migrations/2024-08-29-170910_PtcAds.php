@@ -4,7 +4,7 @@ namespace App\Database\Migrations;
 
 use CodeIgniter\Database\Migration;
 
-class Adverts extends Migration
+class PtcAds extends Migration
 {
     public function up()
     {
@@ -44,14 +44,19 @@ class Adverts extends Migration
                 'constraint' => ['0', '1'],
                 'default' => '0',
             ],
+            'reward' => [
+                'type'       => 'DECIMAL',
+                'constraint' => '20,8',
+                'null'  => false
+            ],
             'created_at DATETIME DEFAULT CURRENT_TIMESTAMP',
         ]);
         $this->forge->addKey('id', true);
-        $this->forge->createTable('adsverts');
+        $this->forge->createTable('ptc_ads');
     }
 
     public function down()
     {
-        $this->forge->dropTable('adsverts');
+        $this->forge->dropTable('ptc_ads');
     }
 }

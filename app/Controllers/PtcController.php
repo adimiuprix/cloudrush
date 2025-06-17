@@ -3,7 +3,7 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
-use App\Models\AdsvertModel;
+use App\Models\PtcModel;
 use App\Models\UserModel;
 
 class PtcController extends BaseController
@@ -12,7 +12,7 @@ class PtcController extends BaseController
 
     public function __construct()
     {
-        $this->ads_model = new AdsvertModel();
+        $this->ads_model = new PtcModel();
     }
 
     public function surf()
@@ -95,4 +95,7 @@ class PtcController extends BaseController
         return view('user/surf/link', $data);
     }
 
+    public function surfView(){
+        return view('user/surf/view');
+    }
 }

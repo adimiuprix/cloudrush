@@ -4,9 +4,9 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class AdsvertModel extends Model
+class PtcModel extends Model
 {
-    protected $table            = 'adsverts';
+    protected $table            = 'Ptc_ads';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
