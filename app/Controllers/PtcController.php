@@ -21,7 +21,6 @@ class PtcController extends BaseController
         $totalReward = 0;
 
         $availableAds = $this->ptc_model->availableAds($userId);
-
         $totalAds = count($availableAds);
 
         foreach ($availableAds as $ads) {
@@ -29,7 +28,7 @@ class PtcController extends BaseController
 		}
 
         $data = array_merge([
-            'surfs' => $totalAds,
+            'surfs' => $availableAds,
         ], $this->web_data);
 
         return view('user/surf/index', $data);
@@ -67,7 +66,7 @@ class PtcController extends BaseController
                 'is_vip' => $vip,
                 'period' => $period,
             ];
-            $this->ads_model->save($surf_order_data);
+            $this->ptc_model->save($surf_order_data);
             session()->setFlashdata('surf', 'surf_ok');
             return redirect()->to('account');
         }else{
@@ -95,7 +94,7 @@ class PtcController extends BaseController
     public function surfLink()
     {
         $user_session = session()->get('user_data');
-        $adsense = $this->ads_model->where('user_id', $user_session['id'])->asObject()->findAll();
+        $adsense = $this->ptc_model->where('user_id', $user_session['id'])->asObject()->findAll();
 
         $data = array_merge([
             'my_adsense' => $adsense

@@ -13,7 +13,18 @@ class PtcModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['user_id', 'title', 'link', 'timer', 'is_vip', 'period'];
+    protected $allowedFields    = [
+        'user_id',
+        'title',
+        'link',
+        'timer',
+        'is_vip',
+        'period',
+        'reward',
+        'total_view',
+        'views',
+        'status',
+    ];
 
     protected bool $allowEmptyInserts = false;
     protected bool $updateOnlyChanged = true;

@@ -59,8 +59,8 @@ class PtcAds extends Migration
             ],
             'status' => [
                 'type'       => 'ENUM',
-                'constraint' => ['active', 'inactive'],
-                'default' => 'completed',
+                'constraint' => ['active', 'inactive', 'completed'],
+                'default' => 'active',
             ],
             'created_at DATETIME DEFAULT CURRENT_TIMESTAMP',
         ]);
