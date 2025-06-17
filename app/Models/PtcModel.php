@@ -7,7 +7,7 @@ use CodeIgniter\Database\BaseBuilder;
 
 class PtcModel extends Model
 {
-    protected $table            = 'Ptc_ads';
+    protected $table            = 'ptc_ads';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
