@@ -23,7 +23,8 @@ $routes->group('', function($routes) {
     $routes->get('surf/add', 'PtcController::surfAdd');
     $routes->post('surf_order', 'PtcController::surfOrder');
     $routes->get('surf/links', 'PtcController::surfLink');
-    $routes->get('surf/view/1', 'PtcController::surfView');
+    $routes->get('surf/view/(:num)', 'PtcController::surfView/$1');
+    $routes->post('surf/verify/(:num)', 'PtcController::surfVerify/$1');
 
     $routes->get('bonus', 'PanelController::bonus');
     $routes->post('claim', 'ClaimController::claimRun');

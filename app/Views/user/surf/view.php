@@ -15,7 +15,7 @@
     <div class="center">
         <div class="table-row">
             <div class="table-col col-left">
-                <div class="logo">RuMiner Demo</div>
+                <div class="logo"><?= $site_name; ?></div>
             </div>
             <div class="table-col col-right">
                 <div class="loadwait">
@@ -32,7 +32,7 @@
             </div>
         </div>
     </div>
-    <iframe class="frame" src="https://smartyscripts.com/products/cloud_mining" id="ads"></iframe>
+    <iframe class="frame" src="<?= $ads_url; ?>" id="ads"></iframe>
     <div class="modal fade" id="ptcCaptcha" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -41,7 +41,7 @@
                 </div>
 
                 <div class="modal-body">
-                    <form action="<?= site_url('ptc/verify/'); ?>" method="POST">
+                    <form action="<?= site_url('surf/verify/' . $ptc_id); ?>" method="POST">
                         <?= csrf_field() ?>
                         <center>
                             <div class="cf-turnstile" data-sitekey="0x4AAAAAABhLBeIdpHHw_-Up" data-size="flexible"></div>
@@ -57,8 +57,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"></script>
     <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
     <script>
-        const timer = 10;
-        const url = 'https://smartyscripts.com/products/cloud_mining';
+        const timer = <?= $timer; ?>;
+        const url = '<?= $ads_url; ?>';
         let countdown = timer - 1;
 
         $(() => {

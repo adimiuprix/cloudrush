@@ -57,7 +57,7 @@ class PtcModel extends Model
         return $this->find($id);
     }
 
-    public function verify($user_id, $ads_id)
+    public function verify($user_id, $ads_id) : bool
     {
         return $this->db->table('ptc_histories')
             ->where('ads_id', $ads_id)
@@ -68,10 +68,10 @@ class PtcModel extends Model
 
     public function updateUser(int $userId, float $amount): void
     {
-        $balance = $this->db->table('users')->select('balance')->where('id', $userId)->get()->getRow()->balance;
+        $balance = $this->db->table('users')->select('earning_balance')->where('id', $userId)->get()->getRow()->earning_balance;
 
         $this->db->table('users')->where('id', $userId)->update([
-            'balance'       => $balance + $amount,
+            'earning_balance'   => $balance + $amount,
         ]);
     }
 

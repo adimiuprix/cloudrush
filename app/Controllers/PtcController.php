@@ -59,14 +59,24 @@ class PtcController extends BaseController
 
         if($user->earning_balance >= $priceview){
             $surf_order_data = [
-                'user_id' => $user_session['id'],
-                'title' => $title,
-                'link' => $link,
-                'timer' => $timer,
-                'is_vip' => $vip,
-                'period' => $period,
+                'user_id'       => $user_session['id'],
+                'title'         => $title,
+                'link'          => $link,
+                'timer'         => $timer,
+                'is_vip'        => $vip,
+                'period'        => $period,
+                'reward'        => '0.01',
+                'total_view'    => '1000',
+                'views'         => '0',
+                'status'        => 'active',
             ];
             $this->ptc_model->save($surf_order_data);
+
+            $newEarnBalance = $user->earning_balance - $priceview;
+            $this->user_model->update($user_session['id'], [
+                'earning_balance' => $newEarnBalance,
+            ]);
+
             session()->setFlashdata('surf', 'surf_ok');
             return redirect()->to('account');
         }else{
@@ -91,6 +101,7 @@ class PtcController extends BaseController
         return number_format($lprice, 6, '.', '');
     }
 
+    // This function for get all ads from owner (My ads)
     public function surfLink()
     {
         $user_session = session()->get('user_data');
@@ -103,7 +114,58 @@ class PtcController extends BaseController
         return view('user/surf/link', $data);
     }
 
-    public function surfView(){
-        return view('user/surf/view');
+    public function surfView($ptcId){
+        $infoWeb = $this->web_data;
+
+        $adsDetail = $this->ptc_model->where('id', $ptcId)->get()->getFirstRow();
+
+        $ads = [
+            'ptc_id' => $adsDetail->id,
+            'timer' => $adsDetail->timer,
+            'ads_url' => $adsDetail->link,
+            'site_name' => $infoWeb['sitename'],
+        ];
+
+        return view('user/surf/view', $ads);
+    }
+
+    public function surfVerify(int $id){
+        $user_session = session()->get('user_data')['id'];
+
+        if (!is_numeric($id)) {
+            return redirect()->to('surf')->with('surf', 'surf_alert');
+        }
+
+        $ads_focus = $this->ptc_model->getAdById($id);
+
+        $startTime = session()->set('start_view', time());
+
+        if (time() - $startTime < $ads_focus['timer']) {
+            return redirect()->to('surf')->with('surf', 'cant_claim');
+        }
+
+        session()->remove('start_view');
+
+        if ($ads_focus['views'] >= $ads_focus['total_view']) {
+            return redirect()->to('surf')->with('surf', 'max_views');
+        }
+
+        $check = $this->ptc_model->verify($user_session, $id);
+
+        if (!$check) {
+            return redirect()->to('surf')->with('surf', 'invalid_claim');
+        }
+
+        $this->ptc_model->updateUser($user_session, $ads_focus['reward']);
+
+        $this->ptc_model->addView($ads_focus['id']);
+
+        if (($ads_focus['views'] + 1) == $ads_focus['total_view']) {
+            $this->ptc_model->setCompleted($ads_focus['id']);
+        }
+
+        $this->ptc_model->insertHistory($user_session, $ads_focus['id'], $ads_focus['reward']);
+
+        return redirect()->to('surf')->with('surf', 'success');
     }
 }

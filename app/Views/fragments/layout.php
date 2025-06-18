@@ -250,6 +250,56 @@
             });
         <?php endif; ?>
 
+        <?php if (session()->getFlashdata('surf') === 'surf_invalid_click'): ?>
+            Swal.fire({
+                title: 'Invalid!',
+                text: 'Invalid click, id must be integer.',
+                icon: 'warning',
+                showConfirmButton: false,
+                timer: 6000,
+            });
+        <?php endif; ?>
+
+        <?php if (session()->getFlashdata('surf') === 'cant_claim'): ?>
+            Swal.fire({
+                title: 'Invalid!',
+                text: 'You cant claim this ads, please come back tomorrow.',
+                icon: 'warning',
+                showConfirmButton: false,
+                timer: 6000,
+            });
+        <?php endif; ?>
+
+        <?php if (session()->getFlashdata('surf') === 'max_views'): ?>
+            Swal.fire({
+                title: 'Invalid!',
+                text: 'This ads has reached maximum views.',
+                icon: 'warning',
+                showConfirmButton: false,
+                timer: 6000,
+            });
+        <?php endif; ?>
+
+        <?php if (session()->getFlashdata('surf') === 'invalid_claim'): ?>
+            Swal.fire({
+                title: 'Invalid!',
+                text: 'You cannot claim this ads, please choose another or come back tomorrow.',
+                icon: 'warning',
+                showConfirmButton: false,
+                timer: 6000,
+            });
+        <?php endif; ?>
+
+        <?php if (session()->getFlashdata('surf') === 'success'): ?>
+            Swal.fire({
+                title: 'Success!',
+                text: 'You have successfully received a reward from PTC',
+                icon: 'success',
+                showConfirmButton: false,
+                timer: 6000,
+            });
+        <?php endif; ?>
+
         </script>
     </body>
 </html>
