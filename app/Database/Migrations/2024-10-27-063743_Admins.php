@@ -32,7 +32,7 @@ class Admins extends Migration
         $init_data = [
             [
                 'username'      => 'admin',
-                'password'      => password_hash('123456', PASSWORD_BCRYPT),
+                'password'      => password_hash('admin', PASSWORD_BCRYPT),
             ],
         ];
         $this->db->table('admins')->insertBatch($init_data);

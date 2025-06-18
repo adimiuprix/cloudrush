@@ -51,19 +51,19 @@ $routes->post('admin/session-check', 'Admin\AdminAuthController::sessionchecker'
 $routes->get('admin/panel', 'Admin\AdminPanelController::index');
 
 $routes->get('admin/plan', 'Admin\AdminPlanController::plan_index');
-$routes->match(['GET', 'PUT'], 'admin/plan/create', 'Admin\AdminPlanController::plan_create');
-$routes->match(['GET', 'PUT'], 'admin/plan/edit/(:num)', 'Admin\AdminPlanController::plan_edit/$1');
+$routes->match(['GET', 'POST'], 'admin/plan/create', 'Admin\AdminPlanController::plan_create');
+$routes->match(['GET', 'POST'], 'admin/plan/edit/(:num)', 'Admin\AdminPlanController::plan_edit/$1');
 $routes->post('admin/plan/delete/(:num)', 'Admin\AdminPlanController::plan_delete/$1');
-$routes->match(['GET', 'PUT'], 'admin/plan/freeplan', 'Admin\AdminPlanController::plan_free');
+$routes->match(['GET', 'POST'], 'admin/plan/freeplan', 'Admin\AdminPlanController::plan_free');
 
 $routes->get('admin/user', 'Admin\AdminUserController::user_index');
 
-$routes->match(['GET', 'PUT'], 'admin/gateway', 'Admin\AdminGatewayController::gateway_index');
-$routes->match(['GET', 'PUT'], 'admin/gateway/ccpayment', 'Admin\AdminGatewayController::gateway_ccpayment');
-$routes->match(['GET', 'PUT'], 'admin/gateway/faucetpay', 'Admin\AdminGatewayController::gateway_faucetpay');
+$routes->match(['GET', 'POST'], 'admin/gateway', 'Admin\AdminGatewayController::gateway_index');
+$routes->match(['GET', 'POST'], 'admin/gateway/ccpayment', 'Admin\AdminGatewayController::gateway_ccpayment');
+$routes->match(['GET', 'POST'], 'admin/gateway/faucetpay', 'Admin\AdminGatewayController::gateway_faucetpay');
 
-$routes->match(['GET', 'PUT'], 'admin/setting', 'Admin\AdminSettingController::setting_index');
-$routes->match(['GET', 'PUT'], 'admin/seo', 'Admin\AdminSettingController::setting_seo');
+$routes->match(['GET', 'POST'], 'admin/setting', 'Admin\AdminSettingController::setting_index');
+$routes->match(['GET', 'POST'], 'admin/seo', 'Admin\AdminSettingController::setting_seo');
 
 $routes->get('admin/faqs', 'Admin\AdminFaqsController::faqs_index');
 

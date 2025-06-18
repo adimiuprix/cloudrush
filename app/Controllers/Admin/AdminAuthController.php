@@ -33,9 +33,9 @@ class AdminAuthController extends BaseController
             ]);
 
             // Redirect to dashboard
-            return redirect()->to('/admin/panel');
+            return redirect()->to('admin/panel');
         }else{
-            return redirect()->to('/admin/login');
+            return redirect()->to('admin/login');
         }
     }
 }
