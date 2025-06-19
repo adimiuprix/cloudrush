@@ -4,14 +4,17 @@ namespace App\Controllers\Admin;
 
 use App\Controllers\BaseController;
 use App\Models\UserModel;
+use App\Models\PlanModel;
 
 class AdminUserController extends BaseController
 {
     protected $user_model;
+    protected $plan_model;
 
     public function __construct()
     {
         $this->user_model = new UserModel();
+        $this->plan_model = new PlanModel();
     }
 
     public function user_index()

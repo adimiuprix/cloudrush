@@ -103,6 +103,22 @@
                 <i class="menu-icon tf-icons ri-money-dollar-box-line"></i>
                 <div>PTC</div>
             </a>
+            <ul class="menu-sub">
+                <li class="menu-item">
+                    <a href="<?= base_url('admin/ptc')?>" class="menu-link">
+                        <div>All Ptc</div>
+                    </a>
+                    <a href="<?= base_url('admin/ptc/active')?>" class="menu-link">
+                        <div>Ptc Active</div>
+                    </a>
+                    <a href="<?= base_url('admin/ptc/completed')?>" class="menu-link">
+                        <div>Ptc Completed</div>
+                    </a>
+                    <a href="<?= base_url('admin/ptc/setting')?>" class="menu-link">
+                        <div>Ptc Setting</div>
+                    </a>
+                </li>
+            </ul>
         </li>
         <li class="menu-item">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
