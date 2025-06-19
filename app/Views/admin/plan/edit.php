@@ -15,15 +15,19 @@
                         </div>
                         <small class="text-light fw-medium d-block">Earning (day)</small>
                         <div class="input-group">
-                            <input type="number" class="form-control" name="earn_day" value="<?= $plan->earning_per_day;?>" placeholder="Earning per day" required />
+                            <input type="text" class="form-control" name="earn_day" value="<?= $plan->earning_per_day;?>" placeholder="Earning per day" required />
                         </div>
-                        <small class="text-light fw-medium d-block">Earning rate</small>
+                        <small class="text-light fw-medium d-block">Earning rate (minutes)</small>
                         <div class="input-group">
-                            <input type="number" class="form-control" name="earn_rate" value="<?= $plan->earning_rate;?>" placeholder="Earning rate" required />
+                            <input type="text" class="form-control" name="earn_rate" value="<?= $plan->earning_rate;?>" placeholder="Earning rate" required />
                         </div>
                         <small class="text-light fw-medium d-block">Price</small>
                         <div class="input-group">
                             <input type="number" class="form-control" name="plan_price" value="<?= $plan->price;?>" placeholder="Price" required />
+                        </div>
+                        <small class="text-light fw-medium d-block">Duration (day)</small>
+                        <div class="input-group">
+                            <input type="number" class="form-control" name="plan_duration" value="<?= $plan->duration;?>" placeholder="Duration" required />
                         </div>
                         <small class="text-light fw-medium d-block">Profit</small>
                         <div class="input-group">

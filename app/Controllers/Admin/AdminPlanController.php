@@ -51,6 +51,7 @@ class AdminPlanController extends BaseController
                 'earning_per_day' => $this->request->getPost('earn_day'),
                 'earning_rate' => $this->request->getPost('earn_rate'),
                 'price' => $this->request->getPost('plan_price'),
+                'duration' => $this->request->getPost('plan_duration'),
                 'profit' => $this->request->getPost('plan_profit'),
             ];
             $this->plan_model->update($id, $data_plan);

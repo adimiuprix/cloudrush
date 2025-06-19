@@ -34,7 +34,7 @@
                                         <i class="ri-more-2-line"></i>
                                     </button>
                                     <div class="dropdown-menu">
-                                        <a class="dropdown-item waves-effect" href="<?= base_url('admin/plan/edit/' . $user->id); ?>"><i class="ri-pencil-line me-1"></i> Edit</a>
+                                        <a class="dropdown-item waves-effect" href="<?= base_url('admin/user/edit/' . $user->id); ?>"><i class="ri-pencil-line me-1"></i> Edit</a>
 
                                         <!-- Button for delete -->
                                         <form action="<?= site_url('admin/plan/delete/' . $user->id); ?>" method="post">
