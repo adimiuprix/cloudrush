@@ -37,14 +37,14 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Selesaikan captcanya cuk!!!</h5>
+                    <h5 class="modal-title">Solve captcha!</h5>
                 </div>
 
                 <div class="modal-body">
                     <form action="<?= site_url('surf/verify/' . $ptc_id); ?>" method="POST">
                         <?= csrf_field() ?>
                         <center>
-                            <div class="cf-turnstile" data-sitekey="0x4AAAAAABhLBeIdpHHw_-Up" data-size="flexible"></div>
+                            <div class="h-captcha" data-sitekey="d61adafc-9e1a-41be-9e4e-708abfa4d156"></div>
                         </center>
                         <button id="verify" class="btn btn-success btn-block" type="submit">Verify</button>
                     </form>
@@ -55,7 +55,7 @@
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"></script>
-    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+    <script src='https://www.hCaptcha.com/1/api.js' async defer></script>    
     <script>
         const timer = <?= $timer; ?>;
         const url = '<?= $ads_url; ?>';

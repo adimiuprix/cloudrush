@@ -130,6 +130,14 @@ class PtcController extends BaseController
     }
 
     public function surfVerify(int $id){
+        // hcaptcha verify
+        $captcha_response = $this->request->getPost('h-captcha-response');
+        $secret = "ES_221c6a57085c4832ae5cda9a7dadece4";
+        $response = $this->verifyCaptcha($captcha_response, $secret, $this->request->getIPAddress());
+        if ($response === false) {
+            return redirect()->to('surf')->with('surf', 'captcha_failed');
+        }
+
         $user_session = session()->get('user_data')['id'];
 
         if (!is_numeric($id)) {
@@ -167,5 +175,17 @@ class PtcController extends BaseController
         $this->ptc_model->insertHistory($user_session, $ads_focus['id'], $ads_focus['reward']);
 
         return redirect()->to('surf')->with('surf', 'success');
+    }
+
+    private function verifyCaptcha(string $response, string $secret, string $ip): bool
+    {
+        $res = json_decode(
+            file_get_contents('https://hcaptcha.com/siteverify?' . http_build_query([
+                'secret' => $secret,
+                'response' => $response,
+                'remoteip' => $ip
+            ])), true);
+
+        return !empty($res['success']) && $res['success'] === true;
     }
 }
