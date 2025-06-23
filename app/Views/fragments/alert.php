@@ -6,6 +6,7 @@ $alerts = [
         'claim_success' => ['Success!', 'Bonus claim was successful.', 'success'],
         'claim_failed'  => ['Failed!', 'Bonus claim unsuccessful.', 'error'],
         'free_plan'     => ['Failed!', 'You need deposit for claim bonus', 'error'],
+        'banned'        => ['Ups!', 'Your account has been banned!', 'error'],
     ],
     'surf' => [
         'captcha_failed'   => ['Error!', 'Failed to verify captcha. Please try again.', 'error', 5000],

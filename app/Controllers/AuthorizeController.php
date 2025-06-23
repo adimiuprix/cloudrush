@@ -28,7 +28,13 @@ class AuthorizeController extends BaseController
 
         $result = $this->user_model->getUserByWallet($wallet_post);
 
+        if ($result['is_banned'] == 1) {
+            session()->setFlashdata('alert', 'banned');
+            return redirect()->back();
+        }
+        
         if ($result) {
+
             session()->set('user_data', $result);
             session()->setFlashdata('alert', 'success');
 
@@ -43,7 +49,8 @@ class AuthorizeController extends BaseController
                 'user_wallet' => $wallet_post,
                 'reff_code' => $random_string->mixedcase()->size(8)->get(),
                 'reff_by' => $userId->id ?? 0,
-                'ip_address' => service('request')->getIPAddress()
+                'ip_address' => service('request')->getIPAddress(),
+                'is_banned' => 0
             ];
 
             $this->user_model->insert($new_user);

@@ -18,13 +18,13 @@ class UserModel extends Model
         'user_wallet',
         'balance',
         'total_earn',
-        'upline_reward',
         'reff_code',
+        'upline_reward',
         'reff_by',
         'last_claim',
-        'ip_address',
         'earning_balance',
-        'ads_balance',
+        'ip_address',
+        'is_banned',
     ];
     protected $user_plan_history;
 

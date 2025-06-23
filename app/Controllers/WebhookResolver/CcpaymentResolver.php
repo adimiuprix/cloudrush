@@ -2,125 +2,120 @@
 
 namespace App\Controllers\WebhookResolver;
 
-use CodeIgniter\I18n\Time;
-use CodeIgniter\HTTP\Response;
 use App\Controllers\BaseController;
-use App\Models\PlanModel;
-use App\Models\DepositModel;
-use App\Models\UserModel;
-use App\Models\UserPlanHistoryModel;
-use App\Models\WithdrawModel;
-
+use App\Models\{DepositModel, PlanModel, UserModel, UserPlanHistoryModel, WithdrawModel};
 use App\Controllers\WebhookResolver\ApiHook;
+use CodeIgniter\HTTP\ResponseInterface;
+use CodeIgniter\I18n\Time;
 
 class CcpaymentResolver extends BaseController
 {
-    public function resolver()
+    public function resolver(): ResponseInterface
     {
-        $apihook = ApiHook::getAppIdSecret();
-        $app_id = $apihook['app_id'];
-        $app_secret = $apihook['app_secret'];
-    
+        $hook = ApiHook::getAppIdSecret();
         $timestamp = $this->request->getHeaderLine('Timestamp');
-        $sign = $this->request->getHeaderLine('Sign');
-        $sign_text = json_decode($this->request->getBody(), true);
-    
-        if (!$this->verifySignature($sign_text, $sign, $app_id, $app_secret, $timestamp)) {
-            return $this->response->setStatusCode(Response::HTTP_UNAUTHORIZED)->setBody('Invalid signature');
+        $signature = $this->request->getHeaderLine('Sign');
+
+        $payload = json_decode($this->request->getBody(), true);
+
+        if (!$this->verifySignature($payload, $signature, $hook['app_id'], $hook['app_secret'], $timestamp)) {
+            return $this->response->setStatusCode(401)->setBody('Invalid signature');
         }
-    
-        $status = $sign_text['msg']['status'] ?? null;
-        $orderId = $sign_text['msg']['orderId'] ?? null;
-        $type = $sign_text['type'] ?? null;
-    
+
+        $type     = $payload['type'] ?? null;
+        $msg      = $payload['msg'] ?? [];
+        $status   = $msg['status'] ?? null;
+        $orderId  = $msg['orderId'] ?? null;
+
         if (!$orderId || !$status) {
-            return $this->response->setStatusCode(Response::HTTP_BAD_REQUEST)->setBody('Missing data');
+            return $this->response->setStatusCode(400)->setBody('Missing data');
         }
-    
-        if ($type === 'ApiDeposit') {
-            $deposit_model = new DepositModel();
-            $plan_model = new PlanModel();
-            $user_plan_history_model = new UserPlanHistoryModel();
-    
-            $order = $deposit_model->where('hash_tx', $orderId)->first();
-            if (!$order) {
-                return $this->response->setStatusCode(Response::HTTP_NOT_FOUND)->setBody('Deposit order not found');
-            }
-    
-            switch ($status) {
-                case 'Procesing':
-                    $deposit_model->update($order['id'], ['status' => 'processing']);
-                    break;
-    
-                case 'Success':
-                    $deposit_model->update($order['id'], ['status' => 'paid']);
-    
-                    $plan_user = $plan_model->asObject()->where('id', $order['plan_id'])->first();
-                    $duration = $plan_user->duration ?? 0;
-                    $exp_plan = Time::now()->addDays($duration)->toDateTimeString();
-    
-                    $user_plan_history_model->insert([
-                        'user_id' => $order['user_id'],
-                        'plan_id' => $order['plan_id'],
-                        'status' => 'active',
-                        'last_sum' => time(),
-                        'expire_date' => $exp_plan,
-                    ]);
-                    break;
-            }
-        }
-    
-        if ($type === 'ApiWithdrawal') {
-            $withdraw_model = new WithdrawModel();
-            $user_model = new UserModel();
-    
-            $order = $withdraw_model->where('hash_tx', $orderId)->first();
-            if (!$order) {
-                return $this->response->setStatusCode(Response::HTTP_NOT_FOUND)->setBody('Withdrawal order not found');
-            }
-    
-            switch ($status) {
-                case 'Processing':
-                    $withdraw_model->update($order['id'], ['status' => 'pending']);
-                    break;
-    
-                case 'Success':
-                    $withdraw_model->update($order['id'], ['status' => 'paid']);
-                    break;
-    
-                case 'Failed':
-                    $withdraw_model->update($order['id'], ['status' => 'fail']);
-    
-                    $user = $user_model->find($order['user_id']);
-                    if ($user) {
-                        $newBalance = $user['balance'] + $order['sum_withdraw'];
-                        $user_model->update($user['id'], ['balance' => $newBalance]);
-                    }
-                    break;
-            }
-        }
-    
-        return $this->response->setStatusCode(Response::HTTP_OK)->setBody('success');
+
+        return match ($type) {
+            'ApiDeposit'    => $this->handleDeposit($orderId, $status),
+            'ApiWithdrawal' => $this->handleWithdrawal($orderId, $status),
+            default         => $this->response->setStatusCode(400)->setBody('Unknown type')
+        };
     }
 
-    private function verifySignature($content, $signature, $app_id, $app_secret, $timestamp)
+    private function handleDeposit(string $orderId, string $status): ResponseInterface
     {
-        $sign_text = $app_id . $timestamp . json_encode($content, JSON_UNESCAPED_UNICODE);
-        $server_sign = hash_hmac('sha256', $sign_text, $app_secret);
-        return $signature === $server_sign;
+        $depositModel = new DepositModel();
+        $planModel = new PlanModel();
+        $historyModel = new UserPlanHistoryModel();
+
+        $order = $depositModel->where('hash_tx', $orderId)->first();
+        if (!$order) {
+            return $this->response->setStatusCode(404)->setBody('Deposit order not found');
+        }
+
+        return match ($status) {
+            'Procesing' => $this->updateStatus($depositModel, $order['id'], 'processing'),
+            'Success'   => $this->processDepositSuccess($depositModel, $planModel, $historyModel, $order),
+            default     => $this->response->setStatusCode(200)->setBody('Ignored'),
+        };
+    }
+
+    private function processDepositSuccess(DepositModel $depositModel, PlanModel $planModel, UserPlanHistoryModel $historyModel, array $order): ResponseInterface
+    {
+        $depositModel->update($order['id'], ['status' => 'paid']);
+
+        $plan = $planModel->asObject()->find($order['plan_id']);
+        $expire = Time::now()->addDays($plan->duration ?? 0)->toDateTimeString();
+
+        $historyModel->insert([
+            'user_id'     => $order['user_id'],
+            'plan_id'     => $order['plan_id'],
+            'status'      => 'active',
+            'last_sum'    => time(),
+            'expire_date' => $expire,
+        ]);
+
+        return $this->response->setStatusCode(200)->setBody('Deposit success');
+    }
+
+    private function handleWithdrawal(string $orderId, string $status): ResponseInterface
+    {
+        $withdrawModel = new WithdrawModel();
+        $userModel = new UserModel();
+
+        $order = $withdrawModel->where('hash_tx', $orderId)->first();
+        if (!$order) {
+            return $this->response->setStatusCode(404)->setBody('Withdrawal order not found');
+        }
+
+        return match ($status) {
+            'Processing' => $this->updateStatus($withdrawModel, $order['id'], 'pending'),
+            'Success'    => $this->updateStatus($withdrawModel, $order['id'], 'paid'),
+            'Failed'     => $this->handleWithdrawFail($withdrawModel, $userModel, $order),
+            default      => $this->response->setStatusCode(200)->setBody('Ignored'),
+        };
+    }
+
+    private function handleWithdrawFail(WithdrawModel $withdrawModel, UserModel $userModel, array $order): ResponseInterface
+    {
+        $withdrawModel->update($order['id'], ['status' => 'fail']);
+
+        $user = $userModel->find($order['user_id']);
+        if ($user) {
+            $userModel->update($user['id'], [
+                'balance' => $user['balance'] + $order['sum_withdraw']
+            ]);
+        }
+
+        return $this->response->setStatusCode(200)->setBody('Withdrawal failed, balance refunded');
+    }
+
+    private function updateStatus($model, int|string $id, string $status): ResponseInterface
+    {
+        $model->update($id, ['status' => $status]);
+        return $this->response->setStatusCode(200)->setBody('Updated');
+    }
+
+    private function verifySignature(array $content, string $signature, string $appId, string $secret, string $timestamp): bool
+    {
+        $signText = $appId . $timestamp . json_encode($content, JSON_UNESCAPED_UNICODE);
+        $expected = hash_hmac('sha256', $signText, $secret);
+        return $signature === $expected;
     }
 }
-
-// $filePath = WRITEPATH . 'data.json';
-// file_put_contents($filePath, json_decode($order['sum_withdraw'], JSON_PRETTY_PRINT));
-
-// {
-//     "type": "ApiDeposit",
-//     "msg": {
-//       "recordId": "20240313121919...",
-//       "orderId": "202403131218361...",
-//       "coinId": 1329,
-//       "coinSymbol": "MATIC",
-//       "status": "Success"
-//     }
-//   }
