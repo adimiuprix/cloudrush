@@ -3,46 +3,48 @@
 namespace App\Controllers\WebhookResolver;
 
 use App\Controllers\BaseController;
-use App\Models\{DepositModel, PlanModel, UserModel, UserPlanHistoryModel, WithdrawModel};
-use App\Controllers\WebhookResolver\ApiHook;
 use CodeIgniter\HTTP\ResponseInterface;
+use CodeIgniter\API\ResponseTrait;
 use CodeIgniter\I18n\Time;
+use App\Controllers\WebhookResolver\ApiHook;
+use App\Models\{DepositModel, PlanModel, UserModel, UserPlanHistoryModel, WithdrawModel};
+use Exception;
 
 class CcpaymentResolver extends BaseController
 {
+    use ResponseTrait;
+
     public function resolver(): ResponseInterface
     {
-        $hook = ApiHook::getAppIdSecret();
-        $timestamp = $this->request->getHeaderLine('Timestamp');
-        $signature = $this->request->getHeaderLine('Sign');
+        $validation = $this->verifyRequest();
 
-        $payload = json_decode($this->request->getBody(), true);
-
-        if (!$this->verifySignature($payload, $signature, $hook['app_id'], $hook['app_secret'], $timestamp)) {
-            return $this->response->setStatusCode(401)->setBody('Invalid signature');
+        if ($validation instanceof ResponseInterface) {
+            return $validation;
         }
 
-        $type     = $payload['type'] ?? null;
-        $msg      = $payload['msg'] ?? [];
-        $status   = $msg['status'] ?? null;
-        $orderId  = $msg['orderId'] ?? null;
+        [, , $parsedBody] = $validation;
 
-        if (!$orderId || !$status) {
-            return $this->response->setStatusCode(400)->setBody('Missing data');
-        }
+        $type = $parsedBody['type'] ?? null;
 
         return match ($type) {
-            'ApiDeposit'    => $this->handleDeposit($orderId, $status),
-            'ApiWithdrawal' => $this->handleWithdrawal($orderId, $status),
-            default         => $this->response->setStatusCode(400)->setBody('Unknown type')
+            'ActivateWebhookURL' => $this->respond(['msg' => 'success']),
+            'ApiDeposit'        => $this->handleApiDeposits($parsedBody),
+            'ApiWithdrawal'     => $this->handleApiWithdrawals($parsedBody),
+            default             => $this->fail("Invalid type: Expected 'ActivateWebhookURL', but got '" . ($type ?? 'undefined') . "'", 400),
         };
     }
 
-    private function handleDeposit(string $orderId, string $status): ResponseInterface
+    private function handleApiDeposits(array $data): ResponseInterface
     {
         $depositModel = new DepositModel();
         $planModel = new PlanModel();
         $historyModel = new UserPlanHistoryModel();
+
+        $status = $data['msg']['status'] ?? null;
+        $orderId = $data['msg']['orderId'] ?? null;
+        if (!$orderId || !$status) {
+            return $this->response->setStatusCode(400)->setBody('Missing data');
+        }
 
         $order = $depositModel->where('hash_tx', $orderId)->first();
         if (!$order) {
@@ -50,7 +52,7 @@ class CcpaymentResolver extends BaseController
         }
 
         return match ($status) {
-            'Procesing' => $this->updateStatus($depositModel, $order['id'], 'processing'),
+            'Processing' => $this->updateStatus($depositModel, $order['id'], 'processing'),
             'Success'   => $this->processDepositSuccess($depositModel, $planModel, $historyModel, $order),
             default     => $this->response->setStatusCode(200)->setBody('Ignored'),
         };
@@ -74,10 +76,16 @@ class CcpaymentResolver extends BaseController
         return $this->response->setStatusCode(200)->setBody('Deposit success');
     }
 
-    private function handleWithdrawal(string $orderId, string $status): ResponseInterface
+    private function handleApiWithdrawals(array $data): ResponseInterface
     {
         $withdrawModel = new WithdrawModel();
         $userModel = new UserModel();
+
+        $status = $data['msg']['status'] ?? null;
+        $orderId = $data['msg']['orderId'] ?? null;
+        if (!$orderId || !$status) {
+            return $this->response->setStatusCode(400)->setBody('Missing data');
+        }
 
         $order = $withdrawModel->where('hash_tx', $orderId)->first();
         if (!$order) {
@@ -99,11 +107,48 @@ class CcpaymentResolver extends BaseController
         $user = $userModel->find($order['user_id']);
         if ($user) {
             $userModel->update($user['id'], [
-                'balance' => $user['balance'] + $order['sum_withdraw']
+                'balance' => (float) $user['balance'] + (float) $order['sum_withdraw']
             ]);
         }
 
         return $this->response->setStatusCode(200)->setBody('Withdrawal failed, balance refunded');
+    }
+
+    private function verifyRequest(): array|ResponseInterface
+    {
+        $hook = ApiHook::getAppIdSecret();
+        $request  = $this->request;
+        $appId    = $request->getHeaderLine('Appid');
+        $sign     = $request->getHeaderLine('Sign');
+        $timestampRaw = $request->getHeaderLine('Timestamp');
+
+        if ($appId !== $hook['app_id']) {
+            return $this->failUnauthorized('Invalid AppId');
+        }
+
+        try {
+            $timestamp = intval($timestampRaw);
+            if (abs(time() - $timestamp) > 300) {
+                return $this->failUnauthorized('The timestamp is invalid or has expired');
+            }
+        } catch (Exception $e) {
+            return $this->fail('Invalid timestamp format', 400);
+        }
+
+        $body = $request->getBody();
+        $signText = $appId . $timestamp . $body;
+        $expectedSign = hash_hmac('sha256', $signText, $hook['app_secret']);
+
+        if ($sign !== $expectedSign) {
+            return $this->fail('Invalid signature', 402);
+        }
+
+        $parsedBody = json_decode($body, true);
+        if (!is_array($parsedBody)) {
+            return $this->fail('Invalid JSON format', 400);
+        }
+
+        return [$timestamp, $body, $parsedBody];
     }
 
     private function updateStatus($model, int|string $id, string $status): ResponseInterface
@@ -112,10 +157,4 @@ class CcpaymentResolver extends BaseController
         return $this->response->setStatusCode(200)->setBody('Updated');
     }
 
-    private function verifySignature(array $content, string $signature, string $appId, string $secret, string $timestamp): bool
-    {
-        $signText = $appId . $timestamp . json_encode($content, JSON_UNESCAPED_UNICODE);
-        $expected = hash_hmac('sha256', $signText, $secret);
-        return $signature === $expected;
-    }
 }
