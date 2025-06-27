@@ -54,8 +54,6 @@ class PaymentController extends BaseController
     public function ccpayment(int $id, int $p_id, float $price, string $rand)
     {
         $ccpayment = $this->db->table('ccpayments')->get()->getFirstRow();
-        $app_id = $ccpayment->app_id;
-        $app_secret = $ccpayment->app_secret;
         $url = "https://ccpayment.com/ccpayment/v2/createAppOrderDepositAddress";
 
         $content = [
@@ -68,16 +66,16 @@ class PaymentController extends BaseController
         $timestamp = time();
         $body = json_encode($content);
 
-        $signText = $app_id . $timestamp;
+        $signText = $ccpayment->app_id . $timestamp;
         if (strlen($body) !== 2) {
             $signText .= $body;
         }
 
-        $serverSign = hash_hmac('sha256', $signText, $app_secret);
+        $serverSign = hash_hmac('sha256', $signText, $ccpayment->app_secret);
 
         $headers = [
             'Content-Type' => 'application/json;charset=utf-8',
-            'Appid' => $app_id,
+            'Appid' => $ccpayment->app_id,
             'Sign' => $serverSign,
             'Timestamp' => $timestamp,
         ];
