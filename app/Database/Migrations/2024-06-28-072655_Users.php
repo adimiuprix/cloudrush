@@ -69,7 +69,8 @@ class Users extends Migration
             'is_banned' => [
                 'type'       => 'ENUM',
                 'constraint'     => ['0', '1'],
-                'default'  => '0'
+                'default'  => '0',
+                'null'  => true
             ],
             'created_at DATETIME DEFAULT CURRENT_TIMESTAMP',
         ]);

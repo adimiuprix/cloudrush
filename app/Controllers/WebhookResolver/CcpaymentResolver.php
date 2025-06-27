@@ -73,7 +73,7 @@ class CcpaymentResolver extends BaseController
             'expire_date' => $expire,
         ]);
 
-        return $this->response->setStatusCode(200)->setBody('Deposit success');
+        return $this->response->setStatusCode(200)->setBody('Success');
     }
 
     private function handleApiWithdrawals(array $data): ResponseInterface
@@ -116,13 +116,14 @@ class CcpaymentResolver extends BaseController
 
     private function verifyRequest(): array|ResponseInterface
     {
-        $hook = ApiHook::getAppIdSecret();
+        $ccpayment = $this->db->table('ccpayments')->get()->getFirstRow();
+
         $request  = $this->request;
         $appId    = $request->getHeaderLine('Appid');
         $sign     = $request->getHeaderLine('Sign');
         $timestampRaw = $request->getHeaderLine('Timestamp');
 
-        if ($appId !== $hook['app_id']) {
+        if ($appId !== $ccpayment->app_id) {
             return $this->failUnauthorized('Invalid AppId');
         }
 
@@ -137,7 +138,7 @@ class CcpaymentResolver extends BaseController
 
         $body = $request->getBody();
         $signText = $appId . $timestamp . $body;
-        $expectedSign = hash_hmac('sha256', $signText, $hook['app_secret']);
+        $expectedSign = hash_hmac('sha256', $signText, $ccpayment->app_secret);
 
         if ($sign !== $expectedSign) {
             return $this->fail('Invalid signature', 402);
