@@ -51,7 +51,7 @@ class PaymentController extends BaseController
         return redirect()->to('purchase-plan?pay=' . $randomize);
     }
 
-    public function ccpayment(int $id, int $p_id, float $price, string $rand)
+    public function ccpayment(int $id, int $p_id, float $price, string $rand): void
     {
         $ccpayment = $this->db->table('ccpayments')->get()->getFirstRow();
         $url = "https://ccpayment.com/ccpayment/v2/createAppOrderDepositAddress";
@@ -88,17 +88,20 @@ class PaymentController extends BaseController
         ]);
         $result = json_decode($response->getBody(), true);
 
-        $deposit_model = new DepositModel();
+        model(DepositModel::class)->insert([
+            'user_id'     => $id,
+            'plan_id'     => $p_id,
+            'sum_deposit' => $price,
+            'address'     => $result['data']['address'] ?? null,
+            'status'      => 'pending',
+            'hash_tx'     => $content['orderId'],
+        ]);
 
-        $create_deposit_plan = [
+        model(UserPlanHistoryModel::class)->save([
             'user_id' => $id,
             'plan_id' => $p_id,
-            'sum_deposit' => $price,
-            'address' => $result['data']['address'],
-            'status' => 'pending',
-            'hash_tx' => $content['orderId']
-        ];
-        $deposit_model->insert($create_deposit_plan);
+            'status'  => 'inactive',
+        ]);
     }
 
     public function purchase_api()
@@ -139,25 +142,20 @@ class PaymentController extends BaseController
     // Manual Payments
     public function manual(int $id, int $plan_id, float $amount, string $rand)
     {
-        $deposit_model = new DepositModel();
-        $user_plan_history_model = new UserPlanHistoryModel();
-
-        $create_deposit_plan = [
-            'user_id' => $id,
-            'plan_id' => $plan_id,
+        model(DepositModel::class)->insert([
+            'user_id'     => $id,
+            'plan_id'     => $plan_id,
             'sum_deposit' => $amount,
-            'status' => 'pending',
-            'address' => 'DT2XM8APUaz8nTusB8p6iVhJg4Xm7AtxgJ',
-            'hash_tx' => $rand
-        ];
-        $deposit_model->insert($create_deposit_plan);
+            'status'      => 'pending',
+            'address'     => 'DT2XM8APUaz8nTusB8p6iVhJg4Xm7AtxgJ',
+            'hash_tx'     => $rand,
+        ]);
 
-        $purchase_plan = [
+        model(UserPlanHistoryModel::class)->save([
             'user_id' => $id,
             'plan_id' => $plan_id,
-            'status' => 'inactive',
-        ];
-        $user_plan_history_model->save($purchase_plan);
+            'status'  => 'inactive',
+        ]);
     }
 
     public function ccpaylist(){

@@ -6,7 +6,6 @@ use App\Controllers\BaseController;
 use CodeIgniter\HTTP\ResponseInterface;
 use CodeIgniter\API\ResponseTrait;
 use CodeIgniter\I18n\Time;
-use App\Controllers\WebhookResolver\ApiHook;
 use App\Models\{DepositModel, PlanModel, UserModel, UserPlanHistoryModel, WithdrawModel};
 use Exception;
 
