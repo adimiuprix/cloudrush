@@ -97,7 +97,7 @@ class PaymentController extends BaseController
             'hash_tx'     => $content['orderId'],
         ]);
 
-        model(UserPlanHistoryModel::class)->save([
+        model(UserPlanHistoryModel::class)->insert([
             'user_id' => $id,
             'plan_id' => $p_id,
             'status'  => 'inactive',

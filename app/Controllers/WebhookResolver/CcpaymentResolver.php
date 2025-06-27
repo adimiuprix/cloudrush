@@ -57,19 +57,20 @@ class CcpaymentResolver extends BaseController
         };
     }
 
-    private function processDepositSuccess(DepositModel $depositModel, PlanModel $planModel, UserPlanHistoryModel $historyModel, array $order): ResponseInterface
+    private function processDepositSuccess(DepositModel $depositModel, PlanModel $planModel, array $order): ResponseInterface
     {
         $depositModel->update($order['id'], ['status' => 'paid']);
 
         $plan = $planModel->asObject()->find($order['plan_id']);
         $expire = Time::now()->addDays($plan->duration ?? 0)->toDateTimeString();
 
-        $historyModel->insert([
+        model(UserPlanHistoryModel::class)->insert([
             'user_id'     => $order['user_id'],
             'plan_id'     => $order['plan_id'],
             'status'      => 'active',
             'last_sum'    => time(),
             'expire_date' => $expire,
+
         ]);
 
         return $this->response->setStatusCode(200)->setBody('Success');
