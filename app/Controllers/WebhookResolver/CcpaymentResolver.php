@@ -77,6 +77,14 @@ class CcpaymentResolver extends BaseController
             'expire_date' => $expire,
         ])->update();
 
+        $upline = $this->getUplineByHash($hashId);
+        if ($upline) {
+            $this->db->table('users')->where('id', $upline->id)->set([
+                'upline_reward' => $upline->upline_reward + 1.00000000,
+                'earning_balance' => $upline->earning_balance + 1.00000000,
+            ])->update();
+        };
+
         return $this->response
             ->setStatusCode(200)
             ->setHeader('Content-Type', 'text/plain; charset=utf-8')
@@ -119,5 +127,33 @@ class CcpaymentResolver extends BaseController
         }
 
         return [$timestamp, $body, $parsedBody];
+    }
+
+    function getUplineByHash(string $hash)
+    {
+        $userId = $this->db->table('deposit_histories')
+            ->select('user_id')
+            ->where('hash_tx', $hash)
+            ->get()
+            ->getRow('user_id');
+    
+        if (!$userId) {
+            return null;
+        }
+    
+        $reffBy = $this->db->table('users')
+            ->select('reff_by')
+            ->where('id', $userId)
+            ->get()
+            ->getRow('reff_by');
+    
+        if (!$reffBy || $reffBy === '0') {
+            return null;
+        }
+    
+        return $this->db->table('users')
+            ->where('id', $reffBy)
+            ->get()
+            ->getRow();
     }
 }
