@@ -66,11 +66,7 @@ class PaymentController extends BaseController
         $timestamp = time();
         $body = json_encode($content);
 
-        $signText = $ccpayment->app_id . $timestamp;
-        if (strlen($body) !== 2) {
-            $signText .= $body;
-        }
-
+        $signText = $ccpayment->app_id . $timestamp . (strlen($body) !== 2 ? $body : '');
         $serverSign = hash_hmac('sha256', $signText, $ccpayment->app_secret);
 
         $headers = [
@@ -101,6 +97,7 @@ class PaymentController extends BaseController
             'user_id' => $id,
             'plan_id' => $p_id,
             'status'  => 'inactive',
+            'hash_tx' => $content['orderId'],
         ]);
     }
 

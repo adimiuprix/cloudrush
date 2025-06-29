@@ -31,6 +31,11 @@ class UserPlanHistories extends Migration
                 'type'       => 'BIGINT',
                 'null'  => true
             ],
+            'hash_tx' => [
+                'type'       => 'VARCHAR',
+                'constraint'     => 255,
+                'null'  => true
+            ],
             'expire_date' => [
                 'type' => 'DATE',
                 'null' => true,

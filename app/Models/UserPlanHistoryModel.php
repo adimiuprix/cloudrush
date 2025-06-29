@@ -12,7 +12,7 @@ class UserPlanHistoryModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['user_id', 'plan_id', 'status', 'last_sum', 'expire_date'];
+    protected $allowedFields    = ['user_id', 'plan_id', 'status', 'last_sum', 'hash_tx', 'expire_date'];
 
     public function getActiveUserPlans(int $userId)
     {
