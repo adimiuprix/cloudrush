@@ -37,7 +37,7 @@ class CcpaymentResolver extends BaseController
         $depositModel = new DepositModel();
         $planModel = new PlanModel();
 
-        $status = $data['msg']['status'] ?? null;       // 'Processing', 'Success', 'Failed'
+        $status = $data['msg']['status'] ?? null;      // 'Processing', 'Success', 'Failed'
         $hashId = $data['msg']['orderId'] ?? null;     // from Api
 
         if (!$hashId || !$status) {
