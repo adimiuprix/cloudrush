@@ -98,31 +98,30 @@ class WithdrawController extends BaseController
 
         $user = $user_model->where('id', $id)->get()->getFirstRow(); // find user
 
-        $app_id = env("CCPAYMENT_APP_ID");
-        $app_secret = env("CCPAYMENT_APP_SEC");
+        $ccpayment = $this->db->table('ccpayments')->get()->getFirstRow();
         $url = "https://ccpayment.com/ccpayment/v2/applyAppWithdrawToNetwork";
 
         $content = [
-            "coinId"=> 1482,
+            "coinId"=> $ccpayment->coin_id,
             "address" => $user->user_wallet,
             "orderId"=> $rand,
-            "chain"=> "TRX",
+            "chain"=> $ccpayment->chain,
             "amount"=> (string)$sum_wd,
         ];
 
         $timestamp = time();
         $body = json_encode($content);
 
-        $signText = $app_id . $timestamp;
+        $signText = $ccpayment->app_id . $timestamp;
         if (strlen($body) !== 2) {
             $signText .= $body;
         }
 
-        $serverSign = hash_hmac('sha256', $signText, $app_secret);
+        $serverSign = hash_hmac('sha256', $signText, $ccpayment->app_secret);
 
         $headers = [
             'Content-Type' => 'application/json;charset=utf-8',
-            'Appid' => $app_id,
+            'Appid' => $ccpayment->app_id,
             'Sign' => $serverSign,
             'Timestamp' => $timestamp,
         ];
