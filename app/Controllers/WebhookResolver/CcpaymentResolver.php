@@ -66,8 +66,7 @@ class CcpaymentResolver extends BaseController
 
     private function depositSuccess(DepositModel $depositModel, PlanModel $planModel, array $order, string $hashId): ResponseInterface
     {
-        $depositModel->update($order['id'], ['status' => 'paid']);
-        
+        $depositModel->where('hash_tx', $order['hash_tx'])->set(['status' => 'paid'])->update();
         $plan = $planModel->asObject()->find($order['plan_id']);
         $expire = Time::now()->addDays($plan->duration ?? 0)->toDateTimeString();
 
@@ -129,7 +128,7 @@ class CcpaymentResolver extends BaseController
         return [$timestamp, $body, $parsedBody];
     }
 
-    function getUplineByHash(string $hash)
+    function getUplineByHash(string $hash): ?object
     {
         $userId = $this->db->table('deposit_histories')
             ->select('user_id')
